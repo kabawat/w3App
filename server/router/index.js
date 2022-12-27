@@ -1,6 +1,10 @@
 const express = require('express')
-const useAuth = express.Router()
+const userAuth = express.Router()
 const { singUpValidation, Signup } = require('../controller/signup')
-useAuth.post('/signup', singUpValidation, Signup)
+const { login, loginVerify } = require('../controller/login')
+const { userVerify, verify } = require('../controller/auth')
+userAuth.post('/signup', singUpValidation, Signup)
+userAuth.post('/login', loginVerify, login)
+userAuth.get('/verify', verify, userVerify)
 
-module.exports = useAuth
+module.exports = userAuth

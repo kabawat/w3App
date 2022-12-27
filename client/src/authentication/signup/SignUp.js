@@ -8,8 +8,8 @@ import axios from 'axios'
 const SignUp = () => {
     // login form  handal 
     const [loginData, SetLoginData] = useState({
-        username: '',
-        password: ''
+        user: '',
+        pwd: ''
     })
     const loginHandaler = (event) => {
         const { name, value } = event.target
@@ -46,7 +46,7 @@ const SignUp = () => {
         })
     }
 
-    // login password handale 
+    // login pwd handale 
     const loginPwdHandalBlur = (event) => {
         if (event.target.value !== '') {
             SetLoginCls({
@@ -71,12 +71,21 @@ const SignUp = () => {
     // login submit handal 
     const [loginValid, SetLoginValid] = useState(false)
     const loginHandal = async (event) => {
-        const { username, password } = loginData
+        const { user, pwd } = loginData
         event.preventDefault()
-        if (username !== '' && password !== '') {
-            SetLoginValid(true)
+        if (user !== '' && pwd !== '') {
+            await axios.post('http://localhost:2917/login', loginData, {
+                headers: {
+                    'Access-Control-Allow-Origin': 'http://localhost:2917/',
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+                credentials: 'same-origin',
+            }).then((result) => {
+                SetLoginValid(true)
+            })
         } else {
-            if (password == '' && username == '') {
+            if (pwd == '' && user == '') {
                 {
                     SetLoginCls({
                         user: 'f_row last shake',
@@ -89,7 +98,7 @@ const SignUp = () => {
                         })
                     }, 300);
                 }
-            } else if (password == '') {
+            } else if (pwd == '') {
                 SetLoginCls({
                     ...loginCls,
                     pwd: 'f_row last shake'
@@ -100,7 +109,7 @@ const SignUp = () => {
                         pwd: 'f_row last'
                     })
                 }, 300);
-            } else if (username == '') {
+            } else if (user == '') {
                 SetLoginCls({
                     ...loginCls,
                     user: 'f_row last shake'
@@ -352,8 +361,8 @@ const SignUp = () => {
                             <label>Username</label>
                             <Input type="text"
                                 className="input-field"
-                                name='username'
-                                value={loginData.username}
+                                name='user'
+                                value={loginData.user}
                                 onChange={loginHandaler}
                                 onBlur={UserNameHandalBlur}
                                 onFocus={UserNameHandalFocus} />
@@ -361,10 +370,10 @@ const SignUp = () => {
                         </div>
                         <div className={loginCls.pwd}>
                             <label>Password</label>
-                            <Input type="password"
+                            <Input type="pwd"
                                 className="input-field"
-                                name='password'
-                                value={loginData.password}
+                                name='pwd'
+                                value={loginData.pwd}
                                 onChange={loginHandaler}
                                 onBlur={loginPwdHandalBlur}
                                 onFocus={loginPwdHandalFocus} />
@@ -374,7 +383,7 @@ const SignUp = () => {
                             <FileDownloadDoneIcon />
                         </button>
                         <div className="f_link">
-                            <button className="resetTag" type='button' onClick={() => pwdForgot(true)}>Forgot your password?</button>
+                            <button className="resetTag" type='button' onClick={() => pwdForgot(true)}>Forgot your pwd?</button>
                         </div>
                     </form>
                 </div>
@@ -429,7 +438,7 @@ const SignUp = () => {
                         </div>
                         <div className={`${RegCls.pwd} f_row last`}>
                             <label>Password</label>
-                            <Input type="password"
+                            <Input type="pwd"
                                 className="input-field"
                                 name='pwd'
                                 value={regHandal.pwd}
