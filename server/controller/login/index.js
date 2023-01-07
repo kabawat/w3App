@@ -1,4 +1,3 @@
-
 const userModal = require('../connection')
 const jwt = require('jsonwebtoken')
 exports.loginVerify = (req, res, next) => {

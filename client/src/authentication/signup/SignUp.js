@@ -1,11 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './style.css'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddIcon from '@mui/icons-material/Add';
 import FileDownloadDoneIcon from '@mui/icons-material/FileDownloadDone';
-import { Container, FormContainer, Input } from './SignUp.style';
+import { FormContainer, Input } from './SignUp.style';
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 const SignUp = () => {
+    const Navigate = useNavigate()
+    useEffect(() => {
+        const logout = async () => {
+            const result = await axios.get('http://localhost:2917/logout', {
+                headers: {
+                    'Access-Control-Allow-Origin': 'http://localhost:2917/',
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+                credentials: 'same-origin',
+            })
+            console.log('====================================');
+            console.log(result);
+            console.log('====================================');
+        }
+        logout()
+    }, [])
     // login form  handal 
     const [loginData, SetLoginData] = useState({
         user: '',
@@ -83,6 +101,7 @@ const SignUp = () => {
                 credentials: 'same-origin',
             }).then((result) => {
                 SetLoginValid(true)
+                Navigate('/')
             })
         } else {
             if (pwd == '' && user == '') {
