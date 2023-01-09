@@ -10,7 +10,7 @@ const SignUp = () => {
     const Navigate = useNavigate()
     useEffect(() => {
         const logout = async () => {
-            const result = await axios.get('http://localhost:2917/logout', {
+            await axios.get('http://localhost:2917/logout', {
                 headers: {
                     'Access-Control-Allow-Origin': 'http://localhost:2917/',
                     'Content-Type': 'application/json',
@@ -18,9 +18,6 @@ const SignUp = () => {
                 withCredentials: true,
                 credentials: 'same-origin',
             })
-            console.log('====================================');
-            console.log(result);
-            console.log('====================================');
         }
         logout()
     }, [])
@@ -275,7 +272,6 @@ const SignUp = () => {
                     throw error.response
                 })
             } catch (error) {
-                console.log(error.data.massage);
                 alert(error.data.massage)
             }
 

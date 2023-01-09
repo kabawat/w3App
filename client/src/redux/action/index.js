@@ -1,6 +1,12 @@
-export const userVerify = (event) => {
+export const chatData = (payload) => {
     return {
-        type: "USER_AUTH",
-        payload: event
+        type: 'CHATING',
+        payload,
+    }
+}
+export const storyMode = (payload) => {
+    return {
+        type: 'STORY_MODE',
+        payload,
     }
 }
