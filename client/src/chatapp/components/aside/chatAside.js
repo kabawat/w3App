@@ -17,7 +17,7 @@ const ChatAside = () => {
                         </ContactBody>
                     ) : (
                         <StoryBody>
-                            StoryBody
+
                         </StoryBody>
                     )
                 }

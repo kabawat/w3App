@@ -80,4 +80,60 @@ export const ChatModeHeader = styled.div.attrs(({ className, id }) => ({ classNa
     border-bottom: 1px solid #000;
     display: flex;
     align-items: center;
+    padding: 0px 10px;
+    justify-content: space-between;
+`
+export const ChatTitle = styled.div.attrs(({ }) => ({}))`
+
+`
+export const UserAction = styled.div.attrs(({ }) => ({}))`
+    display: flex;
+    align-items: center;
+`
+export const NewChatContainer = styled.div.attrs(({ className, id }) => ({ className, id }))`
+    display: flex;
+    justify-content: flex-end;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px; 
+    margin-left: 5px;
+    position: relative;
+    &:hover{
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    }
+`
+export const NewChat = styled.button.attrs(({ className, id, onClick }) => ({ className, id, onClick }))`
+    width: 100%;
+    height: 100%;
+    display: grid;
+    font-size: 18px;
+    place-items:center;
+`
+export const SearchContainer = styled.div.attrs(({ className, id }) => ({ className, id }))`
+    width:250px;
+    height: 300px;
+    background: #f9f9f9;
+    border: 1px solid #f9f9f9;
+    border-radius: 8px;
+    backdrop-filter: blur(3px);
+    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+    position: absolute;
+    left: 0px;
+    top: 120%;
+    display: ${({ isAdd }) => isAdd ? 'block' : 'none'};
+    padding: 20px 10px;
+`
+export const SubTitle = styled.div.attrs(({ className, id }) => ({ className, id }))`
+    font-size: 18px;
+    font-weight: 500;
+    padding-bottom: 10px;
+`
+export const AddUser = styled.input.attrs(({ onChange, name, className, id }) => ({ onChange, name, className, id }))`
+    width: 100%;
+    height: 32px;
+    border: none;
+    border-bottom: 2px solid #E3F2FD;
+    padding: 0px 5px;
+    border-radius: 4px;
+    background: #fff;
 `
