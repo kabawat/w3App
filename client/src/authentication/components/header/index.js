@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Image } from '../../../style'
 import { HeaderSection, UserDetails, UserDp, UserInfo, UserName, UserStatus, SettingSection, SettingToggle, ListContaienr } from '../style'
 import user from '../../../assets/user_dp/dp1.jpg'
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import {BiDotsVerticalRounded} from 'react-icons/bi'
 const HeaderBody = () => {
     const [showList, setShowList] = useState(false)
     return (
@@ -24,7 +24,7 @@ const HeaderBody = () => {
                 <SettingSection>
                     {/* icon  */}
                     <SettingToggle onClick={() => setShowList(!showList)}>
-                        <MoreVertIcon />
+                        <BiDotsVerticalRounded/>
                     </SettingToggle>
                     {/* open list  */}
                     <ListContaienr

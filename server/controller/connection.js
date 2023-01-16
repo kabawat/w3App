@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+mongoose.set('strictQuery', true);
 mongoose.connect(`mongodb+srv://${process.env.USER_NAME}:${process.env.PASSWORD}@cluster0.r8evqrf.mongodb.net/ChatApp?`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,

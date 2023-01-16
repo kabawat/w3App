@@ -42,12 +42,14 @@ export const SettingSection = styled.div.attrs(({ className, id, key }) => ({ cl
 export const SettingToggle = styled.button.attrs(({ onClick, type, }) => ({ onClick, type, }))`
     width: 35px;
     height: 35px;
-    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: rgb(73 74 76);
     border-radius: 50%;
     transition: all 0.2s linear;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
-    font-size: 6px;
+    font-size: 18px;
     &:active{
         box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
     }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { SettingAsideContainer, AsideTab, AsideTabBtn } from './style'
-import ChatIcon from '@material-ui/icons/Chat';
-import DataUsageIcon from '@material-ui/icons/DataUsage';
+import { BsChatLeftText } from 'react-icons/bs'
+import { HiStatusOnline } from 'react-icons/hi';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { storyMode } from '../../../redux/action'
@@ -17,10 +17,10 @@ const SettingAside = () => {
         <SettingAsideContainer>
             <AsideTab>
                 <AsideTabBtn isActive={isActive} onClick={() => chatHandal(true)}>
-                    <ChatIcon />
+                    <BsChatLeftText />
                 </AsideTabBtn>
                 <AsideTabBtn isActive={!isActive} onClick={() => chatHandal(false)}>
-                    <DataUsageIcon />
+                    <HiStatusOnline />
                 </AsideTabBtn>
             </AsideTab>
             <div>2</div>

@@ -110,8 +110,7 @@ export const NewChat = styled.button.attrs(({ className, id, onClick }) => ({ cl
     place-items:center;
 `
 export const SearchContainer = styled.div.attrs(({ className, id }) => ({ className, id }))`
-    width:250px;
-    height: 300px;
+    width:300px;
     background: #f9f9f9;
     border: 1px solid #f9f9f9;
     border-radius: 8px;
@@ -136,4 +135,58 @@ export const AddUser = styled.input.attrs(({ onChange, name, className, id }) =>
     padding: 0px 5px;
     border-radius: 4px;
     background: #fff;
+`
+
+export const AddUserHeading = styled.div`
+    font-size: 14px;
+    padding: 5px 0px;
+`
+export const ContactList = styled.div`
+    width: 100%;
+    max-height: 200px;
+    overflow: auto;
+    &::-webkit-scrollbar{
+        width: 16px;
+    }
+    &:hover::-webkit-scrollbar-thumb{
+        border: 6px solid #fff;
+        background: rgba(0,0,0,0.2);
+        border-radius: 10px;
+    }
+`
+export const ContactItem = styled.div.attrs(({ className, key, id }) => ({ className, key, id }))`
+    width: 100%;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+    border-radius: 4px;
+    margin: 10px 0px;
+    cursor: pointer;
+    &:hover{
+        background: rgba(0,0,0,0.04);
+    }
+`
+
+export const NewUserDp = styled.div`
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+
+    img{
+        border-radius: 50%;
+    }
+`
+export const NewUserName = styled.div`
+    font-size: 14px;
+    padding-left: 10px;
+    line-height:16px;
+    font-weight: 600;
+    `
+export const TagLine = styled.div`
+font-weight: 500;
+    font-size: 12px;
+    padding-left: 10px;
+    line-height:16px ;
 `

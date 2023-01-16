@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { FooterContaienr, FileContainer, ChatTypeContaienr, ChatActionCotainer, SelectButton, SelectFileBox, Chat, Send } from '../style'
-import AddIcon from '@mui/icons-material/Add';
-import TelegramIcon from '@mui/icons-material/Telegram';
+import { BsPlusLg } from 'react-icons/bs';
+import { IoSendSharp } from 'react-icons/io5';
 import { useDispatch } from 'react-redux';
 import { chatData } from '../../../redux/action';
 const FooterBody = () => {
@@ -27,7 +27,7 @@ const FooterBody = () => {
             {/* left  */}
             <FileContainer>
                 <SelectButton type='button' x={showFile ? 45 : 0} onClick={() => setShowFile(!showFile)}>
-                    <AddIcon />
+                    <BsPlusLg />
                 </SelectButton>
                 <SelectFileBox show={showFile ? 'visible' : 'hidden'}>
                     {/* file  */}
@@ -40,7 +40,7 @@ const FooterBody = () => {
             {/* right  */}
             <ChatActionCotainer>
                 <Send type='submit'>
-                    <TelegramIcon />
+                    <IoSendSharp />
                 </Send>
             </ChatActionCotainer>
         </FooterContaienr>

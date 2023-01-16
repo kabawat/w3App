@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import './style.css'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import AddIcon from '@mui/icons-material/Add';
-import FileDownloadDoneIcon from '@mui/icons-material/FileDownloadDone';
+import { BsArrowLeft } from 'react-icons/bs'
+import { BiPlus } from 'react-icons/bi'
+import {MdOutlineDownloadDone} from 'react-icons/md';
 import { FormContainer, Input } from './SignUp.style';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -395,7 +395,7 @@ const SignUp = () => {
                             <u></u>
                         </div>
                         <button className={loginValid ? "chat_btn active" : "chat_btn"}><span>GO</span><u></u>
-                            <FileDownloadDoneIcon />
+                            <MdOutlineDownloadDone />
                         </button>
                         <div className="f_link">
                             <button className="resetTag" type='button' onClick={() => pwdForgot(true)}>Forgot your pwd?</button>
@@ -404,7 +404,9 @@ const SignUp = () => {
                 </div>
                 <div className="box forgetbox">
                     <button className="back icon-back" onClick={() => pwdForgot(false)}>
-                        <ArrowBackIcon />
+                        {/* <ArrowBackIcon /> */}
+                        {/* <FiArrowLeft/> */}
+                        <BsArrowLeft />
                     </button>
                     <h2>Reset Password</h2>
                     <form className="form" onSubmit={ForgotHandal}>
@@ -421,7 +423,7 @@ const SignUp = () => {
                             <u></u>
                         </div>
                         <button className={ForgotDone ? "chat_btn active" : "chat_btn"}><span>Reset</span><u></u>
-                            <FileDownloadDoneIcon />
+                            <MdOutlineDownloadDone />
                         </button>
                     </form>
                 </div>
@@ -466,7 +468,7 @@ const SignUp = () => {
                     </form>
                 </div>
                 <button href="#" className="regTag icon-add" onClick={() => regTag(!regForm)}>
-                    <AddIcon />
+                    <BiPlus />
                 </button>
             </div>
         </FormContainer >
