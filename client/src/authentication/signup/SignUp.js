@@ -103,20 +103,19 @@ const SignUp = () => {
                 }, 1000)
             })
         } else {
-            if (pwd == '' && user == '') {
-                {
+            if (pwd === '' && user === '') {
+                SetLoginCls({
+                    user: 'f_row last shake',
+                    pwd: 'f_row last shake'
+                })
+                setTimeout(() => {
                     SetLoginCls({
-                        user: 'f_row last shake',
-                        pwd: 'f_row last shake'
+                        user: 'f_row last',
+                        pwd: 'f_row last'
                     })
-                    setTimeout(() => {
-                        SetLoginCls({
-                            user: 'f_row last',
-                            pwd: 'f_row last'
-                        })
-                    }, 300);
-                }
-            } else if (pwd == '') {
+                }, 300);
+
+            } else if (pwd === '') {
                 SetLoginCls({
                     ...loginCls,
                     pwd: 'f_row last shake'
@@ -127,7 +126,7 @@ const SignUp = () => {
                         pwd: 'f_row last'
                     })
                 }, 300);
-            } else if (user == '') {
+            } else if (user === '') {
                 SetLoginCls({
                     ...loginCls,
                     user: 'f_row last shake'
@@ -237,7 +236,7 @@ const SignUp = () => {
         }
     }
     const RegHandleFocus = (event) => {
-        const { name, value } = event.target
+        const { name } = event.target
         SetRegCls({
             ...RegCls,
             [name]: 'focus'
