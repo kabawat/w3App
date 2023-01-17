@@ -1,4 +1,4 @@
-const userModal = require('../connection')
+const { userModal } = require('../connection')
 exports.singUpValidation = (req, res, next) => {
     const { user, email, pwd } = req.body
     const confirm = async () => {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './style.css'
 import { BsArrowLeft } from 'react-icons/bs'
 import { BiPlus } from 'react-icons/bi'
-import {MdOutlineDownloadDone} from 'react-icons/md';
+import { MdOutlineDownloadDone } from 'react-icons/md';
 import { FormContainer, Input } from './SignUp.style';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -98,7 +98,9 @@ const SignUp = () => {
                 credentials: 'same-origin',
             }).then((result) => {
                 SetLoginValid(true)
-                Navigate('/')
+                setTimeout(() => {
+                    Navigate('/')
+                }, 1000)
             })
         } else {
             if (pwd == '' && user == '') {
@@ -256,7 +258,6 @@ const SignUp = () => {
                     withCredentials: true,
                     credentials: 'same-origin',
                 }).then((result) => {
-                    console.log(result);
                     setRegHandal({
                         user: '',
                         email: '',

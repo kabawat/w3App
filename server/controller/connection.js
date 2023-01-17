@@ -20,4 +20,4 @@ const SchemaModal = new mongoose.Schema({
 })
 
 const userModal = new mongoose.model('userDetaile', SchemaModal)
-module.exports = userModal
+module.exports = { userModal }

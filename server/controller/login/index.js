@@ -1,4 +1,4 @@
-const userModal = require('../connection')
+const { userModal } = require('../connection')
 const jwt = require('jsonwebtoken')
 exports.loginVerify = (req, res, next) => {
     const { user, pwd } = req.body
@@ -12,7 +12,6 @@ exports.loginVerify = (req, res, next) => {
                 status: false,
                 massage: "invalid credentials"
             })
-            console.log('invalid credentials');
         }
     }
     if (user && pwd) {
@@ -22,7 +21,6 @@ exports.loginVerify = (req, res, next) => {
             status: false,
             massage: "invalid credentials"
         })
-        console.log('invalid credentials');
     }
 }
 exports.login = (req, res) => {

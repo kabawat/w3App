@@ -149,7 +149,7 @@ export const ContactList = styled.div`
         width: 16px;
     }
     &:hover::-webkit-scrollbar-thumb{
-        border: 6px solid #fff;
+        border: 6px solid #f9f9f9;
         background: rgba(0,0,0,0.2);
         border-radius: 10px;
     }

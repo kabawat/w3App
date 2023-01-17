@@ -1,11 +1,10 @@
-const userModal = require('../connection')
+const { userModal } = require('../connection')
 const jwt = require('jsonwebtoken')
 exports.verify = (req, res, next) => {
     const token = req.cookies.auth
     try {
         if (token) {
             const isValidUser = jwt.verify(token, process.env.PRIVETKEY)
-            console.log(isValidUser);
             if (isValidUser) {
                 userModal.findOne({ user: isValidUser.user }).then((result) => {
                     next()
