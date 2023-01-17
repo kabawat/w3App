@@ -4,7 +4,6 @@ import { BsPlusLg } from 'react-icons/bs';
 import { IoSendSharp } from 'react-icons/io5';
 import { useDispatch } from 'react-redux';
 import { chatData } from '../../../redux/action';
-import { io } from "socket.io-client";
 const FooterBody = () => {
     const Dispatch = useDispatch()
     const [showFile, setShowFile] = useState(false)
@@ -12,27 +11,17 @@ const FooterBody = () => {
     const typingHandal = (event) => {
         setTypeMsg(event.target.value)
     }
-    const socket = io();
     const sendHandal = (event) => {
         event.preventDefault()
         setTypeMsg('')
-        socket.on('connect', () => {
-        });
         if (typeMsg) {
-            // Dispatch(chatData({
-            //     massage: typeMsg,
-            //     time: new Date(),
-            //     isMe: true
-            // }))
-            socket.emit('send', {
+            Dispatch(chatData({
                 massage: typeMsg,
                 time: new Date(),
-                isMe: false
-            })
+                isMe: true
+            }))
         }
     }
-    // socket 
-
     return (
         <FooterContaienr onSubmit={sendHandal}>
             {/* left  */}

@@ -4,9 +4,17 @@ export const chatData = (payload) => {
         payload,
     }
 }
+
 export const storyMode = (payload) => {
     return {
         type: 'STORY_MODE',
+        payload,
+    }
+}
+
+export const userJoin = (payload) => {
+    return {
+        type: 'JOIN_USER',
         payload,
     }
 }

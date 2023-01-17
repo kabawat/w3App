@@ -7,7 +7,10 @@ import { useState } from 'react';
 import dp from '../../../assets/user_dp/dp1.jpg'
 import { useEffect } from 'react';
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { userJoin } from '../../../redux/action';
 const ChatMode = () => {
+    const dispatch = useDispatch()
     const [isAdd, setIsAdd] = useState(false)
     const [userList, setUserList] = useState([])
     useEffect(() => {
@@ -35,13 +38,13 @@ const ChatMode = () => {
                         <ContactList>
                             {
                                 userList.map((curUser) => {
-                                    return <ContactItem key={curUser._id} >
+                                    return <ContactItem key={curUser._id} onClick={() => dispatch(userJoin(curUser))}>
                                         <NewUserDp>
                                             <Image src={dp} />
                                         </NewUserDp>
                                         <div>
                                             <NewUserName>
-                                               {curUser.user}
+                                                {curUser.user}
                                             </NewUserName>
                                             <TagLine>
                                                 {curUser.email}

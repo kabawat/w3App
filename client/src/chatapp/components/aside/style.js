@@ -154,11 +154,12 @@ export const ContactList = styled.div`
         border-radius: 10px;
     }
 `
-export const ContactItem = styled.div.attrs(({ className, key, id }) => ({ className, key, id }))`
+export const ContactItem = styled.button.attrs(({ className, key, id, onClick }) => ({ className, key, id, onClick }))`
     width: 100%;
     height: 45px;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     padding: 0px 10px;
     border-radius: 4px;
     margin: 10px 0px;
@@ -183,10 +184,12 @@ export const NewUserName = styled.div`
     padding-left: 10px;
     line-height:16px;
     font-weight: 600;
+    text-align: left;
     `
 export const TagLine = styled.div`
-font-weight: 500;
+    font-weight: 500;
     font-size: 12px;
     padding-left: 10px;
     line-height:16px ;
+    text-align: left;
 `
