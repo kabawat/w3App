@@ -28,8 +28,18 @@ const ChatMode = () => {
         getdata()
     }, [])
 
-    const userHandal = (payload) => {
-        socket.emit('JoinUser', payload)
+    const userHandal = async (payload) => {
+        const id = new Date().getTime()
+        const result = await axios.get(`http://localhost:2917/profile`, {
+            headers: {
+                'Access-Control-Allow-Origin': 'http://localhost:2917/',
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+            credentials: 'same-origin',
+        })
+        console.log(result);
+        socket.emit('CreateChat', { user1: result.data, user2: payload, id })
     }
     return (
         <ChatModeHeader>
@@ -48,7 +58,7 @@ const ChatMode = () => {
                         </AddUserHeading>
                         <ContactList>
                             {
-                                userList.map((curUser) => {
+                                userList ? userList.map((curUser) => {
                                     return <ContactItem key={curUser._id} onClick={() => userHandal(curUser)}>
                                         <NewUserDp>
                                             <Image src={dp} />
@@ -62,7 +72,7 @@ const ChatMode = () => {
                                             </TagLine>
                                         </div>
                                     </ContactItem>
-                                })
+                                }) : ''
                             }
                         </ContactList>
                     </SearchContainer>

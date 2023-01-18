@@ -102,7 +102,6 @@ const SignUp = () => {
                 console.log(result);
                 SetLoginValid(true)
                 setTimeout(() => {
-                    // socket.join()
                     Navigate('/')
                 }, 1000)
             })

@@ -26,16 +26,19 @@ exports.loginVerify = (req, res, next) => {
 exports.login = (req, res) => {
     const login_Action = async () => {
         const data = (req.body);
+        console.log(data);
         const result = await userModal.findOne({ user: data.user, pwd: data.pwd })
-        const { _id, email, user } = result
-        const token = jwt.sign({ user }, process.env.PRIVETKEY)
+        const { _id, email, user } = await result
+        const token = jwt.sign({ user, email }, process.env.PRIVETKEY)
+
         res.cookie('auth', token, {
-            httpOnly: true,
+            httpOnly: false,
             withCredentials: true,
         }).status(200).json({
             massage: 'success',
             status: true,
             status_code: 200,
+            token,
             data: { _id, email, user }
         })
     }

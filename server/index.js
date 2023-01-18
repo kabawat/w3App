@@ -29,8 +29,8 @@ const io = new socketIO.Server(server, {
     }
 })
 io.on('connection', socket => {
-    socket.on('JoinUser', data => {
-        socket.broadcast.emit(`welcome`, { msg: `welcome ${data.email}` })
+    socket.on('CreateChat', data => {
+        socket.join(data.id)
     })
 })
 

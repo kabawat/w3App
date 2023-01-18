@@ -14,10 +14,10 @@ exports.AllUser = (req, res) => {
 
 exports.userProfile = (req, res) => {
     const token = req.cookies.auth
-    console.log(token);
-    const data = jwt.decode(token, process.env.PRIVETKEY)
+    const data = jwt.decode(token)
     const getData = async () => {
         const result = await userModal.findOne({ user: data.user })
+        console.log("result: ", result);
         const { _id, user, email } = result
         const profile = {
             _id,

@@ -10,6 +10,6 @@ userAuth.post('/login', loginVerify, login)
 userAuth.get('/verify', verify, userVerify)
 userAuth.get('/logout', logout)
 userAuth.get('/all_User', verify, AllUser)
-userAuth.get('/profile', verify, userProfile)
+userAuth.get('/profile', userProfile)
 
 module.exports = userAuth
