@@ -14,7 +14,18 @@ export const storyMode = (payload) => {
 
 export const userJoin = (payload) => {
     return {
-        type: 'JOIN_USER',
+        type: "JOIN_USER",
+        payload,
+    }
+}
+export const socketCannection = () => {
+    return {
+        type: "CONNECTION"
+    }
+}
+export const userJoined = (payload) => {
+    return {
+        type: "WELCOME",
         payload,
     }
 }

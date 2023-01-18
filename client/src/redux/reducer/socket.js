@@ -1,14 +1,8 @@
-import socketIO from 'socket.io-client'
-const data = ''
-const ENDPOINT = 'http://localhost:2917'
-const socketController = (state = data, action) => {
-    const socket = socketIO(ENDPOINT)
-    // socket.on("connect", () => {
-    //     console.log(socket);
-    // });
-    if (action.type === 'JOIN_USER') {
-        console.log(action.payload);
-    }
+import { io } from 'socket.io-client'
+const URL = `http://localhost:2917/`
+const socket = io(URL)
+
+const socketController = (state = socket, action) => {
     return state
 }
 export default socketController

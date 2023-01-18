@@ -5,22 +5,8 @@ const app = express()
 const cookieParser = require('cookie-parser')
 const dotenv = require('dotenv').config()
 const userAuth = require('./router')
-
+const server = http.createServer(app)
 const socketIO = require('socket.io')
-
-let user = [{}]
-const server = http.createServer(app);
-const io = new socketIO.Server(server, {
-    cors: {
-        origin: "*",
-        methods: ["GET", "POST"]
-    }
-})
-io.on('connection', (socket) => {
-    socket.on('joind', (userDetaile) => {
-
-    })
-})
 
 app.use(express.json())
 const corsOptions = {
@@ -35,12 +21,22 @@ const corsOptions = {
 
 app.use(cors(corsOptions))
 app.use(express.urlencoded({ extended: true }))
-app.use(cookieParser())
-app.use(userAuth)
-app.get('/', (req, res) => {
-    res.send('hello word')
+
+const io = new socketIO.Server(server, {
+    cors: {
+        origin: '*',
+        methods: ['GET', 'POST']
+    }
+})
+io.on('connection', socket => {
+    socket.on('JoinUser', data => {
+        socket.broadcast.emit(`welcome`, { msg: `welcome ${data.email}` })
+    })
 })
 
-app.listen(process.env.PORT, () => {
+app.use(cookieParser())
+app.use(userAuth)
+
+server.listen(process.env.PORT, () => {
     console.log(`click here http://localhost:${process.env.PORT}`)
 })

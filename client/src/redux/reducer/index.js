@@ -4,9 +4,9 @@ import { asideAction } from "./hideShow";
 import socketController from './socket'
 const rootReducer = combineReducers(
     {
-        socketController,
         chatMassage,
         asideAction,
+        socketController,
     }
 );
 export default rootReducer;

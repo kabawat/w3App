@@ -8,7 +8,7 @@ exports.verify = (req, res, next) => {
             if (isValidUser) {
                 userModal.findOne({ user: isValidUser.user }).then((result) => {
                     next()
-                })
+                })  
             } else {
                 throw false
             }
@@ -25,6 +25,7 @@ exports.verify = (req, res, next) => {
         })
     }
 }
+
 exports.userVerify = (req, res) => {
     const token = jwt.sign({ user: req.body.user }, process.env.PRIVETKEY)
     try {
