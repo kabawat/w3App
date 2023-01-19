@@ -16,8 +16,32 @@ const SchemaModal = new mongoose.Schema({
     pwd: {
         type: String,
         require
+    },
+    date: {
+        type: Date,
+        default: Date.now
+    }
+})
+
+// user Chat table 
+const chatTable = new mongoose.Schema({
+    _room: {
+        type: String,
+        require
+    },
+    sender: {
+        type: String,
+        require
+    },
+    receiver: {
+        type: String
+    },
+    date: {
+        type: Date,
+        default: Date.now
     }
 })
 
 const userModal = new mongoose.model('userDetaile', SchemaModal)
-module.exports = { userModal }
+const chatModal = new mongoose.model('chatList', chatTable)
+module.exports = { userModal, chatModal }

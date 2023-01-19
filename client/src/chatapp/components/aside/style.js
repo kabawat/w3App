@@ -74,6 +74,10 @@ export const AsideTabBtn = styled.button.attrs(({ className, id, onClick }) => (
 `
 
 // chat mode 
+export const ChatMainContainer = styled.div`
+    width: 100%;
+    height: 100%;
+`
 export const ChatModeHeader = styled.div.attrs(({ className, id }) => ({ className, id }))`
     width: 100%;
     height: 60px;
@@ -192,4 +196,12 @@ export const TagLine = styled.div`
     padding-left: 10px;
     line-height:16px ;
     text-align: left;
+`
+
+// user chat list 
+export const ChatContainer = styled.div`
+    width: 100%;
+    height: 100vh;
+    padding-bottom: 60px;
+    background: red;
 `

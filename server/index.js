@@ -29,9 +29,7 @@ const io = new socketIO.Server(server, {
     }
 })
 io.on('connection', socket => {
-    socket.on('CreateChat', data => {
-        socket.join(data.id)
-    })
+    // console.log(socket.id);
 })
 
 app.use(cookieParser())
