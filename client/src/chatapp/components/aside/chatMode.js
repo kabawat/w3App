@@ -1,13 +1,13 @@
 import React from 'react'
-import { ChatModeHeader, ChatTitle, UserAction, NewChatContainer, SearchContainer, NewUserName, NewChat, SubTitle, AddUser, AddUserHeading, ContactList, ContactItem, NewUserDp, TagLine, ChatMainContainer, ChatContainer } from './style'
+import { ChatModeHeader, ChatTitle, UserAction, NewChatContainer, SearchContainer, NewUserName, NewChat, SubTitle, AddUser, AddUserHeading, ContactList, ContactItem, NewUserDp, TagLine, ChatMainContainer, ChatContainer, ChatMainCotainer, UserCartContainer, UserChatDp, ChatLinkContainer, ActionButton, UserInfo, UserName } from './style'
 import { Image } from '../../../style'
 import { BiEdit } from 'react-icons/bi'
 import { BsThreeDots } from 'react-icons/bs';
+import { HiDotsVertical } from 'react-icons/hi'
 import { useState } from 'react';
 import dp from '../../../assets/user_dp/dp1.jpg'
 import { useEffect } from 'react';
 import axios from 'axios'
-import { useSelector } from 'react-redux'
 const ChatMode = () => {
     const [isAdd, setIsAdd] = useState(false)
     const [userList, setUserList] = useState([])
@@ -91,9 +91,24 @@ const ChatMode = () => {
             </ChatModeHeader>
 
             {/* user chat List  */}
-            <ChatContainer>
-
-            </ChatContainer>
+            <ChatMainCotainer>
+                {/* cart list  */}
+                <ChatContainer>
+                    <UserCartContainer>
+                        <UserChatDp>
+                            <Image src={dp} />
+                        </UserChatDp>
+                        <ChatLinkContainer>
+                            <UserInfo>
+                                <UserName>Mukesh Singh</UserName>
+                            </UserInfo>
+                        </ChatLinkContainer>
+                        <ActionButton>
+                            <HiDotsVertical />
+                        </ActionButton>
+                    </UserCartContainer>
+                </ChatContainer>
+            </ChatMainCotainer>
         </ChatMainContainer>
     )
 }

@@ -199,9 +199,73 @@ export const TagLine = styled.div`
 `
 
 // user chat list 
-export const ChatContainer = styled.div`
-    width: 100%;
+export const ChatMainCotainer = styled.div`
     height: 100vh;
     padding-bottom: 60px;
-    background: red;
+    width: 100%;
+    
+    `
+export const ChatContainer = styled.div`
+    height: 100%;
+    width: 100%;
+    /* background: red; */
+    overflow: hidden;
+    overflow-y: auto;
+    &::-webkit-scrollbar{
+        width: 16px;
+    }
+    &:hover::-webkit-scrollbar-thumb{
+        border: 6px solid #f9f9f9;
+        background: rgba(0,0,0,0.2);
+        border-radius: 10px;
+    }
+`
+export const UserCartContainer = styled.div`
+    height: 55px;
+    width: 100%;
+    border-bottom: 1px solid #e3f2fd;
+    padding: 0px 10px;
+    position: relative;
+    &:hover{
+        background: rgb(227 242 253 / 48%);
+    }
+`
+export const UserChatDp = styled.button.attrs(({ type, onClick, id, className }) => ({ type, onClick, id, className }))`
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    top:50%;
+    left: 10px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+`
+export const ChatLinkContainer = styled.div`
+    width: 100%;
+    height: 100%;
+    padding: 0px 30px 0px 50px;
+    display: flex;
+    align-items: center;
+`
+export const ActionButton = styled.button.attrs(({ type, onClick, id, className }) => ({ type, onClick, id, className }))`
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    display: grid;
+    place-items: center;
+`
+export const UserInfo = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+`
+export const UserName = styled.div`
+    font-size: 14px;
+    font-weight: 600;
+    
 `
