@@ -10,8 +10,6 @@ exports.newchat = (req, res) => {
 
             const existsSender = await chatModal.findOne({ sender })
             const existsReceiver = await chatModal.findOne({ receiver })
-            // console.log(sendUser);
-            // console.log(recUser);
             if (!sendUser || !recUser) {
                 res.status(409).json({
                     status_code: 409,
@@ -24,8 +22,6 @@ exports.newchat = (req, res) => {
                     _room: _room,
                     sender: sender,
                     receiver: receiver,
-                    senderUser,
-                    receiverUser
                 })
                 newChat.save()
                 res.status(200).json({
@@ -34,7 +30,6 @@ exports.newchat = (req, res) => {
                     data: { ...req.body },
                     msg: 'room created'
                 })
-
             }
         }
         findData()
@@ -51,8 +46,10 @@ exports.newchat = (req, res) => {
 // fetch chat Data 
 exports.chatList = (req, res) => {
     const getdata = async () => {
-        const { email } = req.query
-        const chatsUsers = await chatModal.find({ sernder: email })
+        const { sender } = req.query
+        console.log(req.query);
+        const chatsUsers = await chatModal.find({ sender })
+        console.log(chatsUsers);
         if (chatsUsers) {
             res.status(200).json({
                 status_code: 200,

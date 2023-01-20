@@ -125,6 +125,7 @@ export const SearchContainer = styled.div.attrs(({ className, id }) => ({ classN
     top: 120%;
     display: ${({ isAdd }) => isAdd ? 'block' : 'none'};
     padding: 20px 10px;
+    z-index: 100;
 `
 export const SubTitle = styled.div.attrs(({ className, id }) => ({ className, id }))`
     font-size: 18px;
@@ -223,10 +224,11 @@ export const ChatContainer = styled.div`
 export const UserCartContainer = styled.div.attrs(({ key, className, id }) => ({ key, className, id }))`
     height: 55px;
     width: 100%;
-    border-bottom: 1px solid #e3f2fd;
     padding: 0px 10px;
+    border-bottom: 1px solid rgb(0 0 0 / 1%);
     position: relative;
     &:hover{
+        border-bottom: 1px solid rgb(0 0 0 / 5%);
         background: rgb(227 242 253 / 48%);
     }
 `
@@ -255,20 +257,22 @@ export const ActionButton = styled.button.attrs(({ type, onClick, id, className 
     font-size: 18px;
     display: grid;
     place-items: center;
+    cursor: pointer;
 `
-export const UserInfo = styled.div`
+export const UserInfo = styled.button.attrs(({ type, onClick, id, className }) => ({ type, onClick, id, className }))`
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: flex-start;
+    cursor: pointer;
 `
 export const UserName = styled.div`
     font-size: 14px;
-    font-weight: 600;
+    /* font-weight: 600; */
     
 `
 export const ChatPreview = styled.div`
-    font-size: 12px;
+    font-size: 10px;
 `

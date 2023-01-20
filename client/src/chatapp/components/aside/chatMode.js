@@ -27,6 +27,7 @@ const ChatMode = () => {
     }, [])
 
     const [profile, setProfile] = useState({})
+    const [chatUserList, setChatUserList] = useState([])
     const userHandal = async (payload) => {
         const id = `2917-room-id.${new Date().getTime()}`
         const result = await axios.get(`http://localhost:2917/profile`, {
@@ -37,18 +38,15 @@ const ChatMode = () => {
             withCredentials: true,
             credentials: 'same-origin',
         })
-        setProfile(result.data.data)
         const newChat = await axios.post(`http://localhost:2917/newchat`, {
             _room: id,
             sender: result.data.email,
-            senderUser: result.data.user,
             receiver: payload.email,
-            receiverUser: payload.user
         })
+        setProfile(newChat)
     }
 
     // user chat list 
-    const [chatUserList, setChatUserList] = useState([])
     useEffect(() => {
         const getData = async () => {
             const profile = await axios.get(`http://localhost:2917/profile`, {
@@ -59,26 +57,18 @@ const ChatMode = () => {
                 withCredentials: true,
                 credentials: 'same-origin',
             })
-            const result = await axios.get(`http://localhost:2917/userChat?email=${profile.data.email}`)
+            const result = await axios.get(`http://localhost:2917/userChat?sender=${profile.data.email}`)
             const { data } = await result.data
-            const filterList = await data.filter((curList) => {
-                if (profile.data.email === curList.sender) {
-                    return curList
-                }
-            })
-
-
-            const newList = await filterList.map((curChat) => {
-                const { receiver, _room } = curChat;
-                return {
-                    receiver,
-                    _room,
-                }
-            })
-            setChatUserList(newList);
+            setChatUserList(data);
         }
         getData()
     }, [profile])
+
+    const getFriendProfile = async (payload) => {
+        console.log("payload : ", payload);
+        const responce = await axios.get(`http://localhost:2917/receiver_profile?receiver=${payload}`)
+        console.log("responce : ", responce);
+    }
     return (
         <ChatMainContainer>
             {/* chat header  */}
@@ -138,7 +128,7 @@ const ChatMode = () => {
                                         <Image src={dp} />
                                     </UserChatDp>
                                     <ChatLinkContainer>
-                                        <UserInfo>
+                                        <UserInfo onClick={() => getFriendProfile(curChat.receiver)}>
                                             <UserName>{curChat.receiver}</UserName>
                                             <ChatPreview>
                                                 last seen 10:12 PM

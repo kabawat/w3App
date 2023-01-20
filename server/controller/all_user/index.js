@@ -43,6 +43,7 @@ exports.chatUserInfo = (req, res) => {
     const getData = async () => {
         const { email } = req.body
         const result = await userModal.findOne({ email })
+        console.log(result);
 
         if (result) {
             const { email, user } = result
@@ -62,4 +63,28 @@ exports.chatUserInfo = (req, res) => {
         }
     }
     getData()
+}
+
+exports.getReceiverProfile = (req, res) => {
+    const getPofile = async () => {
+        const email = req.query.receiver
+        const profile = await userModal.findOne({ email })
+        if (profile) {
+            const { user, email } = profile
+            res.status(200).json({
+                status_code: 200,
+                status: false,
+                data: { user, email },
+                msg: 'Data not found'
+            })
+        } else {
+            res.status(404).json({
+                status_code: 404,
+                status: false,
+                data: {},
+                msg: 'Data not found'
+            })
+        }
+    }
+    getPofile()
 }
