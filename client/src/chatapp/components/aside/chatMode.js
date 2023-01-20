@@ -1,5 +1,5 @@
 import React from 'react'
-import { ChatModeHeader, ChatTitle, UserAction, NewChatContainer, SearchContainer, NewUserName, NewChat, SubTitle, AddUser, AddUserHeading, ContactList, ContactItem, NewUserDp, TagLine, ChatMainContainer, ChatContainer, ChatMainCotainer, UserCartContainer, UserChatDp, ChatLinkContainer, ActionButton, UserInfo, UserName } from './style'
+import { ChatModeHeader, ChatTitle, UserAction, NewChatContainer, SearchContainer, NewUserName, NewChat, SubTitle, AddUser, AddUserHeading, ContactList, ContactItem, NewUserDp, TagLine, ChatMainContainer, ChatContainer, ChatMainCotainer, UserCartContainer, UserChatDp, ChatLinkContainer, ActionButton, UserInfo, UserName, ChatPreview } from './style'
 import { Image } from '../../../style'
 import { BiEdit } from 'react-icons/bi'
 import { BsThreeDots } from 'react-icons/bs';
@@ -26,6 +26,7 @@ const ChatMode = () => {
         getdata()
     }, [])
 
+    const [profile, setProfile] = useState({})
     const userHandal = async (payload) => {
         const id = `2917-room-id.${new Date().getTime()}`
         const result = await axios.get(`http://localhost:2917/profile`, {
@@ -36,13 +37,48 @@ const ChatMode = () => {
             withCredentials: true,
             credentials: 'same-origin',
         })
-
+        setProfile(result.data.data)
         const newChat = await axios.post(`http://localhost:2917/newchat`, {
             _room: id,
             sender: result.data.email,
-            receiver: payload.email
+            senderUser: result.data.user,
+            receiver: payload.email,
+            receiverUser: payload.user
         })
     }
+
+    // user chat list 
+    const [chatUserList, setChatUserList] = useState([])
+    useEffect(() => {
+        const getData = async () => {
+            const profile = await axios.get(`http://localhost:2917/profile`, {
+                headers: {
+                    'Access-Control-Allow-Origin': 'http://localhost:2917/',
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+                credentials: 'same-origin',
+            })
+            const result = await axios.get(`http://localhost:2917/userChat?email=${profile.data.email}`)
+            const { data } = await result.data
+            const filterList = await data.filter((curList) => {
+                if (profile.data.email === curList.sender) {
+                    return curList
+                }
+            })
+
+
+            const newList = await filterList.map((curChat) => {
+                const { receiver, _room } = curChat;
+                return {
+                    receiver,
+                    _room,
+                }
+            })
+            setChatUserList(newList);
+        }
+        getData()
+    }, [profile])
     return (
         <ChatMainContainer>
             {/* chat header  */}
@@ -94,19 +130,29 @@ const ChatMode = () => {
             <ChatMainCotainer>
                 {/* cart list  */}
                 <ChatContainer>
-                    <UserCartContainer>
-                        <UserChatDp>
-                            <Image src={dp} />
-                        </UserChatDp>
-                        <ChatLinkContainer>
-                            <UserInfo>
-                                <UserName>Mukesh Singh</UserName>
-                            </UserInfo>
-                        </ChatLinkContainer>
-                        <ActionButton>
-                            <HiDotsVertical />
-                        </ActionButton>
-                    </UserCartContainer>
+                    {
+                        chatUserList.map((curChat, index) => {
+                            return (
+                                <UserCartContainer key={index}>
+                                    <UserChatDp>
+                                        <Image src={dp} />
+                                    </UserChatDp>
+                                    <ChatLinkContainer>
+                                        <UserInfo>
+                                            <UserName>{curChat.receiver}</UserName>
+                                            <ChatPreview>
+                                                last seen 10:12 PM
+                                            </ChatPreview>
+                                        </UserInfo>
+                                    </ChatLinkContainer>
+                                    <ActionButton>
+                                        <HiDotsVertical />
+                                    </ActionButton>
+                                </UserCartContainer>
+                            )
+                        })
+                    }
+
                 </ChatContainer>
             </ChatMainCotainer>
         </ChatMainContainer>

@@ -2,17 +2,17 @@ const { chatModal, userModal } = require('../connection')
 
 // create room 
 exports.newchat = (req, res) => {
-    const { _room, sender, receiver } = req.body
+    const { _room, sender, receiver, senderUser, receiverUser } = req.body
     if (_room && sender && receiver) {
         const findData = async () => {
             const sendUser = await userModal.findOne({ email: sender })
-            const receiverUser = await userModal.findOne({ email: receiver })
+            const recUser = await userModal.findOne({ email: receiver })
 
             const existsSender = await chatModal.findOne({ sender })
             const existsReceiver = await chatModal.findOne({ receiver })
-            console.log(sendUser);
-            console.log(receiverUser);
-            if (!sendUser || !receiverUser) {
+            // console.log(sendUser);
+            // console.log(recUser);
+            if (!sendUser || !recUser) {
                 res.status(409).json({
                     status_code: 409,
                     status: false,
@@ -24,6 +24,8 @@ exports.newchat = (req, res) => {
                     _room: _room,
                     sender: sender,
                     receiver: receiver,
+                    senderUser,
+                    receiverUser
                 })
                 newChat.save()
                 res.status(200).json({
@@ -49,19 +51,20 @@ exports.newchat = (req, res) => {
 // fetch chat Data 
 exports.chatList = (req, res) => {
     const getdata = async () => {
-        const result = await chatModal.find()
-        if (result) {
+        const { email } = req.query
+        const chatsUsers = await chatModal.find({ sernder: email })
+        if (chatsUsers) {
             res.status(200).json({
                 status_code: 200,
                 status: true,
-                data: result,
+                data: chatsUsers,
                 msg: 'fetch data Successfull'
             })
         } else {
             res.status(404).json({
                 status_code: 404,
                 status: false,
-                data: result,
+                data: chatsUsers,
                 msg: 'data not found'
             })
         }

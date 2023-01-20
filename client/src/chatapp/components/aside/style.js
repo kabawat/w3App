@@ -220,7 +220,7 @@ export const ChatContainer = styled.div`
         border-radius: 10px;
     }
 `
-export const UserCartContainer = styled.div`
+export const UserCartContainer = styled.div.attrs(({ key, className, id }) => ({ key, className, id }))`
     height: 55px;
     width: 100%;
     border-bottom: 1px solid #e3f2fd;
@@ -268,4 +268,7 @@ export const UserName = styled.div`
     font-size: 14px;
     font-weight: 600;
     
+`
+export const ChatPreview = styled.div`
+    font-size: 12px;
 `

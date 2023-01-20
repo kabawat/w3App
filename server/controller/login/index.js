@@ -23,10 +23,10 @@ exports.loginVerify = (req, res, next) => {
         })
     }
 }
+
 exports.login = (req, res) => {
     const login_Action = async () => {
         const data = (req.body);
-        console.log(data);
         const result = await userModal.findOne({ user: data.user, pwd: data.pwd })
         const { _id, email, user } = await result
         const token = jwt.sign({ user, email }, process.env.PRIVETKEY)

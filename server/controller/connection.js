@@ -20,7 +20,7 @@ const SchemaModal = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
-    }
+    },
 })
 
 // user Chat table 
