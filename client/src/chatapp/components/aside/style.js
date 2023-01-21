@@ -1,11 +1,11 @@
 import styled from "styled-components";
-export const AsideCotainer = styled.div.attrs(({ className, id }) => ({ className, id }))`
+export const AsideCotainer = styled.div`
     width: 100%;
     height: 100%;
     background: #fff;
     position: relative;
 `
-export const SettingAsideContainer = styled.div.attrs(({ className, id }) => ({ className, id }))`
+export const SettingAsideContainer = styled.div`
     position: absolute;
     top: 0px;
     left: 0px;
@@ -19,7 +19,7 @@ export const SettingAsideContainer = styled.div.attrs(({ className, id }) => ({ 
     background:  #E3F2FD;
     z-index: 10;
     `
-export const ChatContaienr = styled.div.attrs(({ className, id }) => ({ className, id }))`
+export const ChatContaienr = styled.div`
     width: 100%;
     height: 100%;
     position: absolute;
@@ -28,7 +28,7 @@ export const ChatContaienr = styled.div.attrs(({ className, id }) => ({ classNam
     z-index: 5;
     padding-left: 50px;
 `
-export const StoryBody = styled.div.attrs(({ className, id }) => ({ className, id }))`
+export const StoryBody = styled.div`
     height: 100%;
     width: 100%;
     `
@@ -37,7 +37,7 @@ export const ContactBody = styled(StoryBody)`
 `
 
 // aside 
-export const AsideTab = styled.div.attrs(({ className, id }) => ({ className, id }))`
+export const AsideTab = styled.div`
     width: 100%;
     padding-right: 4px;
     padding-top: 30px;
@@ -77,8 +77,9 @@ export const AsideTabBtn = styled.button.attrs(({ className, id, onClick }) => (
 export const ChatMainContainer = styled.div`
     width: 100%;
     height: 100%;
+    position: relative;
 `
-export const ChatModeHeader = styled.div.attrs(({ className, id }) => ({ className, id }))`
+export const ChatModeHeader = styled.div`
     width: 100%;
     height: 60px;
     border-bottom: 1px solid #000;
@@ -86,6 +87,10 @@ export const ChatModeHeader = styled.div.attrs(({ className, id }) => ({ classNa
     align-items: center;
     padding: 0px 10px;
     justify-content: space-between;
+    position: absolute;
+    top: 0px;
+    background: #fff;
+    z-index: 23;
 `
 export const ChatTitle = styled.div.attrs(({ }) => ({}))`
 
@@ -94,7 +99,7 @@ export const UserAction = styled.div.attrs(({ }) => ({}))`
     display: flex;
     align-items: center;
 `
-export const NewChatContainer = styled.div.attrs(({ className, id }) => ({ className, id }))`
+export const NewChatContainer = styled.div`
     display: flex;
     justify-content: flex-end;
     width: 30px;
@@ -113,7 +118,7 @@ export const NewChat = styled.button.attrs(({ className, id, onClick }) => ({ cl
     font-size: 18px;
     place-items:center;
 `
-export const SearchContainer = styled.div.attrs(({ className, id }) => ({ className, id }))`
+export const SearchContainer = styled.div`
     width:300px;
     background: #f9f9f9;
     border: 1px solid #f9f9f9;
@@ -127,7 +132,7 @@ export const SearchContainer = styled.div.attrs(({ className, id }) => ({ classN
     padding: 20px 10px;
     z-index: 100;
 `
-export const SubTitle = styled.div.attrs(({ className, id }) => ({ className, id }))`
+export const SubTitle = styled.div`
     font-size: 18px;
     font-weight: 500;
     padding-bottom: 10px;
@@ -202,31 +207,35 @@ export const TagLine = styled.div`
 // user chat list 
 export const ChatMainCotainer = styled.div`
     height: 100vh;
-    padding-bottom: 60px;
     width: 100%;
-    
-    `
+    padding-top: 60px;    
+`
 export const ChatContainer = styled.div`
+    padding: 0px 10px;
+    padding-right: 0px;
     height: 100%;
     width: 100%;
-    /* background: red; */
+    top: 0px;
     overflow: hidden;
     overflow-y: auto;
     &::-webkit-scrollbar{
         width: 16px;
     }
     &:hover::-webkit-scrollbar-thumb{
-        border: 6px solid #f9f9f9;
+        border: 6px solid #fff;
         background: rgba(0,0,0,0.2);
         border-radius: 10px;
     }
 `
-export const UserCartContainer = styled.div.attrs(({ key, className, id }) => ({ key, className, id }))`
+export const UserCartContainer = styled.div`
     height: 55px;
     width: 100%;
     padding: 0px 10px;
-    border-bottom: 1px solid rgb(0 0 0 / 1%);
+    border-radius: 5px;
+    margin: 5px 0px;
+    border-bottom: ${({ active }) => active ? '1px solid rgb(0 0 0 / 5%)' : '1px solid rgb(0 0 0 / 0%)'} ;
     position: relative;
+    background: ${({ active }) => active ? 'rgb(227 242 253 / 48%)' : 'transparent'};;
     &:hover{
         border-bottom: 1px solid rgb(0 0 0 / 5%);
         background: rgb(227 242 253 / 48%);
@@ -249,17 +258,7 @@ export const ChatLinkContainer = styled.div`
     display: flex;
     align-items: center;
 `
-export const ActionButton = styled.button.attrs(({ type, onClick, id, className }) => ({ type, onClick, id, className }))`
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 18px;
-    display: grid;
-    place-items: center;
-    cursor: pointer;
-`
-export const UserInfo = styled.button.attrs(({ type, onClick, id, className }) => ({ type, onClick, id, className }))`
+export const UserInfo = styled.button.attrs(({ type, onClick, id, className, onMouseOver }) => ({ type, onClick, id, className, onMouseOver }))`
     width: 100%;
     height: 100%;
     display: flex;
@@ -275,4 +274,17 @@ export const UserName = styled.div`
 `
 export const ChatPreview = styled.div`
     font-size: 10px;
+`
+// ContaxtMenu
+export const ContaxtMenu = styled.div`
+    padding: 5px 5px;
+    background: #fff;
+    border: 1px solid #dddddd9e;
+    top: ${({ top }) => `${top}px`};
+    left: ${({ left }) => `${left}px`};
+    display: ${({ active }) => active ? "block" : 'none'};
+    position: fixed;
+    border-radius: 6px;
+    width: 160px;
+    z-index:40;
 `

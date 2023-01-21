@@ -5,27 +5,22 @@ export const chatData = (payload) => {
     }
 }
 
+export const deleteMsg = (payload) => {
+    return {
+        type: 'DELETE_MSG',
+        payload,
+    }
+}
+
 export const storyMode = (payload) => {
     return {
         type: 'STORY_MODE',
         payload,
     }
 }
-
-export const userJoin = (payload) => {
+export const RUserProfile = (payload) => {
     return {
-        type: "JOIN_USER",
-        payload,
-    }
-}
-export const socketCannection = () => {
-    return {
-        type: "CONNECTION"
-    }
-}
-export const userJoined = (payload) => {
-    return {
-        type: "WELCOME",
-        payload,
+        type: "RECEIVER_PROFILE",
+        payload
     }
 }

@@ -1,19 +1,22 @@
 import React, { useState } from 'react'
 import { Image } from '../../../style'
 import { HeaderSection, UserDetails, UserDp, UserInfo, UserName, UserStatus, SettingSection, SettingToggle, ListContaienr } from '../style'
-import user from '../../../assets/user_dp/dp1.jpg'
-import {HiDotsVertical} from 'react-icons/hi';
+import userdp from '../../../assets/user_dp/dp1.jpg'
+import { HiDotsVertical } from 'react-icons/hi';
+import { useSelector } from 'react-redux';
 const HeaderBody = () => {
     const [showList, setShowList] = useState(false)
+    const mystate = useSelector(state => state.receiverProfile)
+    const { user, email } = mystate
     return (
-        <HeaderSection >
+        <HeaderSection>
             <UserInfo>
                 <UserDp>
-                    <Image src={user} />
+                    <Image src={userdp} />
                 </UserDp>
                 <UserDetails>
                     <UserName>
-                        Mukesh Singh
+                        {user}
                     </UserName>
                     <UserStatus>
                         online

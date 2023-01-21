@@ -73,9 +73,9 @@ exports.getReceiverProfile = (req, res) => {
             const { user, email } = profile
             res.status(200).json({
                 status_code: 200,
-                status: false,
+                status: true,
                 data: { user, email },
-                msg: 'Data not found'
+                msg: `let's chat with ${user}`
             })
         } else {
             res.status(404).json({

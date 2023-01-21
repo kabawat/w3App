@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-export const HeaderSection = styled.div.attrs(({ className, id, key }) => ({ className, id, key }))`
+import { Button } from '../../style'
+export const HeaderSection = styled.div`
     width: 100%;
     height: 100%;
     /* background: #345; */
@@ -8,34 +9,34 @@ export const HeaderSection = styled.div.attrs(({ className, id, key }) => ({ cla
     justify-content: space-between;
     padding: 0px 10px;
 `
-export const UserInfo = styled.div.attrs(({ className, id, key }) => ({ className, id, key }))`
+export const UserInfo = styled.div`
     height: 100%;
     display: flex;
     align-items: center;
     /* background: red; */
 `
-export const UserDp = styled.div.attrs(({ className, id, key }) => ({ className, id, key }))`
+export const UserDp = styled.div`
     width: 45px;
     height: 45px;
     background: pink;
     border-radius: 50%;
     overflow: hidden;
 `
-export const UserDetails = styled.div.attrs(({ className, id, key }) => ({ className, id, key }))`
+export const UserDetails = styled.div`
     /* background: pink; */
     margin-left: 10px;
 `
-export const UserName = styled.div.attrs(({ className, id, key }) => ({ className, id, key }))`
+export const UserName = styled.div`
     font-size: 16px;
     font-weight: bold;
     margin: 1px 0px;
 `
-export const UserStatus = styled.div.attrs(({ className, id, key }) => ({ className, id, key }))`
+export const UserStatus = styled.div`
     font-size: 13px;
     font-weight: 500;
     letter-spacing: 1px;
 `
-export const SettingSection = styled.div.attrs(({ className, id, key }) => ({ className, id, key }))`
+export const SettingSection = styled.div`
     position: relative;
     z-index: 20;
     `
@@ -48,13 +49,12 @@ export const SettingToggle = styled.button.attrs(({ onClick, type, }) => ({ onCl
     color: rgb(73 74 76);
     border-radius: 50%;
     transition: all 0.2s linear;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
     font-size: 18px;
     &:active{
         box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
     }
 `
-export const ListContaienr = styled.div.attrs(({ className, id, key }) => ({ className, id, key }))`
+export const ListContaienr = styled.div`
     z-index: 10;
     position: absolute;
     right: 0px;
@@ -76,7 +76,7 @@ export const FooterContaienr = styled.form.attrs(({ className, onSubmit, id, key
     padding-left: 80px;
     padding-right: 70px;
 `
-export const FileContainer = styled.div.attrs(({ className, id, key }) => ({ className, id, key }))`
+export const FileContainer = styled.div`
     position: absolute;
     left: 0px;
     height: 100%;
@@ -103,7 +103,7 @@ export const SelectButton = styled.button.attrs(({ onClick }) => ({ onClick }))`
         transition: all  cubic-bezier(0.4, 0, 1, 1) 100ms;
     }
     `
-export const SelectFileBox = styled.div.attrs(({ className, id, key }) => ({ className, id, key }))`
+export const SelectFileBox = styled.div`
     width: 200px;
     height: 400px;
     backdrop-filter: blue(3px);
@@ -114,7 +114,7 @@ export const SelectFileBox = styled.div.attrs(({ className, id, key }) => ({ cla
     transition: all  cubic-bezier(0.01, 0.16, 0.85, 1.02);
     visibility: ${({ show }) => show};
     `
-export const ChatTypeContaienr = styled.div.attrs(({ className, id, key }) => ({ className, id, key }))`
+export const ChatTypeContaienr = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
@@ -133,7 +133,7 @@ export const Chat = styled.input.attrs(({ type, name, onChange, value, id, class
     box-shadow: inset rgba(149, 157, 165, 0.1) 0px 8px 24px;
     display: flex;
     `
-export const ChatActionCotainer = styled.div.attrs(({ className, id, key }) => ({ className, id, key }))`
+export const ChatActionCotainer = styled.div`
     width: 70px;
     position: absolute;
     right: 0px;
@@ -162,13 +162,13 @@ export const Send = styled.button.attrs(({ onClick, clasName, id }) => ({ onClic
 `
 
 // chat Area massage 
-export const MassageContaienr = styled.div.attrs(({ className, id, key }) => ({ className, id, key }))`
+export const MassageContaienr = styled.div`
     width: 100%;
     height: 100%;
     overflow: hidden;
     overflow-y: auto;
     &::-webkit-scrollbar{
-        width:20px;
+        width:18px;
     }
     &::-webkit-scrollbar-thumb{
         background: #d0d0d0;
@@ -177,14 +177,17 @@ export const MassageContaienr = styled.div.attrs(({ className, id, key }) => ({ 
     }
     &::-webkit-scrollbar-button{
         background: #d0d0d0;
-        border: 5px solid #fafafa;
-        width: 20px;
-        height: 20px;
+        border: 3px solid #fafafa;
+        width: 18px;
+        height: 18px;
         border-radius: 50%;
         cursor: pointer;
+        &:hover{
+            background: #000;
+        }
     }
 `
-export const ChatBox = styled.div.attrs(({ className, id, key }) => ({ className, id, key }))`
+export const ChatBox = styled.div`
     width: 100%;
     height: auto;
     padding: 10px 0px;
@@ -192,15 +195,32 @@ export const ChatBox = styled.div.attrs(({ className, id, key }) => ({ className
     align-items: flex-end;
     flex-direction: ${({ isMe }) => isMe ? 'row-reverse' : 'row'};
     `
-export const Massage = styled.div.attrs(({ className, id, key }) => ({ className, id, key }))`
+export const MassageOuter = styled.div`
     max-width: 60%;
+    position: relative;
     border-radius: 20px;
-    padding: 10px 20px;
     background: #fff;
-    ${({ isMe }) => isMe ? 'border-bottom-right-radius' : 'border-bottom-left-radius'} : 2px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-    `
-export const ChatDp = styled.div.attrs(({ className, id, key }) => ({ className, id, key }))`
+    ${({ isMe }) => isMe ? 'border-bottom-right-radius' : 'border-bottom-left-radius'} : 2px;
+    overflow: hidden;
+
+`
+export const HiddenInput = styled.div`
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 10;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+`
+export const Massage = styled.div`
+    padding: 10px 20px;
+    width: 100%;
+    height: 100%;
+`
+export const ChatDp = styled.div`
     margin: 0px 10px;
     width: 40px;
     height: 40px;
@@ -210,11 +230,34 @@ export const ChatDp = styled.div.attrs(({ className, id, key }) => ({ className,
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
     background: #fff;
 `
-export const Msg = styled.div.attrs(({ className, id, key }) => ({ className, id, key }))`
+export const Msg = styled.div`
     font-size: 15px;
 `
-export const Time = styled.div.attrs(({ className, id, key }) => ({ className, id, key }))`
+export const Time = styled.div`
     font-size: 12px;
     text-align: right;
     color: #999;
+`
+
+// Context Container
+export const ContextContainer = styled.div`
+    width: 190px;
+    position: fixed;
+    display: ${({ active }) => active ? 'block' : 'none'};
+    left: ${({ left }) => `${left - 190}px`};
+    top: ${({ top }) => `${top}px`};
+    background:#fff;
+    border-radius:6px;
+    border: 1px solid #dddddd9e;
+    padding: 5px 6px;
+    z-index:20;
+    div{
+        margin: 3px 0px;
+        button{
+            padding:2px 0px;
+            span{
+                padding-left:10px
+            }
+        }
+    }
 `

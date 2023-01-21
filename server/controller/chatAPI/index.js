@@ -47,9 +47,7 @@ exports.newchat = (req, res) => {
 exports.chatList = (req, res) => {
     const getdata = async () => {
         const { sender } = req.query
-        console.log(req.query);
         const chatsUsers = await chatModal.find({ sender })
-        console.log(chatsUsers);
         if (chatsUsers) {
             res.status(200).json({
                 status_code: 200,

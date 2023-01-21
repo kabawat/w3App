@@ -1,16 +1,17 @@
 import React from 'react'
-import { ChatModeHeader, ChatTitle, UserAction, NewChatContainer, SearchContainer, NewUserName, NewChat, SubTitle, AddUser, AddUserHeading, ContactList, ContactItem, NewUserDp, TagLine, ChatMainContainer, ChatContainer, ChatMainCotainer, UserCartContainer, UserChatDp, ChatLinkContainer, ActionButton, UserInfo, UserName, ChatPreview } from './style'
-import { Image } from '../../../style'
+import { ChatModeHeader, ChatTitle, UserAction, NewChatContainer, SearchContainer, NewUserName, NewChat, SubTitle, AddUser, AddUserHeading, ContactList, ContactItem, NewUserDp, TagLine, ChatMainContainer, ChatContainer, ChatMainCotainer } from './style'
 import { BiEdit } from 'react-icons/bi'
 import { BsThreeDots } from 'react-icons/bs';
-import { HiDotsVertical } from 'react-icons/hi'
+import { Image } from '../../../style'
 import { useState } from 'react';
 import dp from '../../../assets/user_dp/dp1.jpg'
 import { useEffect } from 'react';
 import axios from 'axios'
+import ChatCart from './chatCart';
 const ChatMode = () => {
     const [isAdd, setIsAdd] = useState(false)
     const [userList, setUserList] = useState([])
+
     useEffect(() => {
         const getdata = async () => {
             const result = await axios.get('http://localhost:2917/all_User', {
@@ -47,6 +48,7 @@ const ChatMode = () => {
     }
 
     // user chat list 
+    const [deleteChat, setDeleteChat] = useState()
     useEffect(() => {
         const getData = async () => {
             const profile = await axios.get(`http://localhost:2917/profile`, {
@@ -62,13 +64,7 @@ const ChatMode = () => {
             setChatUserList(data);
         }
         getData()
-    }, [profile])
-
-    const getFriendProfile = async (payload) => {
-        console.log("payload : ", payload);
-        const responce = await axios.get(`http://localhost:2917/receiver_profile?receiver=${payload}`)
-        console.log("responce : ", responce);
-    }
+    }, [profile, deleteChat])
     return (
         <ChatMainContainer>
             {/* chat header  */}
@@ -123,26 +119,10 @@ const ChatMode = () => {
                     {
                         chatUserList.map((curChat, index) => {
                             return (
-                                <UserCartContainer key={index}>
-                                    <UserChatDp>
-                                        <Image src={dp} />
-                                    </UserChatDp>
-                                    <ChatLinkContainer>
-                                        <UserInfo onClick={() => getFriendProfile(curChat.receiver)}>
-                                            <UserName>{curChat.receiver}</UserName>
-                                            <ChatPreview>
-                                                last seen 10:12 PM
-                                            </ChatPreview>
-                                        </UserInfo>
-                                    </ChatLinkContainer>
-                                    <ActionButton>
-                                        <HiDotsVertical />
-                                    </ActionButton>
-                                </UserCartContainer>
+                                <ChatCart curChat={{ ...curChat, setDeleteChat }} key={index} />
                             )
                         })
                     }
-
                 </ChatContainer>
             </ChatMainCotainer>
         </ChatMainContainer>

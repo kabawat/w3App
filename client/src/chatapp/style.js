@@ -10,7 +10,7 @@ export const Aside = styled.div.attrs(({ className, id }) => ({ className, id })
     position: absolute;
     left: 0px;
     top:0px;
-    width: 350px;
+    width: 380px;
     height: 100%;
     background: #E3F2FD;
     z-index: 15;
@@ -24,7 +24,7 @@ export const Main = styled.div.attrs(({ className, id }) => ({ className, id }))
     overflow: hidden;
     top: 0px;
     left: 0px;
-    padding-left: 350px;
+    padding-left: 380px;
     z-index: 10;
     `
 
