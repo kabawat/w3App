@@ -10,6 +10,7 @@ import { HiReply } from 'react-icons/hi'
 import { RiDeleteBinLine } from 'react-icons/ri'
 import { TbArrowForwardUp } from 'react-icons/tb'
 import { deleteMsg } from '../../../redux/action'
+import { useRef } from 'react'
 const Chat = ({ curItem }) => {
     const date = new Date(curItem.time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
     const id = `_${new Date(curItem.time).getTime()}`
@@ -42,15 +43,23 @@ const ChatArea = () => {
         y: 0
     })
     const [conTextMsg, setConTextMsg] = useState()
+    const innerChatArea = useRef(null)
     const handaleContextMenu = (event) => {
-        console.log(event.target.id);
         const _id = event.target.id.split('_')[1]
         setConTextMsg(new Date(parseInt(_id)))
         event.preventDefault()
-        setMouse({
-            x: event.pageX,
-            y: event.pageY
-        })
+        const innerSize = innerChatArea.current.clientWidth
+        if ((event.pageX - 400) + 190 > innerSize) {
+            setMouse({
+                x: event.pageX - 190,
+                y: event.pageY
+            })
+        } else {
+            setMouse({
+                x: event.pageX,
+                y: event.pageY
+            })
+        }
         setConActive(false)
         setTimeout(() => {
             setConActive(true)
@@ -70,7 +79,7 @@ const ChatArea = () => {
         Dispatch(deleteMsg(newMsgList))
     }
     return (
-        <MassageContaienr>
+        <MassageContaienr ref={innerChatArea}>
             <ContextContainer active={conActive} left={mouse.x} top={mouse.y}>
                 <ContextAction>
                     <Button>

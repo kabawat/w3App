@@ -1,6 +1,7 @@
+// chat 
 const data = JSON.parse(localStorage.getItem('chat'))
 const initialValue = data ? data : []
-const chatMassage = (state = initialValue, action) => {
+export const chatMassage = (state = initialValue, action) => {
     if (action.type === 'CHATING') {
         localStorage.setItem('chat', JSON.stringify([...state, action.payload]))
         return [
@@ -15,13 +16,22 @@ const chatMassage = (state = initialValue, action) => {
     }
     return state
 }
-export default chatMassage
 
+// current chat 
 const currentChat = JSON.parse(localStorage.getItem('currentChat'))
 const userData = currentChat ? currentChat : {}
 export const receiverProfile = (state = userData, action) => {
     if (action.type === 'RECEIVER_PROFILE') {
         localStorage.setItem('currentChat', JSON.stringify(action.payload))
+        return action.payload
+    }
+    return state
+}
+
+//all chat list
+const chatList = []
+export const chatContactList = (state = chatList, action) => {
+    if (action.type === 'CHAT_CONTACT') {
         return action.payload
     }
     return state

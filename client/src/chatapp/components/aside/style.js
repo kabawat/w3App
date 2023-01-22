@@ -190,7 +190,7 @@ export const Label = styled.div`
     top: 0px;
     left: 0px;
     background: transparent;
-    z-index: 30;
+    z-index: 20;
 `
 export const UserName = styled.div`
     font-size: 14px;

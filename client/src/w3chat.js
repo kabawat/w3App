@@ -10,7 +10,7 @@ const W3Chat = () => {
     const socket = useSelector(state => state.socketController)
     socket.on('connect', () => {
         socket.on('welcome', data => {
-            console.log(data);
+            // console.log(data);
         })
     })
 

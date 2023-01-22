@@ -4,6 +4,19 @@ export const chatData = (payload) => {
         payload,
     }
 }
+export const userProfile = (payload) => {
+    return {
+        type: 'PROFILE',
+        payload,
+    }
+}
+
+export const contactList = (payload) => {
+    return {
+        type: 'CHAT_CONTACT',
+        payload
+    }
+}
 
 export const deleteMsg = (payload) => {
     return {

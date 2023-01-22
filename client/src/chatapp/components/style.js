@@ -38,7 +38,7 @@ export const UserStatus = styled.div`
 `
 export const SettingSection = styled.div`
     position: relative;
-    z-index: 20;
+    /* z-index: 20; */
     `
 export const SettingToggle = styled.button.attrs(({ onClick, type, }) => ({ onClick, type, }))`
     width: 35px;
@@ -244,13 +244,13 @@ export const ContextContainer = styled.div`
     width: 190px;
     position: fixed;
     display: ${({ active }) => active ? 'block' : 'none'};
-    left: ${({ left }) => `${left - 190}px`};
+    left: ${({ left }) => `${left}px`};
     top: ${({ top }) => `${top}px`};
     background:#fff;
     border-radius:6px;
     border: 1px solid #dddddd9e;
     padding: 5px 6px;
-    z-index:20;
+    z-index:100;
     div{
         margin: 3px 0px;
         button{

@@ -11,19 +11,24 @@ import { RiDeleteBinLine } from 'react-icons/ri'
 import { AiOutlineClear } from 'react-icons/ai'
 import { BsPin } from 'react-icons/bs'
 import { useDispatch, useSelector } from 'react-redux';
-import { RUserProfile } from '../../../redux/action';
+import { contactList, RUserProfile } from '../../../redux/action';
 import NewChatModal from '../../../modals/NewUserModale';
 const ChatMode = () => {
-    const [chatUserList, setChatUserList] = useState([])
-    const [deleteChat, setDeleteChat] = useState()
+    const { myProfile, receiverProfile, chatContactList } = useSelector(state => state)
+    const { email } = receiverProfile
+    const { profile } = myProfile
+    const Dispatch = useDispatch()
+    const [curRoom, setCurRoom] = useState()
     const [context, setContext] = useState(false)
     const [userList, setUserList] = useState([])
     const [isNewChatModal, setIsNewChatModal] = useState(false)
+    const [deleteChat, setDeleteChat] = useState()
     const [mouse, setMouse] = useState({
         x: 0,
         y: 0
     })
     window.addEventListener('click', (event) => {
+        setContext(false)
         if (event.target.id === 'newChatModal') {
             setIsNewChatModal(false)
         }
@@ -42,6 +47,7 @@ const ChatMode = () => {
         }
         getdata()
     }, [])
+
     const hadalSearchModale = (event) => {
         setIsNewChatModal(true)
         setMouse({
@@ -49,40 +55,15 @@ const ChatMode = () => {
             y: 50
         })
     }
-
-
-    const [profile, setProfile] = useState()
-
-    useEffect(() => {
-        const getData = async () => {
-            const responce = await axios.get(`http://localhost:2917/profile`, {
-                headers: {
-                    'Access-Control-Allow-Origin': 'http://localhost:2917/',
-                    'Content-Type': 'application/json',
-                },
-                withCredentials: true,
-                credentials: 'same-origin',
-            })
-            setProfile(await responce)
-        }
-        getData()
-    }, [])
     // user chat list 
     useEffect(() => {
         const getData = async () => {
-            const result = await axios.get(`http://localhost:2917/userChat?sender=${profile.data.email}`)
+            const result = await axios.get(`http://localhost:2917/userChat?sender=${profile.email}`)
             const { data } = await result.data
-            setChatUserList(data);
+            Dispatch(contactList(data))
         }
-        if (profile)
-            getData()
-
+        if (profile) getData()
     }, [profile, deleteChat])
-
-
-    const [curRoom, setCurRoom] = useState()
-    const Dispatch = useDispatch()
-    const { email } = useSelector(state => state.receiverProfile)
 
     const getFriendProfile = async (payload) => {
         const responce = await axios.get(`http://localhost:2917/receiver_profile?receiver=${payload}`)
@@ -94,6 +75,9 @@ const ChatMode = () => {
         setCurRoom(event.target.id)
         event.preventDefault()
         setContext(!context)
+        setTimeout(() => {
+            setContext(true)
+        }, 200)
         setMouse({
             x: event.pageX,
             y: event.pageY
@@ -102,13 +86,8 @@ const ChatMode = () => {
 
     const handalDeleteChat = async (payload) => {
         const responce = await axios.delete(`http://localhost:2917/delete-chat?_room=${payload}`)
-        console.log(responce);
         setDeleteChat(responce)
     }
-
-    window.addEventListener('click', () => {
-        setContext(false)
-    })
 
     return (
         <ChatMainContainer>
@@ -152,7 +131,7 @@ const ChatMode = () => {
                         </ContextAction>
                     </ContaxtMenu>
                     {
-                        chatUserList.map((curChat, index) => {
+                        chatContactList.map((curChat, index) => {
                             return (
                                 <UserCartContainer
                                     active={((curChat.receiver === email) ? true : false)}

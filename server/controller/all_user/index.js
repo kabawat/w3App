@@ -36,14 +36,12 @@ exports.userProfile = (req, res) => {
             msg: 'unauthorized'
         })
     }
-
 }
 
 exports.chatUserInfo = (req, res) => {
     const getData = async () => {
         const { email } = req.body
         const result = await userModal.findOne({ email })
-        console.log(result);
 
         if (result) {
             const { email, user } = result

@@ -99,7 +99,6 @@ const SignUp = () => {
                 withCredentials: true,
                 credentials: 'same-origin',
             }).then((result) => {
-                console.log(result);
                 SetLoginValid(true)
                 setTimeout(() => {
                     Navigate('/')
