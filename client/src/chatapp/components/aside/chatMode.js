@@ -1,17 +1,33 @@
 import React from 'react'
-import { ChatModeHeader, ChatTitle, UserAction, NewChatContainer, SearchContainer, NewUserName, NewChat, SubTitle, AddUser, AddUserHeading, ContactList, ContactItem, NewUserDp, TagLine, ChatMainContainer, ChatContainer, ChatMainCotainer } from './style'
+import { ChatModeHeader, ChatTitle, UserAction, NewChatContainer, NewChat, ChatMainContainer, ChatContainer, ChatMainCotainer, UserCartContainer, ChatLinkContainer, UserChatDp, UserName, UserInfo, ChatPreview, ContaxtMenu, Label } from './style'
 import { BiEdit } from 'react-icons/bi'
 import { BsThreeDots } from 'react-icons/bs';
-import { Image } from '../../../style'
+import { Button, ContextAction, Image } from '../../../style'
 import { useState } from 'react';
 import dp from '../../../assets/user_dp/dp1.jpg'
 import { useEffect } from 'react';
 import axios from 'axios'
-import ChatCart from './chatCart';
+import { RiDeleteBinLine } from 'react-icons/ri'
+import { AiOutlineClear } from 'react-icons/ai'
+import { BsPin } from 'react-icons/bs'
+import { useDispatch, useSelector } from 'react-redux';
+import { RUserProfile } from '../../../redux/action';
+import NewChatModal from '../../../modals/NewUserModale';
 const ChatMode = () => {
-    const [isAdd, setIsAdd] = useState(false)
+    const [chatUserList, setChatUserList] = useState([])
+    const [deleteChat, setDeleteChat] = useState()
+    const [context, setContext] = useState(false)
     const [userList, setUserList] = useState([])
-
+    const [isNewChatModal, setIsNewChatModal] = useState(false)
+    const [mouse, setMouse] = useState({
+        x: 0,
+        y: 0
+    })
+    window.addEventListener('click', (event) => {
+        if (event.target.id === 'newChatModal') {
+            setIsNewChatModal(false)
+        }
+    })
     useEffect(() => {
         const getdata = async () => {
             const result = await axios.get('http://localhost:2917/all_User', {
@@ -26,32 +42,20 @@ const ChatMode = () => {
         }
         getdata()
     }, [])
-
-    const [profile, setProfile] = useState({})
-    const [chatUserList, setChatUserList] = useState([])
-    const userHandal = async (payload) => {
-        const id = `2917-room-id.${new Date().getTime()}`
-        const result = await axios.get(`http://localhost:2917/profile`, {
-            headers: {
-                'Access-Control-Allow-Origin': 'http://localhost:2917/',
-                'Content-Type': 'application/json',
-            },
-            withCredentials: true,
-            credentials: 'same-origin',
+    const hadalSearchModale = (event) => {
+        setIsNewChatModal(true)
+        setMouse({
+            x: event.pageX,
+            y: 50
         })
-        const newChat = await axios.post(`http://localhost:2917/newchat`, {
-            _room: id,
-            sender: result.data.email,
-            receiver: payload.email,
-        })
-        setProfile(newChat)
     }
 
-    // user chat list 
-    const [deleteChat, setDeleteChat] = useState()
+
+    const [profile, setProfile] = useState()
+
     useEffect(() => {
         const getData = async () => {
-            const profile = await axios.get(`http://localhost:2917/profile`, {
+            const responce = await axios.get(`http://localhost:2917/profile`, {
                 headers: {
                     'Access-Control-Allow-Origin': 'http://localhost:2917/',
                     'Content-Type': 'application/json',
@@ -59,12 +63,53 @@ const ChatMode = () => {
                 withCredentials: true,
                 credentials: 'same-origin',
             })
+            setProfile(await responce)
+        }
+        getData()
+    }, [])
+    // user chat list 
+    useEffect(() => {
+        const getData = async () => {
             const result = await axios.get(`http://localhost:2917/userChat?sender=${profile.data.email}`)
             const { data } = await result.data
             setChatUserList(data);
         }
-        getData()
+        if (profile)
+            getData()
+
     }, [profile, deleteChat])
+
+
+    const [curRoom, setCurRoom] = useState()
+    const Dispatch = useDispatch()
+    const { email } = useSelector(state => state.receiverProfile)
+
+    const getFriendProfile = async (payload) => {
+        const responce = await axios.get(`http://localhost:2917/receiver_profile?receiver=${payload}`)
+        Dispatch(RUserProfile(await responce.data.data))
+        setIsNewChatModal(false)
+    }
+
+    const handalContextMenu = (event) => {
+        setCurRoom(event.target.id)
+        event.preventDefault()
+        setContext(!context)
+        setMouse({
+            x: event.pageX,
+            y: event.pageY
+        })
+    }
+
+    const handalDeleteChat = async (payload) => {
+        const responce = await axios.delete(`http://localhost:2917/delete-chat?_room=${payload}`)
+        console.log(responce);
+        setDeleteChat(responce)
+    }
+
+    window.addEventListener('click', () => {
+        setContext(false)
+    })
+
     return (
         <ChatMainContainer>
             {/* chat header  */}
@@ -73,35 +118,14 @@ const ChatMode = () => {
                 <UserAction>
                     {/* new user add  */}
                     <NewChatContainer>
-                        <NewChat onClick={() => setIsAdd(!isAdd)}>
+                        <NewChat onClick={hadalSearchModale}>
                             <BiEdit />
+                            <Label id='new_user'></Label>
                         </NewChat>
-                        <SearchContainer isAdd={isAdd}>
-                            <SubTitle>New Chat</SubTitle>
-                            <AddUser />
-                            <AddUserHeading>
-                                All Contact
-                            </AddUserHeading>
-                            <ContactList>
-                                {
-                                    userList ? userList.map((curUser) => {
-                                        return <ContactItem key={curUser._id} onClick={() => userHandal(curUser)}>
-                                            <NewUserDp>
-                                                <Image src={dp} />
-                                            </NewUserDp>
-                                            <div>
-                                                <NewUserName>
-                                                    {curUser.user}
-                                                </NewUserName>
-                                                <TagLine>
-                                                    {curUser.email}
-                                                </TagLine>
-                                            </div>
-                                        </ContactItem>
-                                    }) : ''
-                                }
-                            </ContactList>
-                        </SearchContainer>
+                        {
+                            isNewChatModal ? <NewChatModal state={{ userList, mouse }} /> : null
+                        }
+
                     </NewChatContainer>
                     {/* new user action  */}
                     <NewChatContainer>
@@ -116,10 +140,39 @@ const ChatMode = () => {
             <ChatMainCotainer>
                 {/* cart list  */}
                 <ChatContainer>
+                    <ContaxtMenu active={context} top={mouse.y} left={mouse.x}>
+                        <ContextAction>
+                            <Button><BsPin /> <span>Pin to top</span></Button>
+                        </ContextAction>
+                        <ContextAction>
+                            <Button onClick={() => handalDeleteChat(curRoom)}><RiDeleteBinLine /> <span>Delete</span></Button>
+                        </ContextAction>
+                        <ContextAction>
+                            <Button><AiOutlineClear /> <span>Clear massage</span></Button>
+                        </ContextAction>
+                    </ContaxtMenu>
                     {
                         chatUserList.map((curChat, index) => {
                             return (
-                                <ChatCart curChat={{ ...curChat, setDeleteChat }} key={index} />
+                                <UserCartContainer
+                                    active={((curChat.receiver === email) ? true : false)}
+                                    onContextMenu={handalContextMenu}
+                                    id={curChat._room}
+                                    key={index}
+                                >
+                                    <UserChatDp>
+                                        <Image src={dp} />
+                                    </UserChatDp>
+                                    <ChatLinkContainer>
+                                        <UserInfo onClick={() => getFriendProfile(curChat.receiver)}>
+                                            <UserName>{curChat.receiver}</UserName>
+                                            <ChatPreview>
+                                                last seen 10:12 PM
+                                            </ChatPreview>
+                                            <Label id={curChat._room}></Label>
+                                        </UserInfo>
+                                    </ChatLinkContainer>
+                                </UserCartContainer>
                             )
                         })
                     }

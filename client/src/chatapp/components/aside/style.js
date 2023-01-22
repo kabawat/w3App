@@ -118,91 +118,6 @@ export const NewChat = styled.button.attrs(({ className, id, onClick }) => ({ cl
     font-size: 18px;
     place-items:center;
 `
-export const SearchContainer = styled.div`
-    width:300px;
-    background: #f9f9f9;
-    border: 1px solid #f9f9f9;
-    border-radius: 8px;
-    backdrop-filter: blur(3px);
-    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
-    position: absolute;
-    left: 0px;
-    top: 120%;
-    display: ${({ isAdd }) => isAdd ? 'block' : 'none'};
-    padding: 20px 10px;
-    z-index: 100;
-`
-export const SubTitle = styled.div`
-    font-size: 18px;
-    font-weight: 500;
-    padding-bottom: 10px;
-`
-export const AddUser = styled.input.attrs(({ onChange, name, className, id }) => ({ onChange, name, className, id }))`
-    width: 100%;
-    height: 32px;
-    border: none;
-    border-bottom: 2px solid #E3F2FD;
-    padding: 0px 5px;
-    border-radius: 4px;
-    background: #fff;
-`
-
-export const AddUserHeading = styled.div`
-    font-size: 14px;
-    padding: 5px 0px;
-`
-export const ContactList = styled.div`
-    width: 100%;
-    max-height: 200px;
-    overflow: auto;
-    &::-webkit-scrollbar{
-        width: 16px;
-    }
-    &:hover::-webkit-scrollbar-thumb{
-        border: 6px solid #f9f9f9;
-        background: rgba(0,0,0,0.2);
-        border-radius: 10px;
-    }
-`
-export const ContactItem = styled.button.attrs(({ className, key, id, onClick }) => ({ className, key, id, onClick }))`
-    width: 100%;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0px 10px;
-    border-radius: 4px;
-    margin: 10px 0px;
-    cursor: pointer;
-    &:hover{
-        background: rgba(0,0,0,0.04);
-    }
-`
-
-export const NewUserDp = styled.div`
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
-
-    img{
-        border-radius: 50%;
-    }
-`
-export const NewUserName = styled.div`
-    font-size: 14px;
-    padding-left: 10px;
-    line-height:16px;
-    font-weight: 600;
-    text-align: left;
-    `
-export const TagLine = styled.div`
-    font-weight: 500;
-    font-size: 12px;
-    padding-left: 10px;
-    line-height:16px ;
-    text-align: left;
-`
 
 // user chat list 
 export const ChatMainCotainer = styled.div`
@@ -254,7 +169,7 @@ export const UserChatDp = styled.button.attrs(({ type, onClick, id, className })
 export const ChatLinkContainer = styled.div`
     width: 100%;
     height: 100%;
-    padding: 0px 30px 0px 50px;
+    padding: 0px 6px 0px 50px;
     display: flex;
     align-items: center;
 `
@@ -266,6 +181,16 @@ export const UserInfo = styled.button.attrs(({ type, onClick, id, className, onM
     flex-direction: column;
     align-items: flex-start;
     cursor: pointer;
+    position:relative;
+`
+export const Label = styled.div`
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: transparent;
+    z-index: 30;
 `
 export const UserName = styled.div`
     font-size: 14px;
