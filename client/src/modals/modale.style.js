@@ -1,5 +1,9 @@
 import styled from "styled-components"
-export const SubTitle = styled.div`
+import { Button } from "../style"
+const Div = styled.div`
+
+`
+export const SubTitle = styled(Div)`
     font-size: 18px;
     font-weight: 500;
     padding-bottom: 10px;
@@ -13,7 +17,7 @@ export const AddUser = styled.input`
     border-radius: 4px;
     background: #fff;
 `
-export const NewUserModale = styled.div`
+export const NewUserModale = styled(Div)`
     width: 100%;
     height: 100vh;
     background:transparent;
@@ -22,7 +26,7 @@ export const NewUserModale = styled.div`
     left: 0px;
     z-index: 40;
 `
-export const SearchContainer = styled.div`
+export const SearchContainer = styled(Div)`
     position: absolute;
     width:300px;
     background: #f9f9f9;
@@ -36,18 +40,18 @@ export const SearchContainer = styled.div`
     padding: 20px 10px;
     z-index: 100;
 `
-export const NewUserName = styled.div`
+export const NewUserName = styled(Div)`
     font-size: 14px;
     padding-left: 10px;
     line-height:16px;
     font-weight: 600;
     text-align: left;
 `
-export const AddUserHeading = styled.div`
+export const AddUserHeading = styled(Div)`
     font-size: 14px;
     padding: 5px 0px;
 `
-export const ContactList = styled.div`
+export const ContactList = styled(Div)`
     width: 100%;
     max-height: 200px;
     overflow: auto;
@@ -60,7 +64,7 @@ export const ContactList = styled.div`
         border-radius: 10px;
     }
 `
-export const ContactItem = styled.button.attrs(({ className, key, id, onClick }) => ({ className, key, id, onClick }))`
+export const ContactItem = styled(Button)`
     width: 100%;
     height: 45px;
     display: flex;
@@ -75,7 +79,7 @@ export const ContactItem = styled.button.attrs(({ className, key, id, onClick })
     }
 `
 
-export const NewUserDp = styled.div`
+export const NewUserDp = styled(Div)`
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -85,7 +89,7 @@ export const NewUserDp = styled.div`
         border-radius: 50%;
     }
 `
-export const TagLine = styled.div`
+export const TagLine = styled(Div)`
     font-weight: 500;
     font-size: 12px;
     padding-left: 10px;

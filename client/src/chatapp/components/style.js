@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { Button } from '../../style'
-export const HeaderSection = styled.div`
+const Div = styled.div``
+export const HeaderSection = styled(Div)`
     width: 100%;
     height: 100%;
     /* background: #345; */
@@ -9,38 +10,38 @@ export const HeaderSection = styled.div`
     justify-content: space-between;
     padding: 0px 10px;
 `
-export const UserInfo = styled.div`
+export const UserInfo = styled(Div)`
     height: 100%;
     display: flex;
     align-items: center;
     /* background: red; */
 `
-export const UserDp = styled.div`
+export const UserDp = styled(Div)`
     width: 45px;
     height: 45px;
     background: pink;
     border-radius: 50%;
     overflow: hidden;
 `
-export const UserDetails = styled.div`
+export const UserDetails = styled(Div)`
     /* background: pink; */
     margin-left: 10px;
 `
-export const UserName = styled.div`
+export const UserName = styled(Div)`
     font-size: 16px;
     font-weight: bold;
     margin: 1px 0px;
 `
-export const UserStatus = styled.div`
+export const UserStatus = styled(Div)`
     font-size: 13px;
     font-weight: 500;
     letter-spacing: 1px;
 `
-export const SettingSection = styled.div`
+export const SettingSection = styled(Div)`
     position: relative;
     /* z-index: 20; */
     `
-export const SettingToggle = styled.button.attrs(({ onClick, type, }) => ({ onClick, type, }))`
+export const SettingToggle = styled(Button)`
     width: 35px;
     height: 35px;
     display: flex;
@@ -54,7 +55,7 @@ export const SettingToggle = styled.button.attrs(({ onClick, type, }) => ({ onCl
         box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
     }
 `
-export const ListContaienr = styled.div`
+export const ListContaienr = styled(Div)`
     z-index: 10;
     position: absolute;
     right: 0px;
@@ -69,14 +70,14 @@ export const ListContaienr = styled.div`
 `
 
 // footer 
-export const FooterContaienr = styled.form.attrs(({ className, onSubmit, id, key }) => ({ className, id, key, onSubmit }))`
+export const FooterContaienr = styled.form`
     position: relative;
     width: 100%;
     height: 100%;
     padding-left: 80px;
     padding-right: 70px;
 `
-export const FileContainer = styled.div`
+export const FileContainer = styled(Div)`
     position: absolute;
     left: 0px;
     height: 100%;
@@ -86,7 +87,7 @@ export const FileContainer = styled.div`
     transition: all  cubic-bezier(0, 0.01, 0, 1.04);
     width: 80px;
 `
-export const SelectButton = styled.button.attrs(({ onClick }) => ({ onClick }))`
+export const SelectButton = styled(Button)`
     width: 45px;
     height: 45px;
     border-radius:50%;
@@ -103,7 +104,7 @@ export const SelectButton = styled.button.attrs(({ onClick }) => ({ onClick }))`
         transition: all  cubic-bezier(0.4, 0, 1, 1) 100ms;
     }
     `
-export const SelectFileBox = styled.div`
+export const SelectFileBox = styled(Div)`
     width: 200px;
     height: 400px;
     backdrop-filter: blue(3px);
@@ -114,7 +115,7 @@ export const SelectFileBox = styled.div`
     transition: all  cubic-bezier(0.01, 0.16, 0.85, 1.02);
     visibility: ${({ show }) => show};
     `
-export const ChatTypeContaienr = styled.div`
+export const ChatTypeContaienr = styled(Div)`
     width: 100%;
     height: 100%;
     display: flex;
@@ -122,7 +123,7 @@ export const ChatTypeContaienr = styled.div`
     align-items: center;
     `
 
-export const Chat = styled.input.attrs(({ type, name, onChange, value, id, className, placeholder }) => ({ type, name, onChange, value, id, className, placeholder }))`
+export const Chat = styled.input`
     width: 100%;
     height: 70%;
     border-radius: 10px;
@@ -133,7 +134,7 @@ export const Chat = styled.input.attrs(({ type, name, onChange, value, id, class
     box-shadow: inset rgba(149, 157, 165, 0.1) 0px 8px 24px;
     display: flex;
     `
-export const ChatActionCotainer = styled.div`
+export const ChatActionCotainer = styled(Div)`
     width: 70px;
     position: absolute;
     right: 0px;
@@ -143,7 +144,7 @@ export const ChatActionCotainer = styled.div`
     place-items: center;
     
     `
-export const Send = styled.button.attrs(({ onClick, clasName, id }) => ({ onClick, clasName, id }))`
+export const Send = styled(Button)`
     display: grid;
     place-items: center;
     align-items: center;
@@ -162,7 +163,7 @@ export const Send = styled.button.attrs(({ onClick, clasName, id }) => ({ onClic
 `
 
 // chat Area massage 
-export const MassageContaienr = styled.div`
+export const MassageContaienr = styled(Div)`
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -187,15 +188,16 @@ export const MassageContaienr = styled.div`
         }
     }
 `
-export const ChatBox = styled.div`
+export const ChatBox = styled(Div)`
     width: 100%;
     height: auto;
     padding: 10px 0px;
     display: flex;
     align-items: flex-end;
     flex-direction: ${({ isMe }) => isMe ? 'row-reverse' : 'row'};
+    
     `
-export const MassageOuter = styled.div`
+export const MassageOuter = styled(Div)`
     max-width: 60%;
     position: relative;
     border-radius: 20px;
@@ -205,7 +207,7 @@ export const MassageOuter = styled.div`
     overflow: hidden;
 
 `
-export const HiddenInput = styled.div`
+export const HiddenInput = styled(Div)`
     position: absolute;
     top: 0px;
     left: 0px;
@@ -215,12 +217,12 @@ export const HiddenInput = styled.div`
     height: 100%;
     background: transparent;
 `
-export const Massage = styled.div`
+export const Massage = styled(Div)`
     padding: 10px 20px;
     width: 100%;
     height: 100%;
 `
-export const ChatDp = styled.div`
+export const ChatDp = styled(Div)`
     margin: 0px 10px;
     width: 40px;
     height: 40px;
@@ -230,17 +232,17 @@ export const ChatDp = styled.div`
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
     background: #fff;
 `
-export const Msg = styled.div`
+export const Msg = styled(Div)`
     font-size: 15px;
 `
-export const Time = styled.div`
+export const Time = styled(Div)`
     font-size: 12px;
     text-align: right;
     color: #999;
 `
 
 // Context Container
-export const ContextContainer = styled.div`
+export const ContextContainer = styled(Div)`
     width: 190px;
     position: fixed;
     display: ${({ active }) => active ? 'block' : 'none'};

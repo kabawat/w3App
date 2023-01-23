@@ -1,12 +1,14 @@
 import styled from 'styled-components'
-export const Container = styled.div.attrs(({ className, id }) => ({ className, id }))`
+const Div = styled.div`
+`
+export const Container = styled(Div)`
     width: 100%;
     height: 100vh;
     overflow: hidden;
     background: #fafafa;
     position: relative;
 `
-export const Aside = styled.div.attrs(({ className, id }) => ({ className, id }))`
+export const Aside = styled(Div)`
     position: absolute;
     left: 0px;
     top:0px;
@@ -17,7 +19,7 @@ export const Aside = styled.div.attrs(({ className, id }) => ({ className, id })
     box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
     
 `
-export const Main = styled.div.attrs(({ className, id }) => ({ className, id }))`
+export const Main = styled(Div)`
     position: absolute;
     width: 100%;
     height: 100%;
@@ -28,14 +30,14 @@ export const Main = styled.div.attrs(({ className, id }) => ({ className, id }))
     z-index: 10;
     `
 
-export const ChatContainer = styled.div.attrs(({ className, id }) => ({ className, id }))`
+export const ChatContainer = styled(Div)`
     width: 100%;
     height: 100%;
     overflow: hidden;
     position: relative;
     padding: 60px 0px;
 `
-export const Header = styled.div.attrs(({ className, id }) => ({ className, id }))`
+export const Header = styled(Div)`
     top: 0px;
     left: 0px;
     position: absolute;
@@ -45,7 +47,7 @@ export const Header = styled.div.attrs(({ className, id }) => ({ className, id }
     box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
     background: #fff;
     `
-export const Footer = styled.div.attrs(({ className, id }) => ({ className, id }))`
+export const Footer = styled(Div)`
     position: absolute;
     width: 100%;
     height: 60px;
@@ -54,7 +56,7 @@ export const Footer = styled.div.attrs(({ className, id }) => ({ className, id }
     box-shadow: rgba(33, 35, 38, 0.1) 0px -10px 10px -10px;
     background: #fff;
 `
-export const ChatAreaContainer = styled.div.attrs(({ className, id }) => ({ className, id }))`
+export const ChatAreaContainer = styled(Div)`
     width: 100%;
     height: 100%;
     overflow: hidden;

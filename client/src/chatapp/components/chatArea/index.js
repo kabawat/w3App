@@ -15,11 +15,11 @@ const Chat = ({ curItem }) => {
     const date = new Date(curItem.time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
     const id = `_${new Date(curItem.time).getTime()}`
     return (
-        <ChatBox isMe={curItem.isMe}>
+        <ChatBox isMe={curItem.isMe} >
             <ChatDp>
                 <Image src={dp} />
             </ChatDp>
-            <MassageOuter onContextMenu={curItem.handaleContextMenu}>
+            <MassageOuter onContextMenu={curItem.handaleContextMenu} isMe={curItem.isMe}>
                 <Massage isMe={curItem?.isMe} >
                     <Msg>
                         {curItem?.massage}

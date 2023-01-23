@@ -1,5 +1,7 @@
 import styled from 'styled-components'
-export const HeaderSection = styled.div`
+import { Button } from '../../style'
+const Div = styled.div``
+export const HeaderSection = styled(Div)`
     width: 100%;
     height: 100%;
     /* background: #345; */
@@ -8,38 +10,38 @@ export const HeaderSection = styled.div`
     justify-content: space-between;
     padding: 0px 10px;
 `
-export const UserInfo = styled.div`
+export const UserInfo = styled(Div)`
     height: 100%;
     display: flex;
     align-items: center;
     /* background: red; */
 `
-export const UserDp = styled.div`
+export const UserDp = styled(Div)`
     width: 45px;
     height: 45px;
     background: pink;
     border-radius: 50%;
     overflow: hidden;
 `
-export const UserDetails = styled.div`
+export const UserDetails = styled(Div)`
     /* background: pink; */
     margin-left: 10px;
 `
-export const UserName = styled.div`
+export const UserName = styled(Div)`
     font-size: 16px;
     font-weight: bold;
     margin: 1px 0px;
 `
-export const UserStatus = styled.div`
+export const UserStatus = styled(Div)`
     font-size: 13px;
     font-weight: 500;
     letter-spacing: 1px;
 `
-export const SettingSection = styled.div`
+export const SettingSection = styled(Div)`
     position: relative;
     z-index: 20;
     `
-export const SettingToggle = styled.button.attrs(({ onClick, type, }) => ({ onClick, type, }))`
+export const SettingToggle = styled(Button)`
     width: 35px;
     height: 35px;
     padding: 4px;
@@ -52,7 +54,7 @@ export const SettingToggle = styled.button.attrs(({ onClick, type, }) => ({ onCl
         box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
     }
 `
-export const ListContaienr = styled.div`
+export const ListContaienr = styled(Div)`
     z-index: 10;
     position: absolute;
     right: 0px;

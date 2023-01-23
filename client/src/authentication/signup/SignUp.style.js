@@ -11,15 +11,7 @@ export const FormContainer = styled.div`
     align-items: center;
     justify-content: center;
 `
-export const Input = styled.input.attrs(({ type, className, name, value, onChange, onBlur, onFocus }) => ({
-    className,
-    name,
-    value,
-    onChange,
-    onBlur,
-    onFocus,
-    type,
-}))`
+export const Input = styled.input`
     font-family: sans-serif, Arial;
     outline: none;
     &:hover{

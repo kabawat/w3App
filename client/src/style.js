@@ -1,5 +1,8 @@
 import styled from 'styled-components'
-export const Image = styled.img.attrs(({ src }) => ({ src }))`
+const Div = styled.div`
+
+`
+export const Image = styled.img`
     width: 100%;
     height: 100%;
 `
@@ -8,7 +11,7 @@ export const Button = styled.button`
     font-size: inherit;
     outline: none;
 `
-export const ContextAction = styled.div`
+export const ContextAction = styled(Div)`
     padding: 5px 10px;
     font-size: 14px;
     border-radius: 5px;
