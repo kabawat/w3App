@@ -7,14 +7,15 @@ import { FormContainer, Input } from './SignUp.style';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux';
+import { BASE_URL } from '../../domain';
 const SignUp = () => {
     const socket = useSelector(state => state.socketController)
     const Navigate = useNavigate()
     useEffect(() => {
         const logout = async () => {
-            await axios.get('http://localhost:2917/logout', {
+            await axios.get(`${BASE_URL}/logout`, {
                 headers: {
-                    'Access-Control-Allow-Origin': 'http://localhost:2917/',
+                    'Access-Control-Allow-Origin': `${BASE_URL}`,
                     'Content-Type': 'application/json',
                 },
                 withCredentials: true,
@@ -91,9 +92,9 @@ const SignUp = () => {
         const { user, pwd } = loginData
         event.preventDefault()
         if (user !== '' && pwd !== '') {
-            await axios.post('http://localhost:2917/login', loginData, {
+            await axios.post(`${BASE_URL}/login`, loginData, {
                 headers: {
-                    'Access-Control-Allow-Origin': 'http://localhost:2917/',
+                    'Access-Control-Allow-Origin': `${BASE_URL}`,
                     'Content-Type': 'application/json',
                 },
                 withCredentials: true,
@@ -251,7 +252,7 @@ const SignUp = () => {
         if (regHandal.user && regHandal.email && regHandal.pwd) {
             setRegBtn(true)
             try {
-                await axios.post('http://localhost:2917/signup', regHandal, {
+                await axios.post(`${BASE_URL}/signup`, regHandal, {
                     headers: {
                         'Content-Type': 'application/json',
                         'withCredentials': true

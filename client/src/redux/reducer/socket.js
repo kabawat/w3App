@@ -1,5 +1,6 @@
 import { io } from 'socket.io-client'
-const URL = `http://localhost:2917/`
+import { BASE_URL } from '../../domain'
+const URL = `${BASE_URL}`
 const socket = io(URL)
 
 const socketController = (state = socket, action) => {

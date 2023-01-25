@@ -5,18 +5,19 @@ import { Image } from '../style.js'
 import { SubTitle, AddUser, SearchContainer, NewUserName, AddUserHeading, ContactList, ContactItem, NewUserDp, TagLine, NewUserModale, } from './modale.style.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { contactList } from '../redux/action'
+import { BASE_URL } from '../domain'
 const NewChatModal = ({ state }) => {
     const { profile } = useSelector(state => state.myProfile)
     const { userList, mouse } = state
     const Dispatch = useDispatch()
     const userHandal = async (payload) => {
         const id = `2917-room-id.${new Date().getTime()}`
-        const newChat = await axios.post(`http://localhost:2917/newchat`, {
+        const newChat = await axios.post(`${BASE_URL}/newchat`, {
             _room: id,
             sender: profile.email,
             receiver: payload.email,
         })
-        const result = await axios.get(`http://localhost:2917/userChat?sender=${profile.email}`)
+        const result = await axios.get(`${BASE_URL}/userChat?sender=${profile.email}`)
         const { data } = await result.data
         Dispatch(contactList(data))
     }

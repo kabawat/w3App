@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { BASE_URL } from '../domain'
 import { userProfile } from '../redux/action'
 import ChatAside from './components/aside/chatAside'
 import ChatArea from './components/chatArea'
@@ -15,18 +16,18 @@ const ChatApp = () => {
     useEffect(() => {
         const getVarify = async () => {
             try {
-                await axios.get('http://localhost:2917/verify', {
+                await axios.get(`${BASE_URL}/verify`, {
                     headers: {
-                        'Access-Control-Allow-Origin': 'http://localhost:2917/',
+                        'Access-Control-Allow-Origin': `${BASE_URL}`,
                         'Content-Type': 'application/json',
                     },
                     withCredentials: true,
                     credentials: 'same-origin',
                 })
 
-                const responce = await axios.get(`http://localhost:2917/profile`, {
+                const responce = await axios.get(`${BASE_URL}/profile`, {
                     headers: {
-                        'Access-Control-Allow-Origin': 'http://localhost:2917/',
+                        'Access-Control-Allow-Origin': `${BASE_URL}`,
                         'Content-Type': 'application/json',
                     },
                     withCredentials: true,

@@ -33,7 +33,7 @@ exports.login = (req, res) => {
 
         res.cookie('auth', token, {
             httpOnly: false,
-            withCredentials: true,
+            withCredentials: true,  
         }).status(200).json({
             massage: 'success',
             status: true,

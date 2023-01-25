@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 const HeaderBody = () => {
     const [showList, setShowList] = useState(false)
     const mystate = useSelector(state => state.receiverProfile)
-    const { user, email } = mystate
+    const { user } = mystate
     return (
         <HeaderSection>
             <UserInfo>
