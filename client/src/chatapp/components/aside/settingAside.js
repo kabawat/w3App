@@ -8,14 +8,45 @@ import { useState } from 'react';
 import { storyMode } from '../../../redux/action'
 import { Image } from '../../../style';
 import userProfiileDp from '../../../assets/user_dp/dp1.jpg'
+import SettingModal from '../../../modals/settingModal'
+import ProfileModal from '../../../modals/userProfileModal';
 const SettingAside = () => {
+
     const Dispatch = useDispatch()
-    // storyMode
     const [isActive, SetIsActive] = useState(true)
+    const [isSetting, setIsSetting] = useState(false)
+    const [isProfile, setIsProfile] = useState(false)
+    // storyMode
     const chatHandal = (event) => {
         Dispatch(storyMode(event))
         SetIsActive(event)
     }
+    const [mouse, setMouse] = useState({
+        x: 0,
+        y: 0,
+    })
+
+    const hadalSetting = (event) => {
+        setIsSetting(!isSetting)
+        setMouse({
+            x: event.pageX,
+            y: event.pageY
+        })
+    }
+    const hadalProfile = (event) => {
+        setIsProfile(!isProfile)
+        setMouse({
+            x: event.pageX,
+            y: event.pageY
+        })
+    }
+    window.addEventListener('click', (event) => {
+        // console.log(event.target);
+        if (event.target.id === 'modal') {
+            setIsSetting(false)
+            setIsProfile(false)
+        }
+    })
     return (
         <SettingAsideContainer>
             <AsideTab>
@@ -28,16 +59,18 @@ const SettingAside = () => {
             </AsideTab>
             <UserSetting>
                 <UserActionBox>
-                    <SettingButton isActive={false}>
+                    <SettingButton isActive={isSetting} onClick={hadalSetting}>
                         <IoSettingsOutline />
                     </SettingButton>
                 </UserActionBox>
                 <DpSection>
-                    <UserActionBox>
+                    <UserActionBox onClick={hadalProfile}>
                         <Image src={userProfiileDp} />
                     </UserActionBox>
                 </DpSection>
             </UserSetting>
+            {isSetting && <SettingModal mouse={mouse} />}
+            {isProfile && <ProfileModal mouse={mouse} />}
         </SettingAsideContainer>
 
     )

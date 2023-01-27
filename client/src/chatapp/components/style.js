@@ -17,8 +17,8 @@ export const UserInfo = styled(Div)`
     /* background: red; */
 `
 export const UserDp = styled(Div)`
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     background: pink;
     border-radius: 50%;
     overflow: hidden;

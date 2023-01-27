@@ -207,8 +207,8 @@ export const UserCartContainer = styled(Div)`
 `
 export const UserChatDp = styled(Button)`
     position: absolute;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     overflow: hidden;
     top:50%;
     left: 10px;

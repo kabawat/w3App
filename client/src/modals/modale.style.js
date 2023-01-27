@@ -96,3 +96,23 @@ export const TagLine = styled(Div)`
     line-height:16px ;
     text-align: left;
 `
+
+// setting modale 
+export const SettingModalContainer = styled(Div)`
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    `
+export const SettingContainer = styled(Div)`
+    width: 400px;
+    height: 500px;
+    background: #fff;
+    transform: translateY(-100%);
+    border-radius:8px;
+    border: 1px solid #dddddd9e;
+    position: absolute;
+    left: 52px;
+    top: ${({ mouse }) => `${mouse.y}px`};
+`
