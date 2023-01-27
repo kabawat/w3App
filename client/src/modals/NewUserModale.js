@@ -12,7 +12,7 @@ const NewChatModal = ({ state }) => {
     const Dispatch = useDispatch()
     const userHandal = async (payload) => {
         const id = `2917-room-id.${new Date().getTime()}`
-        const newChat = await axios.post(`${BASE_URL}/newchat`, {
+        await axios.post(`${BASE_URL}/newchat`, {
             _room: id,
             sender: profile.email,
             receiver: payload.email,

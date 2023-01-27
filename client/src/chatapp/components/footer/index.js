@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import { FooterContaienr, FileContainer, ChatTypeContaienr, ChatActionCotainer, SelectButton, SelectFileBox, Chat, Send } from '../style'
-import { BsPlusLg } from 'react-icons/bs';
-import { IoSendSharp } from 'react-icons/io5';
+import { FooterContaienr, FileContainer, ChatTypeContaienr, ChatActionCotainer, SelectButton, SelectFileBox, Chat, Send, FileList, FileIcon, Title } from '../style'
+import { BsPlusLg, BsFileEarmarkPdf } from 'react-icons/bs';
+import { IoSendSharp, IoVideocamOutline } from 'react-icons/io5';
+import { IoIosMusicalNotes } from 'react-icons/io';
+import { BiImages } from 'react-icons/bi';
 import { useDispatch } from 'react-redux';
 import { chatData } from '../../../redux/action';
 const FooterBody = () => {
@@ -30,7 +32,34 @@ const FooterBody = () => {
                     <BsPlusLg />
                 </SelectButton>
                 <SelectFileBox show={showFile ? 'visible' : 'hidden'}>
-                    {/* file  */}
+                    <FileList show={showFile}>
+                        <input type="file" id='pdf' name='pdf' />
+                        <FileIcon htmlFor='pdf'>
+                            <BsFileEarmarkPdf />
+                            <Title>PDF</Title>
+                        </FileIcon>
+                    </FileList>
+                    <FileList show={showFile}>
+                        <input type="file" id='picture' name="picture" />
+                        <FileIcon htmlFor='picture'>
+                            <BiImages />
+                            <Title>Image</Title>
+                        </FileIcon>
+                    </FileList>
+                    <FileList show={showFile}>
+                        <input type="file" id='video' name="video" />
+                        <FileIcon htmlFor='video'>
+                            <IoVideocamOutline />
+                            <Title>Video</Title>
+                        </FileIcon>
+                    </FileList>
+                    <FileList show={showFile}>
+                        <input type="file" id='music' name="music" />
+                        <FileIcon htmlFor='music'>
+                            <IoIosMusicalNotes />
+                            <Title>Music</Title>
+                        </FileIcon>
+                    </FileList>
                 </SelectFileBox>
             </FileContainer>
             {/* middle  */}

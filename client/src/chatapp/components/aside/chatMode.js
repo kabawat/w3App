@@ -64,7 +64,7 @@ const ChatMode = () => {
             Dispatch(contactList(data))
         }
         if (profile) getData()
-    }, [profile, deleteChat])
+    }, [profile, deleteChat, Dispatch])
 
     const getFriendProfile = async (payload) => {
         const responce = await axios.get(`${BASE_URL}/receiver_profile?receiver=${payload}`)

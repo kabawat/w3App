@@ -6,10 +6,9 @@ import { MdOutlineDownloadDone } from 'react-icons/md';
 import { FormContainer, Input } from './SignUp.style';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux';
 import { BASE_URL } from '../../domain';
 const SignUp = () => {
-    const socket = useSelector(state => state.socketController)
+    // const socket = useSelector(state => state.socketController)
     const Navigate = useNavigate()
     useEffect(() => {
         const logout = async () => {

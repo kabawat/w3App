@@ -1,5 +1,4 @@
 import React from 'react'
-import { useState } from 'react'
 import { SettingModalContainer, SettingContainer } from './modale.style'
 
 const ProfileModal = ({ mouse }) => {

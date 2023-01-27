@@ -40,7 +40,7 @@ const ChatApp = () => {
             }
         }
         getVarify()
-    }, [])
+    }, [Dispatch, Navigate])
     return (
         <Container>
             <Aside>

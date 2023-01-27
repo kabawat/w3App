@@ -71,11 +71,8 @@ const ChatArea = () => {
     })
 
     const hadaleDeleteMsg = () => {
-        const newMsgList = chatMassage.filter((curMsg) => {
-            if (conTextMsg.getTime() !== new Date(curMsg.time).getTime()) {
-                return curMsg
-            }
-        })
+        const newMsgList = chatMassage.filter((curMsg) => (conTextMsg.getTime() !== new Date(curMsg.time).getTime()) ? true : false
+        )
         Dispatch(deleteMsg(newMsgList))
     }
     return (

@@ -105,16 +105,80 @@ export const SelectButton = styled(Button)`
     }
     `
 export const SelectFileBox = styled(Div)`
-    width: 200px;
-    height: 400px;
     backdrop-filter: blue(3px);
-    background: rgba(0,0,0,0.02);
     position: absolute;
     bottom: 100%;
     left: 0px;
     transition: all  cubic-bezier(0.01, 0.16, 0.85, 1.02);
     visibility: ${({ show }) => show};
     `
+export const FileList = styled(Button)`
+    cursor: default;
+    height: 50px;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    margin: 6px 0px;
+    transform: ${({ show }) => !show ? 'scale(0)' : 'scale(1)'};
+    &:nth-child(1){
+        transition: ${({ show }) => show ? 'all 0.1s linear 0.25s' : 'all 0.1s linear 0.10s'} ;
+    }
+    &:nth-child(2){
+        transition: ${({ show }) => show ? 'all 0.1s linear 0.20s' : 'all 0.1s linear 0.15s'} ;
+    }
+    &:nth-child(3){
+        transition: ${({ show }) => show ? 'all 0.1s linear 0.15s' : 'all 0.1s linear 0.20s'} ;
+    }
+    &:nth-child(4){
+        transition: ${({ show }) => show ? 'all 0.1s linear 0.10s' : 'all 0.1s linear 0.25s'} ;
+    }
+    input{
+        display: none;
+    }
+`
+
+export const FileIcon = styled.label`
+    cursor: pointer;
+    display: block;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #fff;
+    display: grid;
+    place-items: center;
+    color: #457678;
+    font-size:20px;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    margin-right: 10px;
+    &:hover{
+        color: #1976d2;
+        span{
+            color: #1976d2;
+            opacity: 1;
+            visibility: visible;
+            transform: translate(20%, -50%);
+        }
+    }
+    `
+export const Title = styled.span`
+    visibility: hidden;
+    position: absolute;
+    font-size: 12px;
+    opacity: 0;
+    padding: 4px 10px;
+    background: #fff;
+    border-radius: 8px;
+    border-bottom-left-radius: 0px;
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    left: 100%;
+    top: 50%;
+    /* transform: translate(-50%); */
+    transform: translate(0%, -50%);
+    transition: all 0.2s linear;
+    /* color: #fff; */
+`
+
 export const ChatTypeContaienr = styled(Div)`
     width: 100%;
     height: 100%;
