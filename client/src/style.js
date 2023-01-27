@@ -1,11 +1,11 @@
 import styled from 'styled-components'
-const Div = styled.div`
-
-`
+const Div = styled.div``
 export const Image = styled.img`
     width: 100%;
     height: 100%;
+    border-radius: inherit;
 `
+
 export const Button = styled.button`
     outline: none;
     font-size: inherit;
