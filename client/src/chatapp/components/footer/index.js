@@ -4,9 +4,12 @@ import { BsPlusLg, BsFileEarmarkPdf } from 'react-icons/bs';
 import { IoSendSharp, IoVideocamOutline } from 'react-icons/io5';
 import { IoIosMusicalNotes } from 'react-icons/io';
 import { BiImages } from 'react-icons/bi';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { chatData } from '../../../redux/action';
+import { useEffect } from 'react';
 const FooterBody = () => {
+    const { myProfile, receiverProfile, socketController } = useSelector(state => state)
+    const socket = socketController
     const Dispatch = useDispatch()
     const [showFile, setShowFile] = useState(false)
     const [typeMsg, setTypeMsg] = useState('')
@@ -22,8 +25,21 @@ const FooterBody = () => {
                 time: new Date(),
                 isMe: true
             }))
+            socket.emit('massage', {
+                massage: typeMsg,
+                time: new Date(),
+                sender: myProfile.profile,
+                receiver: receiverProfile
+            })
         }
     }
+    useEffect(() => {
+        socket.on('reciveMsg', data => {
+            console.log(data);
+            const msgContent = { massage: data.massage, time: data.time }
+            Dispatch(chatData(msgContent))
+        })
+    })
     return (
         <FooterContaienr onSubmit={sendHandal}>
             {/* left  */}

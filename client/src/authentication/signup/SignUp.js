@@ -100,6 +100,7 @@ const SignUp = () => {
                 withCredentials: true,
                 credentials: 'same-origin',
             }).then((result) => {
+                socket.emit('updateSocket', loginData)
                 SetLoginValid(true)
                 setTimeout(() => {
                     Navigate('/')

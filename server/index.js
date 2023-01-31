@@ -43,7 +43,16 @@ io.on('connection', socket => {
         socketDataHandal(socket, user)
         socket.broadcast.emit('joined', user)
     })
-
+    socket.on('massage', data => {
+        console.log();
+        io.to(data.receiver.chatID).emit("reciveMsg", {
+            ...data
+        })
+    })
+    socket.on('updateSocket', profile => {
+        profile && socketUpdate(socket, profile)
+        console.log(profile);
+    })
 })
 
 const socketDataHandal = async (socket, user) => {
@@ -51,6 +60,8 @@ const socketDataHandal = async (socket, user) => {
         [user]: socket.id,
         user: user
     })
-    const result = await SocketData.save()
-    // console.log(result);
+    await SocketData.save()
+}
+const socketUpdate = async (socket, profile) => {
+    await socketModal.replaceOne({ user: profile.user }, { [profile.user]: socket.id, user: profile.user })
 }

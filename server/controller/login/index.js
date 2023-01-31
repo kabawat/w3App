@@ -1,4 +1,4 @@
-const { userModal } = require('../connection')
+const { userModal, socketModal } = require('../connection')
 const jwt = require('jsonwebtoken')
 exports.loginVerify = (req, res, next) => {
     const { user, pwd } = req.body
@@ -33,7 +33,7 @@ exports.login = (req, res) => {
 
         res.cookie('auth', token, {
             httpOnly: false,
-            withCredentials: true,  
+            withCredentials: true,
         }).status(200).json({
             massage: 'success',
             status: true,

@@ -81,12 +81,17 @@ exports.getReceiverProfile = (req, res) => {
     const getPofile = async () => {
         const { receiver } = req.query
         const profile = await userModal.findOne({ user: receiver })
-        if (profile) {
+        const UserSocket = await socketModal.findOne({ user: receiver })
+        if (profile && UserSocket) {
             const { user, email } = profile
             res.status(200).json({
                 status_code: 200,
                 status: true,
-                data: { user, email },
+                data: {
+                    user,
+                    email,
+                    chatID: UserSocket[receiver]
+                },
                 msg: `let's chat with ${user}`
             })
         } else {

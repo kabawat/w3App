@@ -37,12 +37,13 @@ const Chat = ({ curItem }) => {
 const ChatArea = () => {
     const Dispatch = useDispatch()
     const { chatMassage } = useSelector(state => state)
+
     const [conActive, setConActive] = useState(false)
+    const [conTextMsg, setConTextMsg] = useState()
     const [mouse, setMouse] = useState({
         x: 0,
         y: 0
     })
-    const [conTextMsg, setConTextMsg] = useState()
     const innerChatArea = useRef(null)
     const handaleContextMenu = (event) => {
         const _id = event.target.id.split('_')[1]
@@ -75,6 +76,12 @@ const ChatArea = () => {
         )
         Dispatch(deleteMsg(newMsgList))
     }
+
+    // console.log(scroll);
+    setTimeout(() => {
+        const scroll = document.getElementById('scroll')
+        scroll.scrollIntoView()
+    });
     return (
         <MassageContaienr ref={innerChatArea}>
             <ContextContainer active={conActive} left={mouse.x} top={mouse.y}>
@@ -120,6 +127,7 @@ const ChatArea = () => {
                     return <Chat curItem={{ ...curItem, handaleContextMenu }} key={index} />
                 })
             }
+            <div id="scroll"></div>
         </MassageContaienr>
     )
 }

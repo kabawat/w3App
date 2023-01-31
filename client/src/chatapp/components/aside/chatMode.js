@@ -1,18 +1,18 @@
 import React from 'react'
+import axios from 'axios'
+import dp from '../../../assets/user_dp/dp1.jpg'
+import NewChatModal from '../../../modals/NewUserModale';
 import { ChatModeHeader, ChatTitle, UserAction, NewChatContainer, NewChat, ChatMainContainer, ChatContainer, ChatMainCotainer, UserCartContainer, ChatLinkContainer, UserChatDp, UserName, UserInfo, ChatPreview, ContaxtMenu, Label } from './style'
 import { BiEdit } from 'react-icons/bi'
 import { BsThreeDots } from 'react-icons/bs';
 import { Button, ContextAction, Image } from '../../../style'
 import { useState } from 'react';
-import dp from '../../../assets/user_dp/dp1.jpg'
 import { useEffect } from 'react';
-import axios from 'axios'
 import { RiDeleteBinLine } from 'react-icons/ri'
 import { AiOutlineClear } from 'react-icons/ai'
 import { BsPin } from 'react-icons/bs'
 import { useDispatch, useSelector } from 'react-redux';
 import { contactList, RUserProfile } from '../../../redux/action';
-import NewChatModal from '../../../modals/NewUserModale';
 import { BASE_URL } from '../../../domain';
 const ChatMode = () => {
     const { myProfile, receiverProfile, chatContactList } = useSelector(state => state)

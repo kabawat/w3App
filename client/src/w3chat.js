@@ -6,13 +6,12 @@ import ChatApp from './chatapp'
 import { Container } from './w3chat.style'
 
 const W3Chat = () => {
-    const socket = useSelector(state => state.socketController)
+    const { socketController } = useSelector(state => state)
+    const socket = socketController
     socket.on('connect', () => {
         socket.on('welcome', data => {
-            // console.log(data);
         })
     })
-
     return (
         <Container>
             <BrowserRouter>
@@ -22,7 +21,7 @@ const W3Chat = () => {
                     <Route path='/user-authentication' element={<Authentication />} />
                 </Routes>
             </BrowserRouter>
-        </Container>    
+        </Container>
     )
 }
 
