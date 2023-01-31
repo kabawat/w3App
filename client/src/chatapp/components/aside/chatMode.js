@@ -16,7 +16,7 @@ import NewChatModal from '../../../modals/NewUserModale';
 import { BASE_URL } from '../../../domain';
 const ChatMode = () => {
     const { myProfile, receiverProfile, chatContactList } = useSelector(state => state)
-    const { email } = receiverProfile
+    const { user } = receiverProfile
     const { profile } = myProfile
     const Dispatch = useDispatch()
     const [curRoom, setCurRoom] = useState()
@@ -59,7 +59,7 @@ const ChatMode = () => {
     // user chat list 
     useEffect(() => {
         const getData = async () => {
-            const result = await axios.get(`${BASE_URL}/userChat?sender=${profile.email}`)
+            const result = await axios.get(`${BASE_URL}/userChat?sender=${profile.user}`)
             const { data } = await result.data
             Dispatch(contactList(data))
         }
@@ -73,8 +73,8 @@ const ChatMode = () => {
     }
 
     const handalContextMenu = (event) => {
-        setCurRoom(event.target.id)
         event.preventDefault()
+        setCurRoom(event.target.id)
         setContext(!context)
         setTimeout(() => {
             setContext(true)
@@ -86,7 +86,7 @@ const ChatMode = () => {
     }
 
     const handalDeleteChat = async (payload) => {
-        const responce = await axios.delete(`${BASE_URL}/delete-chat?_room=${payload}`)
+        const responce = await axios.delete(`${BASE_URL}/delete-chat?chat_id=${payload}`)
         setDeleteChat(responce)
     }
 
@@ -135,9 +135,9 @@ const ChatMode = () => {
                         chatContactList.map((curChat, index) => {
                             return (
                                 <UserCartContainer
-                                    active={((curChat.receiver === email) ? true : false)}
+                                    active={((curChat.receiver === user) ? true : false)}
                                     onContextMenu={handalContextMenu}
-                                    id={curChat._room}
+                                    id={curChat.chatID}
                                     key={index}
                                 >
                                     <UserChatDp>
@@ -149,7 +149,7 @@ const ChatMode = () => {
                                             <ChatPreview>
                                                 last seen 10:12 PM
                                             </ChatPreview>
-                                            <Label id={curChat._room}></Label>
+                                            <Label id={curChat.chatID}></Label>
                                         </UserInfo>
                                     </ChatLinkContainer>
                                 </UserCartContainer>

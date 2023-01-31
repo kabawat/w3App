@@ -1,9 +1,9 @@
 const { chatModal } = require('../connection')
 exports.deleteChat = (req, res) => {
     const getOperation = async () => {
-        const { _room } = req.query
-        const result = await chatModal.deleteOne({ _room })
-        res.send(`delete room ${result.deletedCount}`)
+        const { chat_id } = req.query
+        const result = await chatModal.deleteOne({ chat_id })
+        res.send(`delete Chat ${result.deletedCount}`)
     }
     getOperation()
 }

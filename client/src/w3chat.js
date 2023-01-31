@@ -22,7 +22,7 @@ const W3Chat = () => {
                     <Route path='/user-authentication' element={<Authentication />} />
                 </Routes>
             </BrowserRouter>
-        </Container>
+        </Container>    
     )
 }
 

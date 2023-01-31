@@ -11,15 +11,17 @@ const NewChatModal = ({ state }) => {
     const { userList, mouse } = state
     const Dispatch = useDispatch()
     const userHandal = async (payload) => {
-        const id = `2917-room-id.${new Date().getTime()}`
+        // create new chat 
         await axios.post(`${BASE_URL}/newchat`, {
-            _room: id,
-            sender: profile.email,
-            receiver: payload.email,
+            sender: profile.user,
+            receiver: payload.user,
         })
-        const result = await axios.get(`${BASE_URL}/userChat?sender=${profile.email}`)
-        const { data } = await result.data
-        Dispatch(contactList(data))
+
+        // chat List update 
+        await axios.get(`${BASE_URL}/userChat?sender=${profile.user}`).then((result) => {
+            const { data } = result.data
+            Dispatch(contactList(data))
+        })
     }
     return (
         <NewUserModale id="newChatModal">

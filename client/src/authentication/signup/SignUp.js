@@ -7,8 +7,9 @@ import { FormContainer, Input } from './SignUp.style';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { BASE_URL } from '../../domain';
+import { useSelector } from 'react-redux';
 const SignUp = () => {
-    // const socket = useSelector(state => state.socketController)
+    const socket = useSelector(state => state.socketController)
     const Navigate = useNavigate()
     useEffect(() => {
         const logout = async () => {
@@ -251,6 +252,7 @@ const SignUp = () => {
         if (regHandal.user && regHandal.email && regHandal.pwd) {
             setRegBtn(true)
             try {
+                socket.emit('join', regHandal.user)
                 await axios.post(`${BASE_URL}/signup`, regHandal, {
                     headers: {
                         'Content-Type': 'application/json',

@@ -25,7 +25,7 @@ const SchemaModal = new mongoose.Schema({
 
 // user Chat table 
 const chatTable = new mongoose.Schema({
-    _room: {
+    chatID: {
         type: String,
         require
     },
@@ -42,6 +42,9 @@ const chatTable = new mongoose.Schema({
     }
 })
 
+const chatSocket = new mongoose.Schema({}, { strict: false })
+
 const userModal = new mongoose.model('userDetaile', SchemaModal)
 const chatModal = new mongoose.model('chatList', chatTable)
-module.exports = { userModal, chatModal }
+const socketModal = new mongoose.model('socketIds', chatSocket)
+module.exports = { userModal, chatModal, socketModal }

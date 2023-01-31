@@ -1,15 +1,13 @@
-const { chatModal, userModal } = require('../connection')
+const { chatModal, userModal, socketModal } = require('../connection')
 
 // create room 
 exports.newchat = (req, res) => {
-    const { _room, sender, receiver, senderUser, receiverUser } = req.body
-    if (_room && sender && receiver) {
+    const { sender, receiver } = req.body
+    if (sender && receiver) {
         const findData = async () => {
-            const sendUser = await userModal.findOne({ email: sender })
-            const recUser = await userModal.findOne({ email: receiver })
-
-            const existsSender = await chatModal.findOne({ sender })
-            const existsReceiver = await chatModal.findOne({ receiver })
+            const sendUser = await userModal.findOne({ user: sender })
+            const recUser = await userModal.findOne({ user: receiver })
+            const socketData = await socketModal.findOne({ user: receiver })
             if (!sendUser || !recUser) {
                 res.status(409).json({
                     status_code: 409,
@@ -19,7 +17,7 @@ exports.newchat = (req, res) => {
                 })
             } else {
                 const newChat = new chatModal({
-                    _room: _room,
+                    chatID: socketData[receiver],
                     sender: sender,
                     receiver: receiver,
                 })
@@ -27,8 +25,8 @@ exports.newchat = (req, res) => {
                 res.status(200).json({
                     status_code: 200,
                     status: true,
-                    data: { ...req.body },
-                    msg: 'room created'
+                    data: { ...req.body, chatID: socketData[receiver] },
+                    msg: 'Chat created'
                 })
             }
         }

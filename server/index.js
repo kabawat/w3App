@@ -8,6 +8,7 @@ const userAuth = require('./router')
 const server = http.createServer(app)
 const socketIO = require('socket.io')
 
+const { socketModal } = require('./controller/connection')
 app.use(express.json())
 const corsOptions = {
     origin: [
@@ -28,9 +29,6 @@ const io = new socketIO.Server(server, {
         methods: ['GET', 'POST']
     }
 })
-io.on('connection', socket => {
-    // console.log(socket.id);
-})
 
 app.use(cookieParser())
 app.use(userAuth)
@@ -38,3 +36,21 @@ app.use(userAuth)
 server.listen(process.env.PORT, () => {
     console.log(`click here http://localhost:${process.env.PORT}`)
 })
+
+// socket data 
+io.on('connection', socket => {
+    socket.on('join', user => {
+        socketDataHandal(socket, user)
+        socket.broadcast.emit('joined', user)
+    })
+
+})
+
+const socketDataHandal = async (socket, user) => {
+    const SocketData = new socketModal({
+        [user]: socket.id,
+        user: user
+    })
+    const result = await SocketData.save()
+    // console.log(result);
+}

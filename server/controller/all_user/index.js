@@ -1,11 +1,22 @@
 const jwt = require('jsonwebtoken')
-const { userModal } = require('../connection')
+const { userModal, socketModal } = require('../connection')
 exports.AllUser = (req, res) => {
     const getdata = async () => {
         const data = await userModal.find()
-        const filter = data.map((curElem) => {
+        const socketDB = await socketModal.find()
+        const socketData = socketDB.map((value) => {
+            const data = Object.keys(value)
+            return data[3]
+        })
+        const filter = data.map((curElem, index) => {
+            const curSocketUser = socketDB[index]
+            const socketUser = socketData[index]
             const { _id, user, email } = curElem
-            return { _id, user, email }
+            const result = {
+                _id, user, email,
+                [socketUser]: curSocketUser[socketData[index]]
+            }
+            return result
         })
         res.status(200).json(filter)
     }
@@ -18,12 +29,15 @@ exports.userProfile = (req, res) => {
     if (data) {
         const getData = async () => {
             const result = await userModal.findOne({ user: data.user })
+            const socketId = await socketModal.find({ user: data.user })
+            const chatID = await socketId[0][data.user]
             const { _id, user, email } = result
             const profile = {
                 _id,
                 user,
                 email,
-                status: true
+                status: true,
+                chatID
             }
             res.status(200).json(profile)
         }
@@ -65,8 +79,8 @@ exports.chatUserInfo = (req, res) => {
 
 exports.getReceiverProfile = (req, res) => {
     const getPofile = async () => {
-        const email = req.query.receiver
-        const profile = await userModal.findOne({ email })
+        const { receiver } = req.query
+        const profile = await userModal.findOne({ user: receiver })
         if (profile) {
             const { user, email } = profile
             res.status(200).json({

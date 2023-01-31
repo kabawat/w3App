@@ -6,8 +6,8 @@ import { HiDotsVertical } from 'react-icons/hi';
 import { useSelector } from 'react-redux';
 const HeaderBody = () => {
     const [showList, setShowList] = useState(false)
-    const mystate = useSelector(state => state.receiverProfile)
-    const { user } = mystate
+    const { receiverProfile } = useSelector(state => state)
+    const { user } = receiverProfile
     return (
         <HeaderSection>
             <UserInfo>
