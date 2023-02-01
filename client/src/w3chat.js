@@ -9,8 +9,6 @@ const W3Chat = () => {
     const { socketController } = useSelector(state => state)
     const socket = socketController
     socket.on('connect', () => {
-        socket.on('welcome', data => {
-        })
     })
     return (
         <Container>

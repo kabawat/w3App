@@ -33,13 +33,13 @@ const FooterBody = () => {
             })
         }
     }
+
     useEffect(() => {
         socket.on('reciveMsg', data => {
-            console.log(data);
             const msgContent = { massage: data.massage, time: data.time }
             Dispatch(chatData(msgContent))
         })
-    })
+    }, [socket, Dispatch])
     return (
         <FooterContaienr onSubmit={sendHandal}>
             {/* left  */}

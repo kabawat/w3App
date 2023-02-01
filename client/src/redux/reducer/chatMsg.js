@@ -12,25 +12,20 @@ export const chatMassage = (state = initialValue, action) => {
     if (action.type === 'DELETE_MSG') {
         localStorage.setItem('chat', JSON.stringify(action.payload))
         return action.payload
-
     }
     return state
 }
 
 // current chat 
-const currentChat = JSON.parse(localStorage.getItem('currentChat'))
-const userData = currentChat ? currentChat : {}
-export const receiverProfile = (state = userData, action) => {
+export const receiverProfile = (state = '', action) => {
     if (action.type === 'RECEIVER_PROFILE') {
-        localStorage.setItem('currentChat', JSON.stringify(action.payload))
         return action.payload
     }
     return state
 }
 
 //all chat list
-const chatList = []
-export const chatContactList = (state = chatList, action) => {
+export const chatContactList = (state = [], action) => {
     if (action.type === 'CHAT_CONTACT') {
         return action.payload
     }

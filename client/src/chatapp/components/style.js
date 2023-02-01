@@ -327,3 +327,26 @@ export const ContextContainer = styled(Div)`
         }
     }
 `
+
+// no chat 
+export const NoChatContainer = styled(Div)`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+`
+export const NoChatLogo = styled(Div)`
+    font-size: 200px;
+    color: #ddd;
+    line-height: 0.5;
+`
+export const InfoChat = styled(Div)`
+
+`
+export const Heading = styled(Div)`
+    font-size: 20px;
+    font-weight: bold;
+    color: #557;
+`

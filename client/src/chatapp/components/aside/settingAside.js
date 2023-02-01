@@ -41,7 +41,6 @@ const SettingAside = () => {
         })
     }
     window.addEventListener('click', (event) => {
-        // console.log(event.target);
         if (event.target.id === 'modal') {
             setIsSetting(false)
             setIsProfile(false)

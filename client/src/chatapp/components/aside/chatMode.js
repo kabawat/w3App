@@ -86,9 +86,16 @@ const ChatMode = () => {
     }
 
     const handalDeleteChat = async (payload) => {
-        const responce = await axios.delete(`${BASE_URL}/delete-chat?chat_id=${payload}`)
-        setDeleteChat(responce)
+        if (receiverProfile.chatID === payload) {
+            const responce = await axios.delete(`${BASE_URL}/delete-chat?chat_id=${payload}`)
+            setDeleteChat(responce)
+            Dispatch(RUserProfile(''))
+        } else {
+            const responce = await axios.delete(`${BASE_URL}/delete-chat?chat_id=${payload}`)
+            setDeleteChat(responce)
+        }
     }
+
 
     return (
         <ChatMainContainer>

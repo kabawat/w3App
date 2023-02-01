@@ -44,14 +44,12 @@ io.on('connection', socket => {
         socket.broadcast.emit('joined', user)
     })
     socket.on('massage', data => {
-        console.log();
         io.to(data.receiver.chatID).emit("reciveMsg", {
             ...data
         })
     })
     socket.on('updateSocket', profile => {
         profile && socketUpdate(socket, profile)
-        console.log(profile);
     })
 })
 

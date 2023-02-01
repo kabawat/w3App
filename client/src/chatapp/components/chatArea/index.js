@@ -77,7 +77,6 @@ const ChatArea = () => {
         Dispatch(deleteMsg(newMsgList))
     }
 
-    // console.log(scroll);
     setTimeout(() => {
         const scroll = document.getElementById('scroll')
         scroll.scrollIntoView()
