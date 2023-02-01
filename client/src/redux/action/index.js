@@ -4,6 +4,22 @@ export const chatData = (payload) => {
         payload,
     }
 }
+
+export const deleteMsg = ({ newMsgList, user }) => {
+    return {
+        type: 'DELETE_MSG',
+        newMsgList,
+        user
+    }
+}
+
+export const getChatMsg = (payload) => {
+    return {
+        type: 'GET_CHAT',
+        payload
+    }
+}
+
 export const userProfile = (payload) => {
     return {
         type: 'PROFILE',
@@ -18,12 +34,6 @@ export const contactList = (payload) => {
     }
 }
 
-export const deleteMsg = (payload) => {
-    return {
-        type: 'DELETE_MSG',
-        payload,
-    }
-}
 
 export const storyMode = (payload) => {
     return {

@@ -12,7 +12,7 @@ import { RiDeleteBinLine } from 'react-icons/ri'
 import { AiOutlineClear } from 'react-icons/ai'
 import { BsPin } from 'react-icons/bs'
 import { useDispatch, useSelector } from 'react-redux';
-import { contactList, RUserProfile } from '../../../redux/action';
+import { contactList, getChatMsg, RUserProfile } from '../../../redux/action';
 import { BASE_URL } from '../../../domain';
 const ChatMode = () => {
     const { myProfile, receiverProfile, chatContactList } = useSelector(state => state)
@@ -69,6 +69,7 @@ const ChatMode = () => {
     const getFriendProfile = async (payload) => {
         const responce = await axios.get(`${BASE_URL}/receiver_profile?receiver=${payload}`)
         Dispatch(RUserProfile(await responce.data.data))
+        Dispatch(getChatMsg(responce.data.data))
         setIsNewChatModal(false)
     }
 
@@ -88,6 +89,7 @@ const ChatMode = () => {
     const handalDeleteChat = async (payload) => {
         if (receiverProfile.chatID === payload) {
             const responce = await axios.delete(`${BASE_URL}/delete-chat?chat_id=${payload}`)
+            console.log(responce);
             setDeleteChat(responce)
             Dispatch(RUserProfile(''))
         } else {
