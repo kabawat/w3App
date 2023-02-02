@@ -23,8 +23,7 @@ const FooterBody = () => {
             Dispatch(chatData({
                 massage: typeMsg,
                 time: new Date(),
-                isMe: true,
-                receiver: receiverProfile.user
+                isMe: true
             }))
             socket.emit('massage', {
                 massage: typeMsg,

@@ -12,9 +12,11 @@ import { RiDeleteBinLine } from 'react-icons/ri'
 import { AiOutlineClear } from 'react-icons/ai'
 import { BsPin } from 'react-icons/bs'
 import { useDispatch, useSelector } from 'react-redux';
-import { contactList, getChatMsg, RUserProfile } from '../../../redux/action';
+import { contactList, RUserProfile } from '../../../redux/action';
 import { BASE_URL } from '../../../domain';
+import { useCookies } from 'react-cookie';
 const ChatMode = () => {
+    const [cookies] = useCookies(['auth']);
     const { myProfile, receiverProfile, chatContactList } = useSelector(state => state)
     const { user } = receiverProfile
     const { profile } = myProfile
@@ -37,17 +39,12 @@ const ChatMode = () => {
     useEffect(() => {
         const getdata = async () => {
             const result = await axios.get(`${BASE_URL}/all_User`, {
-                headers: {
-                    'Access-Control-Allow-Origin': `${BASE_URL}`,
-                    'Content-Type': 'application/json',
-                },
-                withCredentials: true,
-                credentials: 'same-origin',
+                headers: { Authorization: cookies.auth }
             })
             setUserList(result.data);
         }
         getdata()
-    }, [])
+    }, [cookies])
 
     const hadalSearchModale = (event) => {
         setIsNewChatModal(true)
@@ -69,7 +66,6 @@ const ChatMode = () => {
     const getFriendProfile = async (payload) => {
         const responce = await axios.get(`${BASE_URL}/receiver_profile?receiver=${payload}`)
         Dispatch(RUserProfile(await responce.data.data))
-        Dispatch(getChatMsg(responce.data.data))
         setIsNewChatModal(false)
     }
 
@@ -89,7 +85,6 @@ const ChatMode = () => {
     const handalDeleteChat = async (payload) => {
         if (receiverProfile.chatID === payload) {
             const responce = await axios.delete(`${BASE_URL}/delete-chat?chat_id=${payload}`)
-            console.log(responce);
             setDeleteChat(responce)
             Dispatch(RUserProfile(''))
         } else {

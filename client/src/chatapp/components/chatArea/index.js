@@ -36,8 +36,7 @@ const Chat = ({ curItem }) => {
 
 const ChatArea = () => {
     const Dispatch = useDispatch()
-    const { chatMassage, receiverProfile } = useSelector(state => state)
-    const { user } = receiverProfile
+    const { chatMassage } = useSelector(state => state)
 
     const [conActive, setConActive] = useState(false)
     const [conTextMsg, setConTextMsg] = useState()
@@ -47,9 +46,9 @@ const ChatArea = () => {
     })
     const innerChatArea = useRef(null)
     const handaleContextMenu = (event) => {
-        event.preventDefault()
         const _id = event.target.id.split('_')[1]
         setConTextMsg(new Date(parseInt(_id)))
+        event.preventDefault()
         const innerSize = innerChatArea.current.clientWidth
         if ((event.pageX - 400) + 190 > innerSize) {
             setMouse({
@@ -75,7 +74,7 @@ const ChatArea = () => {
     const hadaleDeleteMsg = () => {
         const newMsgList = chatMassage.filter((curMsg) => (conTextMsg.getTime() !== new Date(curMsg.time).getTime()) ? true : false
         )
-        Dispatch(deleteMsg({ newMsgList, user }))
+        Dispatch(deleteMsg(newMsgList))
     }
 
     setTimeout(() => {

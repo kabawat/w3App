@@ -24,8 +24,8 @@ exports.AllUser = (req, res) => {
 }
 
 exports.userProfile = (req, res) => {
-    const token = req.cookies.auth
-    const data = jwt.decode(token)
+    const requestToken = req.headers.authorization
+    const data = jwt.decode(requestToken)
     if (data) {
         const getData = async () => {
             const result = await userModal.findOne({ user: data.user })
