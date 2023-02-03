@@ -4,21 +4,28 @@ exports.AllUser = (req, res) => {
     const getdata = async () => {
         const data = await userModal.find()
         const socketDB = await socketModal.find()
-        const socketData = socketDB.map((value) => {
-            const data = Object.keys(value)
-            return data[3]
-        })
-        const filter = data.map((curElem, index) => {
-            const curSocketUser = socketDB[index]
-            const socketUser = socketData[index]
-            const { _id, user, email } = curElem
-            const result = {
-                _id, user, email,
-                [socketUser]: curSocketUser[socketData[index]]
-            }
-            return result
-        })
-        res.status(200).json(filter)
+        try {
+            const socketData = socketDB.map((value) => {
+                const data = Object.keys(value)
+                return data[3]
+            })
+            const filter = data.map((curElem, index) => {
+                const curSocketUser = socketDB[index]
+                const socketUser = socketData[index]
+                const { _id, user, email } = curElem
+                const result = {
+                    _id, user, email,
+                    [socketUser]: curSocketUser[socketData[index]]
+                }
+                return result
+            })
+            res.status(200).json(filter)
+        } catch (error) {
+            res.status(401).json({
+                massage: 'login and try again',
+                status: false,
+            })
+        }
     }
     getdata()
 }

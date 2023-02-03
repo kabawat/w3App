@@ -1,22 +1,19 @@
-const { userModal, socketModal } = require('../connection')
+const { userModal } = require('../connection')
 const jwt = require('jsonwebtoken')
 exports.loginVerify = (req, res, next) => {
     const { user, pwd } = req.body
     const verify = async () => {
         const result = await userModal.findOne({ user, pwd })
-        if (result) {
-            next()
-        }
-        else {
-            res.status(409).json({
-                status: false,
-                massage: "invalid credentials"
-            })
-        }
+        result && next()
+        !result && res.status(409).json({
+            status: false,
+            massage: 'invalid username or password'
+        })
     }
-    if (user && pwd) {
-        verify()
-    } else {
+    try {
+        if (user && pwd) verify()
+        else throw false
+    } catch (error) {
         res.status(409).json({
             status: false,
             massage: "invalid credentials"
