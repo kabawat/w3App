@@ -15,6 +15,7 @@ import { Aside, ChatContainer, Container, Header, Main, Footer, ChatAreaContaine
 const ChatApp = () => {
     const [cookies, setCookie] = useCookies(['auth']);
     const { receiverProfile } = useSelector(state => state)
+    console.log("receiverProfile", receiverProfile)
     const Navigate = useNavigate()
     const Dispatch = useDispatch()
     useEffect(() => {
@@ -45,19 +46,17 @@ const ChatApp = () => {
             </Aside>
             <Main>
                 {
-                    receiverProfile ? (
-                        <ChatContainer>
-                            <Header>
-                                <HeaderBody />
-                            </Header>
-                            <ChatAreaContainer>
-                                <ChatArea />
-                            </ChatAreaContainer>
-                            <Footer>
-                                <FooterBody />
-                            </Footer>
-                        </ChatContainer>
-                    ) : <NoChat />
+                    receiverProfile ? <ChatContainer>
+                        <Header>
+                            <HeaderBody />
+                        </Header>
+                        <ChatAreaContainer>
+                            <ChatArea />
+                        </ChatAreaContainer>
+                        <Footer>
+                            <FooterBody />
+                        </Footer>
+                    </ChatContainer> : <NoChat />
                 }
             </Main>
 

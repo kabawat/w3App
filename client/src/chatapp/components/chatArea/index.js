@@ -122,7 +122,7 @@ const ChatArea = () => {
                 </ContextAction>
             </ContextContainer>
             {
-                chatMassage?.map((curItem, index) => {
+                chatMassage && chatMassage.map((curItem, index) => {
                     return <Chat curItem={{ ...curItem, handaleContextMenu }} key={index} />
                 })
             }

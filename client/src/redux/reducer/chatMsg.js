@@ -1,6 +1,6 @@
 // chat 
-const data = JSON.parse(localStorage.getItem('chat'))
-const initialValue = data ? data : []
+// const data = JSON.parse(localStorage.getItem('chat'))
+const initialValue = ''
 export const chatMassage = (state = initialValue, action) => {
     if (action.type === 'CHATING') {
         localStorage.setItem('chat', JSON.stringify([...state, action.payload]))
@@ -10,8 +10,12 @@ export const chatMassage = (state = initialValue, action) => {
         ]
     }
     if (action.type === 'DELETE_MSG') {
-        localStorage.setItem('chat', JSON.stringify(action.payload))
-        return action.payload
+        localStorage.setItem([action.user], JSON.stringify(action.newMsgList))
+        return [...action.newMsgList]
+    }
+    if (action.type === "GET_CHAT") {
+        const chat = JSON.parse(localStorage.getItem([action.payload.user]))
+        return chat
     }
     return state
 }
