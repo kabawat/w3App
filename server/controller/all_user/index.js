@@ -31,7 +31,7 @@ exports.AllUser = (req, res) => {
 }
 
 exports.userProfile = (req, res) => {
-    const token = req.cookies.auth
+    const token = req.headers.authorization
     const data = jwt.decode(token)
     if (data) {
         const getData = async () => {

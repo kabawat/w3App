@@ -8,21 +8,13 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { BASE_URL } from '../../domain';
 import { useSelector } from 'react-redux';
+import { useCookies } from 'react-cookie'
 const SignUp = () => {
     const socket = useSelector(state => state.socketController)
     const Navigate = useNavigate()
+    const [, setCookies, removeCookie] = useCookies(['auth'])
     useEffect(() => {
-        const logout = async () => {
-            await axios.get(`${BASE_URL}/logout`, {
-                headers: {
-                    'Access-Control-Allow-Origin': `${BASE_URL}`,
-                    'Content-Type': 'application/json',
-                },
-                withCredentials: true,
-                credentials: 'same-origin',
-            })
-        }
-        logout()
+        removeCookie('auth')
     }, [])
     // login form  handal 
     const [loginData, SetLoginData] = useState({
@@ -92,15 +84,9 @@ const SignUp = () => {
         const { user, pwd } = loginData
         event.preventDefault()
         if (user !== '' && pwd !== '') {
-            await axios.post(`${BASE_URL}/login`, loginData, {
-                headers: {
-                    'Access-Control-Allow-Origin': `${BASE_URL}`,
-                    'Content-Type': 'application/json',
-                },
-                withCredentials: true,
-                credentials: 'same-origin',
-            }).then((result) => {
+            await axios.post(`${BASE_URL}/login`, loginData).then((result) => {
                 socket.emit('updateSocket', loginData)
+                setCookies('auth', result.data.token)
                 SetLoginValid(true)
                 setTimeout(() => {
                     Navigate('/')
@@ -254,14 +240,7 @@ const SignUp = () => {
             setRegBtn(true)
             try {
                 socket.emit('join', regHandal.user)
-                await axios.post(`${BASE_URL}/signup`, regHandal, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'withCredentials': true
-                    },
-                    withCredentials: true,
-                    credentials: 'same-origin',
-                }).then((result) => {
+                await axios.post(`${BASE_URL}/signup`, regHandal).then((result) => {
                     setRegHandal({
                         user: '',
                         email: '',

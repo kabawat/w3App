@@ -28,10 +28,7 @@ exports.login = (req, res) => {
         const { _id, email, user } = await result
         const token = jwt.sign({ user, email }, process.env.PRIVETKEY)
 
-        res.cookie('auth', token, {
-            httpOnly: false,
-            withCredentials: true,
-        }).status(200).json({
+        res.status(200).json({
             massage: 'success',
             status: true,
             status_code: 200,

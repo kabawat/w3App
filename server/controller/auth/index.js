@@ -1,7 +1,7 @@
 const { userModal } = require('../connection')
 const jwt = require('jsonwebtoken')
 exports.verify = (req, res, next) => {
-    const token = req.cookies.auth
+    const token = req.headers.authorization
     try {
         if (token) {
             const isValidUser = jwt.verify(token, process.env.PRIVETKEY)
@@ -27,18 +27,16 @@ exports.verify = (req, res, next) => {
 }
 
 exports.userVerify = (req, res) => {
-    const requestToken = req.cookies.auth
+    const requestToken = req.headers.authorization
     const { user, email } = jwt.decode(requestToken)
     const token = jwt.sign({ user, email }, process.env.PRIVETKEY)
     try {
         if (token) {
-            res.cookie('auth', token, {
-                httpOnly: false,
-                withCredentials: true
-            }).status(200).json({
+            res.status(200).json({
                 massage: 'success',
                 status: true,
-                status_code: 200
+                status_code: 200,
+                token
             })
         } else {
             throw false
