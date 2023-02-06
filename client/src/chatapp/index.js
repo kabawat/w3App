@@ -17,6 +17,7 @@ const ChatApp = () => {
     const { receiverProfile } = useSelector(state => state)
     const Navigate = useNavigate()
     const Dispatch = useDispatch()
+
     useEffect(() => {
         const getVarify = async () => {
             try {
@@ -42,7 +43,10 @@ const ChatApp = () => {
             }
         }
         getVarify()
-    }, [Dispatch, Navigate])
+    }, [Dispatch, removeCookie, Navigate, cookies.auth, setCookies])
+    // useEffect(() => {
+
+    // }, [, Dispatch])
     return (
         <Container>
             <Aside>
