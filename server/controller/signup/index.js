@@ -1,7 +1,7 @@
 const { userModal } = require('../connection')
-exports.singUpValidation = (req, res, next) => {
-    const { user, email, pwd } = req.body
-    const confirm = async () => {
+exports.singUpValidation = async (req, res, next) => {
+    try {
+        const { user, email } = req.body
         const isEmail = await userModal.findOne({ email })
         const isUser = await userModal.findOne({ user })
         if (isEmail) {
@@ -21,17 +21,29 @@ exports.singUpValidation = (req, res, next) => {
         if (!isEmail && !isUser) {
             next()
         }
+    } catch (error) {
+        res.status(500).json({
+            status: false,
+            massage: 'Something went wrong. Please try again later'
+        })
     }
-    confirm()
 }
-exports.Signup = (req, res) => {
-    const { user, email, pwd } = req.body
-    const DateModal = new userModal({
-        user, email, pwd
-    })
-    DateModal.save()
-    res.status(200).json({
-        status: true,
-        massage: "Registration Success"
-    })
+exports.Signup = async (req, res) => {
+    try {
+        const { user, email, pwd } = req.body
+        const DateModal = new userModal({
+            user, email, pwd
+        })
+        await DateModal.save()
+        res.status(200).json({
+            status: true,
+            massage: "Registration Success"
+        })
+    } catch (error) {
+        res.status(500).json({
+            status: false,
+            massage: "Registration Failed",
+            error: error.message
+        })
+    }
 }
