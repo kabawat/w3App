@@ -4,7 +4,7 @@ import React from 'react'
 import { Image } from '../style.js'
 import { SubTitle, AddUser, SearchContainer, NewUserName, AddUserHeading, ContactList, ContactItem, NewUserDp, TagLine, NewUserModale, } from './modale.style.js'
 import { useDispatch, useSelector } from 'react-redux'
-import { contactList } from '../redux/action'
+import { newUserJoined } from '../redux/action'
 import { BASE_URL } from '../domain'
 const NewChatModal = ({ state }) => {
     const { profile } = useSelector(state => state.myProfile)
@@ -13,19 +13,19 @@ const NewChatModal = ({ state }) => {
     const userHandal = async (payload) => {
         // create new chat 
         try {
-            await axios.post(`${BASE_URL}/newchat`, {
+            const responce = await axios.post(`${BASE_URL}/newchat`, {
                 sender: profile.user,
                 receiver: payload.user,
             });
+            if (responce) {
+                const { data } = responce.data
+                Dispatch(newUserJoined(data))
+            } else {
+
+            }
         } catch (error) {
             console.log(error.response.data.message);
         }
-
-        // chat List update 
-        await axios.get(`${BASE_URL}/userChat?sender=${profile.user}`).then((result) => {
-            const { data } = result.data
-            Dispatch(contactList(data))
-        })
     }
 
     return (

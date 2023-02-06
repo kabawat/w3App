@@ -27,13 +27,19 @@ export const userProfile = (payload) => {
     }
 }
 
+// chat constact list 
+export const newUserJoined = (payload) => {
+    return {
+        type: 'NEW_CHAT',
+        payload
+    }
+}
 export const contactList = (payload) => {
     return {
         type: 'CHAT_CONTACT',
         payload
     }
 }
-
 
 export const storyMode = (payload) => {
     return {

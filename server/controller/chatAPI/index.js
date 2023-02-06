@@ -19,13 +19,19 @@ async function processRequest(req, res) {
                         sender: sender,
                         receiver: receiver,
                     })
-                    newChat.save()
-                    res.status(200).json({
-                        status_code: 200,
-                        status: true,
-                        data: { ...req.body, chatID: socketData[receiver] },
-                        message: 'Chat created'
-                    })
+                    const respoce = await newChat.save()
+                    if (respoce) {
+                        const { sender, receiver, date, chatID } = respoce
+                        res.status(200).json({
+                            status_code: 200,
+                            status: true,
+                            data: { sender, receiver, date, chatID },
+                            message: 'Chat created'
+                        })
+                    } else {
+                        throw new Error('something went wrong')
+                    }
+
                 } else {
                     throw new Error('Chat alreay exists');
                 }

@@ -39,9 +39,16 @@ export const receiverProfile = (state = '', action) => {
 
 //all chat list
 export const chatContactList = (state = [], action) => {
+    if (action.type === 'NEW_CHAT') {
+        return [
+            ...state,
+            action.payload
+        ]
+    }
     if (action.type === 'CHAT_CONTACT') {
-        console.log(action.payload)
         return action.payload
     }
     return state
 }
+
+// privet chat contact 
