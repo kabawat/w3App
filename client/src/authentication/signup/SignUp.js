@@ -15,7 +15,7 @@ const SignUp = () => {
     const [, setCookies, removeCookie] = useCookies(['auth'])
     useEffect(() => {
         removeCookie('auth')
-    }, [])
+    }, [removeCookie])
     // login form  handal 
     const [loginData, SetLoginData] = useState({
         user: '',
