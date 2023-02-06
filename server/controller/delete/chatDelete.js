@@ -2,7 +2,7 @@ const { chatModal } = require('../connection')
 exports.deleteChat = async (req, res) => {
     try {
         const { chat_id } = req.query;
-        const result = await chatModal.deleteOne({ chat_id });
+        const result = await chatModal.deleteOne({ chatID: chat_id });
         res.send(`delete Chat ${result.deletedCount}`);
     } catch (error) {
         console.error(error);
