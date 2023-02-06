@@ -8,10 +8,12 @@ const SchemaModal = new mongoose.Schema({
     user: {
         type: String,
         require,
+        unique: true
     },
     email: {
         type: String,
-        require
+        require,
+        unique: true
     },
     pwd: {
         type: String,

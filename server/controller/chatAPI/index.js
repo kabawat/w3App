@@ -1,42 +1,60 @@
 const { chatModal, userModal, socketModal } = require('../connection')
+// create new Chat 
+async function processRequest(req, res) {
+    const { sender, receiver } = req.body;
+    try {
+        // find sender 
+        const isSender = await userModal.findOne({ user: sender });
+        if (isSender) {
+            // find receiver 
+            const isReceiver = await userModal.findOne({ user: receiver });
+            if (isReceiver) {
+                // check duplicate data
+                const isValid = await chatModal.findOne({ sender, receiver });
+                if (isValid == null) {
+                    // find socket id
+                    const socketData = await socketModal.findOne({ user: receiver })
+                    const newChat = new chatModal({
+                        chatID: socketData[receiver],
+                        sender: sender,
+                        receiver: receiver,
+                    })
+                    newChat.save()
+                    res.status(200).json({
+                        status_code: 200,
+                        status: true,
+                        data: { ...req.body, chatID: socketData[receiver] },
+                        message: 'Chat created'
+                    })
+                } else {
+                    throw new Error('Chat alreay exists');
+                }
+            } else {
+                throw new Error('Invalid receiver');
+            }
+        } else {
+            throw new Error('Invalid sender');
+        }
+    } catch (error) {
+        res.status(409).json({
+            status_code: 409,
+            status: false,
+            data: {},
+            message: error.message
+        });
+    }
+}
 
-// create room 
 exports.newchat = (req, res) => {
     const { sender, receiver } = req.body
     if (sender && receiver) {
-        const findData = async () => {
-            const sendUser = await userModal.findOne({ user: sender })
-            const recUser = await userModal.findOne({ user: receiver })
-            const socketData = await socketModal.findOne({ user: receiver })
-            if (!sendUser || !recUser) {
-                res.status(409).json({
-                    status_code: 409,
-                    status: false,
-                    data: {},
-                    msg: 'invalid credentials'
-                })
-            } else {
-                const newChat = new chatModal({
-                    chatID: socketData[receiver],
-                    sender: sender,
-                    receiver: receiver,
-                })
-                newChat.save()
-                res.status(200).json({
-                    status_code: 200,
-                    status: true,
-                    data: { ...req.body, chatID: socketData[receiver] },
-                    msg: 'Chat created'
-                })
-            }
-        }
-        findData()
+        processRequest(req, res)
     } else {
         res.status(409).json({
             status_code: 409,
             status: false,
             data: {},
-            msg: 'invalid credentials'
+            message: 'invalid credentials'
         })
     }
 }
@@ -44,23 +62,36 @@ exports.newchat = (req, res) => {
 // fetch chat Data 
 exports.chatList = (req, res) => {
     const getdata = async () => {
-        const { sender } = req.query
-        const chatsUsers = await chatModal.find({ sender })
-        if (chatsUsers) {
-            res.status(200).json({
-                status_code: 200,
-                status: true,
-                data: chatsUsers,
-                msg: 'fetch data Successfull'
+        try {
+            const chatsUsers = await chatModal.find({ sender: req.query.sender })
+            const chatData = chatsUsers.map(curChat => {
+                const { chatID, sender, receiver, date } = curChat
+                return { chatID, sender, receiver, date }
             })
-        } else {
-            res.status(404).json({
-                status_code: 404,
+            if (chatsUsers) {
+                res.status(200).json({
+                    status_code: 200,
+                    status: true,
+                    data: chatData,
+                    msg: 'fetch data Successfull'
+                })
+            } else {
+                res.status(404).json({
+                    status_code: 404,
+                    status: false,
+                    data: chatsUsers,
+                    msg: 'data not found'
+                })
+            }
+        } catch (error) {
+            console.error(error)
+            res.status(500).json({
+                status_code: 500,
                 status: false,
-                data: chatsUsers,
-                msg: 'data not found'
+                msg: 'Something went wrong, please try again later'
             })
         }
     }
     getdata()
+
 }

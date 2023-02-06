@@ -46,7 +46,7 @@ const ChatMode = () => {
             setUserList(result.data);
         }
         getdata()
-    }, [])
+    }, [cookies.auth])
 
     const hadalSearchModale = (event) => {
         setIsNewChatModal(true)
@@ -67,7 +67,7 @@ const ChatMode = () => {
             Dispatch(contactList(data))
         }
         if (profile) getData()
-    }, [profile, deleteChat, Dispatch])
+    }, [cookies.auth, profile, deleteChat, Dispatch])
 
     const getFriendProfile = async (payload) => {
         const responce = await axios.get(`${BASE_URL}/receiver_profile?receiver=${payload}`, {

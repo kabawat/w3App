@@ -37,7 +37,6 @@ const FooterBody = () => {
 
     useEffect(() => {
         socket.on('reciveMsg', data => {
-            console.log(data);
             const msgContent = { massage: data.massage, time: data.time, receiver : data.sender.user,isMe: false, }
             Dispatch(chatData(msgContent))
         })

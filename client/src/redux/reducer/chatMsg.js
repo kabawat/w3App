@@ -19,8 +19,6 @@ export const chatMassage = (state = initialValue, action) => {
         }
     }
     if (action.type === 'DELETE_MSG') {
-        console.log(action);
-        // console.log(action.payload.receiver);
         localStorage.setItem([action.user], JSON.stringify(action.newMsgList))
         return [...action.newMsgList]
     }
@@ -42,6 +40,7 @@ export const receiverProfile = (state = '', action) => {
 //all chat list
 export const chatContactList = (state = [], action) => {
     if (action.type === 'CHAT_CONTACT') {
+        console.log(action.payload)
         return action.payload
     }
     return state

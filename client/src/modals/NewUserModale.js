@@ -12,10 +12,14 @@ const NewChatModal = ({ state }) => {
     const Dispatch = useDispatch()
     const userHandal = async (payload) => {
         // create new chat 
-        await axios.post(`${BASE_URL}/newchat`, {
-            sender: profile.user,
-            receiver: payload.user,
-        })
+        try {
+            await axios.post(`${BASE_URL}/newchat`, {
+                sender: profile.user,
+                receiver: payload.user,
+            });
+        } catch (error) {
+            console.log(error.response.data.message);
+        }
 
         // chat List update 
         await axios.get(`${BASE_URL}/userChat?sender=${profile.user}`).then((result) => {
@@ -23,6 +27,7 @@ const NewChatModal = ({ state }) => {
             Dispatch(contactList(data))
         })
     }
+
     return (
         <NewUserModale id="newChatModal">
             <SearchContainer left={mouse.x} top={mouse.y}>
