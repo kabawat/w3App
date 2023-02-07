@@ -87,7 +87,7 @@ export const FileContainer = styled(Div)`
     transition: all  cubic-bezier(0, 0.01, 0, 1.04);
     width: 80px;
 `
-export const SelectButton = styled(Button)`
+export const SelectButton = styled(Div)`
     width: 45px;
     height: 45px;
     border-radius:50%;
@@ -95,7 +95,17 @@ export const SelectButton = styled(Button)`
     display: grid;
     place-items: center;
     color: #fff;
-
+    overflow: hidden;
+    position: relative;
+    button{
+        display: block;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+    }
     &:active{
         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     }
@@ -137,7 +147,7 @@ export const FileList = styled(Button)`
     }
 `
 
-export const FileIcon = styled.label`
+export const FileIcon = styled.div`
     cursor: pointer;
     display: block;
     position: relative;
@@ -153,15 +163,25 @@ export const FileIcon = styled.label`
     margin-right: 10px;
     &:hover{
         color: #1976d2;
-        span{
+        label:nth-child(1){
             color: #1976d2;
             opacity: 1;
             visibility: visible;
             transform: translate(20%, -50%);
         }
     }
-    `
-export const Title = styled.span`
+`
+export const Lebal = styled.label`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    cursor: pointer;
+    top:0px;
+    left: 0px;
+    z-index: 10;
+`
+export const Title = styled.label`
     visibility: hidden;
     position: absolute;
     font-size: 12px;
@@ -173,10 +193,9 @@ export const Title = styled.span`
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
     left: 100%;
     top: 50%;
-    /* transform: translate(-50%); */
+    cursor: pointer;
     transform: translate(0%, -50%);
     transition: all 0.2s linear;
-    /* color: #fff; */
 `
 
 export const ChatTypeContaienr = styled(Div)`

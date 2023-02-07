@@ -48,6 +48,7 @@ io.on('connection', socket => {
             ...data
         })
     })
+    
     socket.on('updateSocket', profile => {
         profile && socketUpdate(socket, profile)
     })

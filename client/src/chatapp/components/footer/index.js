@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FooterContaienr, FileContainer, ChatTypeContaienr, ChatActionCotainer, SelectButton, SelectFileBox, Chat, Send, FileList, FileIcon, Title } from '../style'
+import { FooterContaienr, FileContainer, ChatTypeContaienr, Lebal, ChatActionCotainer, SelectButton, SelectFileBox, Chat, Send, FileList, FileIcon, Title } from '../style'
 import { BsPlusLg, BsFileEarmarkPdf } from 'react-icons/bs';
 import { IoSendSharp, IoVideocamOutline } from 'react-icons/io5';
 import { IoIosMusicalNotes } from 'react-icons/io';
@@ -15,6 +15,11 @@ const FooterBody = () => {
     const typingHandal = (event) => {
         setTypeMsg(event.target.value)
     }
+    window.addEventListener('click', (event) => {
+        if (event.target.id !== 'toggleFile') {
+            setShowFile(false)
+        }
+    })
     const sendHandal = (event) => {
         event.preventDefault()
         setTypeMsg('')
@@ -25,6 +30,7 @@ const FooterBody = () => {
                 isMe: true,
                 receiver: receiverProfile.user
             }))
+
             socket.emit('massage', {
                 massage: typeMsg,
                 time: new Date(),
@@ -37,36 +43,41 @@ const FooterBody = () => {
         <FooterContaienr onSubmit={sendHandal}>
             {/* left  */}
             <FileContainer>
-                <SelectButton type='button' x={showFile ? 45 : 0} onClick={() => setShowFile(!showFile)}>
+                <SelectButton x={showFile ? 45 : 0}>
                     <BsPlusLg />
+                    <button id='toggleFile' type='button' onClick={() => setShowFile(!showFile)}></button>
                 </SelectButton>
                 <SelectFileBox show={showFile ? 'visible' : 'hidden'}>
                     <FileList show={showFile}>
                         <input type="file" id='pdf' name='pdf' />
-                        <FileIcon htmlFor='pdf'>
+                        <FileIcon >
+                            <Title htmlFor='pdf'>PDF</Title>
                             <BsFileEarmarkPdf />
-                            <Title>PDF</Title>
+                            <Lebal htmlFor='pdf'></Lebal>
                         </FileIcon>
                     </FileList>
                     <FileList show={showFile}>
                         <input type="file" id='picture' name="picture" />
-                        <FileIcon htmlFor='picture'>
+                        <FileIcon >
+                            <Title htmlFor='picture'>Image</Title>
                             <BiImages />
-                            <Title>Image</Title>
+                            <Lebal htmlFor='picture'></Lebal>
                         </FileIcon>
                     </FileList>
                     <FileList show={showFile}>
                         <input type="file" id='video' name="video" />
-                        <FileIcon htmlFor='video'>
+                        <FileIcon >
+                            <Title htmlFor='video'>video</Title>
                             <IoVideocamOutline />
-                            <Title>Video</Title>
+                            <Lebal htmlFor='video'></Lebal>
                         </FileIcon>
                     </FileList>
                     <FileList show={showFile}>
                         <input type="file" id='music' name="music" />
-                        <FileIcon htmlFor='music'>
+                        <FileIcon >
+                            <Title htmlFor='music'>Music</Title>
                             <IoIosMusicalNotes />
-                            <Title>Music</Title>
+                            <Lebal htmlFor='music'></Lebal>
                         </FileIcon>
                     </FileList>
                 </SelectFileBox>

@@ -5,6 +5,13 @@ export const chatData = (payload) => {
     }
 }
 
+export const newUserCHat = (payload) => {
+    return {
+        type: 'New_CHATING',
+        payload,
+    }
+}
+
 export const deleteMsg = ({ newMsgList, user }) => {
     return {
         type: 'DELETE_MSG',
