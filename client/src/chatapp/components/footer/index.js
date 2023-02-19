@@ -12,6 +12,7 @@ const FooterBody = () => {
     const Dispatch = useDispatch()
     const [showFile, setShowFile] = useState(false)
     const [typeMsg, setTypeMsg] = useState('')
+    const [selectVideo, setSelectVideo] = useState()
     const typingHandal = (event) => {
         setTypeMsg(event.target.value)
     }
@@ -20,12 +21,26 @@ const FooterBody = () => {
             setShowFile(false)
         }
     })
+
+    const videoHandal = (event) => {
+        setSelectVideo(event.target.files[0])
+        const video = document.createElement('video');
+        video.src = URL.createObjectURL(event.target.files[0]);
+
+        video.addEventListener('loadedmetadata', () => {
+            const width = video.videoWidth;
+            const height = video.videoHeight;
+            const aspectRatio = (height / width) * 100;
+        });
+    }
+
     const sendHandal = (event) => {
         event.preventDefault()
         setTypeMsg('')
         if (typeMsg) {
             Dispatch(chatData({
                 massage: typeMsg,
+                video: selectVideo,
                 time: new Date(),
                 isMe: true,
                 receiver: receiverProfile.user
@@ -33,6 +48,7 @@ const FooterBody = () => {
 
             socket.emit('massage', {
                 massage: typeMsg,
+                video: selectVideo,
                 time: new Date(),
                 sender: myProfile.profile,
                 receiver: receiverProfile
@@ -40,7 +56,7 @@ const FooterBody = () => {
         }
     }
     return (
-        <FooterContaienr onSubmit={sendHandal}>
+        <FooterContaienr onSubmit={sendHandal} enctype="multipart/form-data">
             {/* left  */}
             <FileContainer>
                 <SelectButton x={showFile ? 45 : 0}>
@@ -49,7 +65,7 @@ const FooterBody = () => {
                 </SelectButton>
                 <SelectFileBox show={showFile ? 'visible' : 'hidden'}>
                     <FileList show={showFile}>
-                        <input type="file" id='pdf' name='pdf' />
+                        <input type="file" id='pdf' name='pdf' accept='application/pdf' />
                         <FileIcon >
                             <Title htmlFor='pdf'>PDF</Title>
                             <BsFileEarmarkPdf />
@@ -57,7 +73,7 @@ const FooterBody = () => {
                         </FileIcon>
                     </FileList>
                     <FileList show={showFile}>
-                        <input type="file" id='picture' name="picture" />
+                        <input type="file" id='picture' name="picture" accept="image/*" />
                         <FileIcon >
                             <Title htmlFor='picture'>Image</Title>
                             <BiImages />
@@ -65,7 +81,7 @@ const FooterBody = () => {
                         </FileIcon>
                     </FileList>
                     <FileList show={showFile}>
-                        <input type="file" id='video' name="video" />
+                        <input type="file" id='video' onChange={videoHandal} value={selectVideo} accept="video/*" name="video" />
                         <FileIcon >
                             <Title htmlFor='video'>video</Title>
                             <IoVideocamOutline />
@@ -73,7 +89,7 @@ const FooterBody = () => {
                         </FileIcon>
                     </FileList>
                     <FileList show={showFile}>
-                        <input type="file" id='music' name="music" />
+                        <input type="file" id='music' name="music" accept='audio/*' />
                         <FileIcon >
                             <Title htmlFor='music'>Music</Title>
                             <IoIosMusicalNotes />

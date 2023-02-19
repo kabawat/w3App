@@ -14,6 +14,7 @@ import { useRef } from 'react'
 const Chat = ({ curItem }) => {
     const date = new Date(curItem.time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
     const id = `_${new Date(curItem.time).getTime()}`
+    console.log(curItem);
     return (
         <ChatBox isMe={curItem.isMe} >
             <ChatDp>

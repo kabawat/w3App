@@ -203,7 +203,6 @@ export const ChatTypeContaienr = styled(Div)`
     height: 100%;
     display: flex;
     align-items: center;
-    align-items: center;
     `
 
 export const Chat = styled.input`
@@ -259,17 +258,6 @@ export const MassageContaienr = styled(Div)`
         border: 6px solid #fafafa;
         border-radius: 10px;
     }
-    &::-webkit-scrollbar-button{
-        background: #d0d0d0;
-        border: 3px solid #fafafa;
-        width: 18px;
-        height: 18px;
-        border-radius: 50%;
-        cursor: pointer;
-        &:hover{
-            background: #000;
-        }
-    }
 `
 export const ChatBox = styled(Div)`
     width: 100%;
@@ -317,7 +305,46 @@ export const ChatDp = styled(Div)`
 `
 export const Msg = styled(Div)`
     font-size: 15px;
+
 `
+export const VideoMsg = styled(Div)`
+     padding: 10px 10px;
+     width: 280px;
+     height: 100%;
+    `
+export const Video = styled(Div)`
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+    video{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+`
+export const MsgContant = styled(Div)`
+    position: relative;
+`
+export const VideoTime = styled(Div)`
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    font-size: 12px;
+    text-align: right;
+    color: #999;
+`
+export const VideoDesc = styled(Div)`
+    width: 100%;
+    text-align: justify;
+    padding: 5px 10px;
+`
+
 export const Time = styled(Div)`
     font-size: 12px;
     text-align: right;

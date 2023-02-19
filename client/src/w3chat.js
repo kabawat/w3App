@@ -32,7 +32,7 @@ const W3Chat = () => {
     }
     socket.on('connect', () => {
         socket.on('reciveMsg', data => {
-            const msgContent = { massage: data.massage, time: data.time, receiver: data.sender.user, isMe: false, }
+            const msgContent = { massage: data.massage, time: data.time, receiver: data.sender.user, isMe: false, video: data.video }
             Dispatch(newUserCHat(msgContent))
             NewUser(data)
         })

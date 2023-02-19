@@ -44,9 +44,6 @@ const ChatApp = () => {
         }
         getVarify()
     }, [Dispatch, removeCookie, Navigate, cookies.auth, setCookies])
-    // useEffect(() => {
-
-    // }, [, Dispatch])
     return (
         <Container>
             <Aside>

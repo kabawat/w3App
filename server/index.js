@@ -52,6 +52,7 @@ io.on('connection', socket => {
     socket.on('updateSocket', profile => {
         profile && socketUpdate(socket, profile)
     })
+    
 })
 
 const socketDataHandal = async (socket, user) => {
