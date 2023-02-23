@@ -41,7 +41,6 @@ server.listen(process.env.PORT, () => {
 io.on('connection', socket => {
     socket.on('join', user => {
         socketDataHandal(socket, user)
-        socket.broadcast.emit('joined', user)
     })
     socket.on('massage', data => {
         io.to(data.receiver.chatID).emit("reciveMsg", {
@@ -58,8 +57,9 @@ const socketDataHandal = async (socket, user) => {
         [user]: socket.id,
         user: user
     })
-    await SocketData.save()
+    const responce = await SocketData.save()
 }
+
 const socketUpdate = async (socket, profile) => {
     await socketModal.replaceOne({ user: profile.user }, { [profile.user]: socket.id, user: profile.user })
 }

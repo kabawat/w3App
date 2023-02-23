@@ -15,7 +15,6 @@ import { Aside, ChatContainer, Container, Header, Main, Footer, ChatAreaContaine
 const ChatApp = () => {
     const [cookies, setCookie] = useCookies(['auth']);
     const { receiverProfile } = useSelector(state => state)
-    console.log("receiverProfile", receiverProfile)
     const Navigate = useNavigate()
     const Dispatch = useDispatch()
     useEffect(() => {

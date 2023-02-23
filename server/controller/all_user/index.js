@@ -8,6 +8,7 @@ exports.AllUser = (req, res) => {
             const data = Object.keys(value)
             return data[3]
         })
+
         const filter = data.map((curElem, index) => {
             const curSocketUser = socketDB[index]
             const socketUser = socketData[index]
