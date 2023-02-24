@@ -86,13 +86,13 @@ const ChatMode = () => {
 
     const handalDeleteChat = async (payload) => {
         if (receiverProfile.chatID === payload.chat_id) {
-            const respoce = await axios.delete(`${BASE_URL}/delete-chat?chat_id=${payload.chat_id}`)
-            if (respoce.data.status) {
+            axios.delete(`${BASE_URL}/delete-chat?chat_id=${payload.chat_id}`).then((respoce) => {
                 Dispatch(deleteChat({ user: payload.user, isCurChat: true }))
                 Dispatch(RUserProfile(''))
                 getData()
                 localStorage.removeItem('curChatWith')
-            }
+            })
+
         } else {
             const respoce = await axios.delete(`${BASE_URL}/delete-chat?chat_id=${payload.chat_id}`)
             if (respoce.data.status) {

@@ -1,9 +1,11 @@
+import axios from 'axios'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Authentication from './authentication'
 import ChatApp from './chatapp'
-import { currentChat, newChatUser } from './redux/action'
+import { BASE_URL } from './domain'
+import { contactList, currentChat, newChatUser } from './redux/action'
 import { Container } from './w3chat.style'
 
 const W3Chat = () => {
@@ -13,8 +15,25 @@ const W3Chat = () => {
     socket.on('connect', () => {
         socket.on('reciveMsg', data => {
             const msgContent = { massage: data.massage, time: data.time, receiver: data.sender.user, isMe: false, }
-            Dispatch(newChatUser(msgContent))
             const chatHistory = JSON.parse(localStorage.getItem([data.sender.user]))
+
+            if (chatHistory === null) {
+                axios.post(`${BASE_URL}/newchat`, {
+                    sender: data.receiver.user,
+                    receiver: data.sender.user,
+                }).then((responce) => {
+                    axios.get(`${BASE_URL}/userChat?sender=${data.receiver.user}`).then((result) => {
+                        const { data } = result.data
+                        console.log(result)
+                        Dispatch(contactList(data))
+                        Dispatch(newChatUser(msgContent))
+                    }).catch((error) => {
+                        console.log(error)
+                    })
+                })
+            } else {
+                Dispatch(newChatUser(msgContent))
+            }
 
             Dispatch(currentChat(localStorage.getItem('curChatWith')))
         })
