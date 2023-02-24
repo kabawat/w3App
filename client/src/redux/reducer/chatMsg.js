@@ -24,13 +24,13 @@ export const chatMassage = (state = initialValue, action) => {
     }
 
     if (action.type === 'GET_CHAT') {
-        const chat = JSON.parse(localStorage.getItem(action.payload))
+        const chat = JSON.parse(localStorage.getItem([action.payload]))
         return chat
     }
 
     if (action.type === 'DELETE_CHAT') {
-        localStorage.removeItem([action.payload])
-        return state
+        localStorage.removeItem([action.payload.user])
+        return action.payload.isCurChat ? [] : state
     }
     return state
 }

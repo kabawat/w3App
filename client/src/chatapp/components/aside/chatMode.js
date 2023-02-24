@@ -64,8 +64,11 @@ const ChatMode = () => {
 
     const getFriendProfile = async (payload) => {
         const responce = await axios.get(`${BASE_URL}/receiver_profile?receiver=${payload}`)
-        Dispatch(RUserProfile(await responce.data.data))
-        setIsNewChatModal(false)
+        if (responce.data.status) {
+            localStorage.setItem('curChatWith', responce.data.data.user)
+            Dispatch(RUserProfile(await responce.data.data))
+            setIsNewChatModal(false)
+        }
     }
 
     const handalContextMenu = (event) => {
@@ -85,14 +88,15 @@ const ChatMode = () => {
         if (receiverProfile.chatID === payload.chat_id) {
             const respoce = await axios.delete(`${BASE_URL}/delete-chat?chat_id=${payload.chat_id}`)
             if (respoce.data.status) {
-                Dispatch(deleteChat(payload.user))
+                Dispatch(deleteChat({ user: payload.user, isCurChat: true }))
                 Dispatch(RUserProfile(''))
                 getData()
+                localStorage.removeItem('curChatWith')
             }
         } else {
             const respoce = await axios.delete(`${BASE_URL}/delete-chat?chat_id=${payload.chat_id}`)
             if (respoce.data.status) {
-                Dispatch(deleteChat(payload.user))
+                Dispatch(deleteChat({ user: payload.user, isCurChat: false }))
                 getData()
             }
         }
