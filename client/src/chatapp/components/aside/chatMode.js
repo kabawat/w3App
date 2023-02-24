@@ -12,7 +12,7 @@ import { RiDeleteBinLine } from 'react-icons/ri'
 import { AiOutlineClear } from 'react-icons/ai'
 import { BsPin } from 'react-icons/bs'
 import { useDispatch, useSelector } from 'react-redux';
-import { contactList, RUserProfile } from '../../../redux/action';
+import { contactList, deleteChat, RUserProfile } from '../../../redux/action';
 import { BASE_URL } from '../../../domain';
 import { useCookies } from 'react-cookie';
 const ChatMode = () => {
@@ -25,7 +25,6 @@ const ChatMode = () => {
     const [context, setContext] = useState(false)
     const [userList, setUserList] = useState([])
     const [isNewChatModal, setIsNewChatModal] = useState(false)
-    const [deleteChat, setDeleteChat] = useState()
     const [mouse, setMouse] = useState({
         x: 0,
         y: 0
@@ -54,12 +53,12 @@ const ChatMode = () => {
         })
     }
     // user chat list 
+    const getData = async () => {
+        const result = await axios.get(`${BASE_URL}/userChat?sender=${profile.user}`)
+        const { data } = await result.data
+        Dispatch(contactList(data))
+    }
     useEffect(() => {
-        const getData = async () => {
-            const result = await axios.get(`${BASE_URL}/userChat?sender=${profile.user}`)
-            const { data } = await result.data
-            Dispatch(contactList(data))
-        }
         if (profile) getData()
     }, [profile, deleteChat, Dispatch])
 
@@ -71,7 +70,7 @@ const ChatMode = () => {
 
     const handalContextMenu = (event) => {
         event.preventDefault()
-        setCurRoom(event.target.id)
+        setCurRoom({ chat_id: event.target.id, user: event.target.title })
         setContext(!context)
         setTimeout(() => {
             setContext(true)
@@ -83,13 +82,19 @@ const ChatMode = () => {
     }
 
     const handalDeleteChat = async (payload) => {
-        if (receiverProfile.chatID === payload) {
-            const responce = await axios.delete(`${BASE_URL}/delete-chat?chat_id=${payload}`)
-            setDeleteChat(responce)
-            Dispatch(RUserProfile(''))
+        if (receiverProfile.chatID === payload.chat_id) {
+            const respoce = await axios.delete(`${BASE_URL}/delete-chat?chat_id=${payload.chat_id}`)
+            if (respoce.data.status) {
+                Dispatch(deleteChat(payload.user))
+                Dispatch(RUserProfile(''))
+                getData()
+            }
         } else {
-            const responce = await axios.delete(`${BASE_URL}/delete-chat?chat_id=${payload}`)
-            setDeleteChat(responce)
+            const respoce = await axios.delete(`${BASE_URL}/delete-chat?chat_id=${payload.chat_id}`)
+            if (respoce.data.status) {
+                Dispatch(deleteChat(payload.user))
+                getData()
+            }
         }
     }
 
@@ -142,6 +147,7 @@ const ChatMode = () => {
                                     active={((curChat.receiver === user) ? true : false)}
                                     onContextMenu={handalContextMenu}
                                     id={curChat.chatID}
+                                    title={curChat.receiver}
                                     key={index}
                                 >
                                     <UserChatDp>
@@ -153,7 +159,7 @@ const ChatMode = () => {
                                             <ChatPreview>
                                                 last seen 10:12 PM
                                             </ChatPreview>
-                                            <Label id={curChat.chatID}></Label>
+                                            <Label id={curChat.chatID} title={curChat.receiver}></Label>
                                         </UserInfo>
                                     </ChatLinkContainer>
                                 </UserCartContainer>

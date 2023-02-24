@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button, Image, ContextAction } from '../../../style'
 import { ChatBox, Massage, MassageContaienr, ChatDp, Msg, Time, ContextContainer, HiddenInput, MassageOuter } from '../style'
 import dp from '../../../assets/user_dp/dp1.jpg'
@@ -9,7 +9,7 @@ import { AiOutlineStar } from 'react-icons/ai'
 import { HiReply } from 'react-icons/hi'
 import { RiDeleteBinLine } from 'react-icons/ri'
 import { TbArrowForwardUp } from 'react-icons/tb'
-import { deleteMsg } from '../../../redux/action'
+import { currentChat, deleteMsg } from '../../../redux/action'
 import { useRef } from 'react'
 const Chat = ({ curItem }) => {
     const date = new Date(curItem.time).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
@@ -36,15 +36,21 @@ const Chat = ({ curItem }) => {
 
 const ChatArea = () => {
     const Dispatch = useDispatch()
-    const { chatMassage } = useSelector(state => state)
-
+    const { chatMassage, receiverProfile } = useSelector(state => state)
     const [conActive, setConActive] = useState(false)
     const [conTextMsg, setConTextMsg] = useState()
+    const innerChatArea = useRef(null)
     const [mouse, setMouse] = useState({
         x: 0,
         y: 0
     })
-    const innerChatArea = useRef(null)
+
+    useEffect(() => {
+        if (receiverProfile) {
+            Dispatch(currentChat(receiverProfile.user))
+        }
+    }, [Dispatch, receiverProfile])
+
     const handaleContextMenu = (event) => {
         const _id = event.target.id.split('_')[1]
         setConTextMsg(new Date(parseInt(_id)))
@@ -74,6 +80,7 @@ const ChatArea = () => {
     const hadaleDeleteMsg = () => {
         const newMsgList = chatMassage.filter((curMsg) => (conTextMsg.getTime() !== new Date(curMsg.time).getTime()) ? true : false
         )
+        console.log(newMsgList)
         Dispatch(deleteMsg(newMsgList))
     }
 
@@ -81,6 +88,7 @@ const ChatArea = () => {
         const scroll = document.getElementById('scroll')
         scroll.scrollIntoView()
     });
+
     return (
         <MassageContaienr ref={innerChatArea}>
             <ContextContainer active={conActive} left={mouse.x} top={mouse.y}>

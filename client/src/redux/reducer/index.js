@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { receiverProfile, chatMassage, chatContactList } from './chatMsg'
+import { receiverProfile, chatMassage, chatContactList, chatNewContact } from './chatMsg'
 import { asideAction } from "./hideShow";
 import socketController from './socket'
 import myProfile from "./userProfile";
@@ -11,6 +11,7 @@ const rootReducer = combineReducers(
         socketController,
         receiverProfile,
         chatContactList,
+        chatNewContact
     }
 );
 export default rootReducer;

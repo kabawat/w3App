@@ -6,7 +6,6 @@ import { IoIosMusicalNotes } from 'react-icons/io';
 import { BiImages } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
 import { chatData } from '../../../redux/action';
-import { useEffect } from 'react';
 const FooterBody = () => {
     const { myProfile, receiverProfile, socketController } = useSelector(state => state)
     const socket = socketController
@@ -23,7 +22,8 @@ const FooterBody = () => {
             Dispatch(chatData({
                 massage: typeMsg,
                 time: new Date(),
-                isMe: true
+                isMe: true,
+                receiver: receiverProfile.user
             }))
             socket.emit('massage', {
                 massage: typeMsg,
@@ -34,13 +34,6 @@ const FooterBody = () => {
         }
     }
 
-    useEffect(() => {
-        socket.on('reciveMsg', data => {
-            console.log(data);
-            const msgContent = { massage: data.massage, time: data.time, receiver : data.sender.user,isMe: false, }
-            Dispatch(chatData(msgContent))
-        })
-    }, [socket, Dispatch])
     return (
         <FooterContaienr onSubmit={sendHandal}>
             {/* left  */}
