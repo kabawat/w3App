@@ -17,8 +17,9 @@ import { BASE_URL } from '../../../domain';
 import { useCookies } from 'react-cookie';
 const ChatMode = () => {
     const [cookies] = useCookies(['auth']);
-    const { myProfile, receiverProfile, chatContactList } = useSelector(state => state)
+    const { myProfile, receiverProfile, chatContactList, socketController } = useSelector(state => state)
     const { user } = receiverProfile
+    const socket = socketController
     const { profile } = myProfile
     const Dispatch = useDispatch()
     const [curRoom, setCurRoom] = useState()
@@ -53,15 +54,21 @@ const ChatMode = () => {
         })
     }
     // user chat list 
-    const getData = async () => {
+    const getData = async (profile) => {
         const result = await axios.get(`${BASE_URL}/userChat?sender=${profile.user}`)
         const { data } = await result.data
         Dispatch(contactList(data))
     }
     useEffect(() => {
-        if (profile) getData()
-    }, [profile, deleteChat, Dispatch])
+        if (profile) getData(profile)
+    }, [profile, deleteChat, Dispatch, getData])
 
+    // fetch chatList after reciver refresh the page 
+    useEffect(() => {
+        socket.on('refreshed', data => {
+            getData({ user: localStorage.getItem('user') })
+        })
+    }, [socket, getData])
     const getFriendProfile = async (payload) => {
         const responce = await axios.get(`${BASE_URL}/receiver_profile?receiver=${payload}`)
         if (responce.data.status) {
@@ -84,6 +91,7 @@ const ChatMode = () => {
         })
     }
 
+    // delete chat contact
     const handalDeleteChat = async (payload) => {
         if (receiverProfile.chatID === payload.chat_id) {
             axios.delete(`${BASE_URL}/delete-chat?chat_id=${payload.chat_id}`).then((respoce) => {
@@ -102,7 +110,14 @@ const ChatMode = () => {
         }
     }
 
-
+    // clear chat massage 
+    const handalClearMassage = (payload) => {
+        if (receiverProfile.chatID === payload.chat_id) {
+            Dispatch(deleteChat({ user: payload.user, isCurChat: true }))
+        } else {
+            Dispatch(deleteChat({ user: payload.user, isCurChat: false }))
+        }
+    }
     return (
         <ChatMainContainer>
             {/* chat header  */}
@@ -141,7 +156,7 @@ const ChatMode = () => {
                             <Button onClick={() => handalDeleteChat(curRoom)}><RiDeleteBinLine /> <span>Delete</span></Button>
                         </ContextAction>
                         <ContextAction>
-                            <Button><AiOutlineClear /> <span>Clear massage</span></Button>
+                            <Button onClick={() => { handalClearMassage(curRoom) }}><AiOutlineClear /> <span>Clear massage</span></Button>
                         </ContextAction>
                     </ContaxtMenu>
                     {

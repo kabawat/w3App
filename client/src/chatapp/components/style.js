@@ -240,17 +240,6 @@ export const MassageContaienr = styled(Div)`
         border: 6px solid #fafafa;
         border-radius: 10px;
     }
-    &::-webkit-scrollbar-button{
-        background: #d0d0d0;
-        border: 3px solid #fafafa;
-        width: 18px;
-        height: 18px;
-        border-radius: 50%;
-        cursor: pointer;
-        &:hover{
-            background: #000;
-        }
-    }
 `
 export const ChatBox = styled(Div)`
     width: 100%;

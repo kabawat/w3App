@@ -83,11 +83,11 @@ const ChatArea = () => {
         Dispatch(deleteMsg(newMsgList))
     }
 
-    setTimeout(() => {
-        const scroll = document.getElementById('scroll')
-        scroll.scrollIntoView()
-    });
-
+    // scroll 
+    const scroll = useRef(null)
+    useEffect(() => {
+        scroll.current.scrollIntoView()
+    }, [chatMassage])
     return (
         <MassageContaienr ref={innerChatArea}>
             <ContextContainer active={conActive} left={mouse.x} top={mouse.y}>
@@ -133,7 +133,7 @@ const ChatArea = () => {
                     return <Chat curItem={{ ...curItem, handaleContextMenu }} key={index} />
                 })
             }
-            <div id="scroll"></div>
+            <div ref={scroll} id="scroll"></div>
         </MassageContaienr>
     )
 }

@@ -93,6 +93,7 @@ const SignUp = () => {
                 SetLoginValid(true)
                 const { token } = result.data
                 setCookie('auth', token)
+                localStorage.setItem('user', user)
                 setTimeout(() => {
                     Navigate('/')
                 }, 1000)

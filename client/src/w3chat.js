@@ -12,32 +12,37 @@ const W3Chat = () => {
     const Dispatch = useDispatch()
     const { socketController } = useSelector(state => state)
     const socket = socketController
+
+    const newChatHandal = (data, msgContent) => {
+        axios.post(`${BASE_URL}/newchat`, {
+            sender: data.receiver.user,
+            receiver: data.sender.user,
+        }).then((responce) => {
+            axios.get(`${BASE_URL}/userChat?sender=${data.receiver.user}`).then((result) => {
+                const { data } = result.data
+                Dispatch(contactList(data))
+                Dispatch(newChatUser(msgContent))
+            }).catch((error) => {
+                console.log(error)
+            })
+        })
+    }
+
     socket.on('connect', () => {
+        socket.emit('refresh', localStorage.getItem('user'))
+        
         socket.on('reciveMsg', data => {
             const msgContent = { massage: data.massage, time: data.time, receiver: data.sender.user, isMe: false, }
             const chatHistory = JSON.parse(localStorage.getItem([data.sender.user]))
-
             if (chatHistory === null) {
-                axios.post(`${BASE_URL}/newchat`, {
-                    sender: data.receiver.user,
-                    receiver: data.sender.user,
-                }).then((responce) => {
-                    axios.get(`${BASE_URL}/userChat?sender=${data.receiver.user}`).then((result) => {
-                        const { data } = result.data
-                        console.log(result)
-                        Dispatch(contactList(data))
-                        Dispatch(newChatUser(msgContent))
-                    }).catch((error) => {
-                        console.log(error)
-                    })
-                })
+                newChatHandal(data, msgContent)
             } else {
                 Dispatch(newChatUser(msgContent))
             }
-
             Dispatch(currentChat(localStorage.getItem('curChatWith')))
         })
     })
+
     return (
         <Container>
             <BrowserRouter>

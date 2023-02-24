@@ -50,6 +50,11 @@ io.on('connection', socket => {
     socket.on('updateSocket', profile => {
         profile && socketUpdate(socket, profile)
     })
+
+    socket.on('refresh', data => {
+        socketUpdate(socket, { user: data })
+        socket.broadcast.emit('refreshed', data)
+    })
 })
 
 const socketDataHandal = async (socket, user) => {
@@ -61,5 +66,7 @@ const socketDataHandal = async (socket, user) => {
 }
 
 const socketUpdate = async (socket, profile) => {
-    await socketModal.replaceOne({ user: profile.user }, { [profile.user]: socket.id, user: profile.user })
+    if (profile) {
+        await socketModal.replaceOne({ user: profile.user }, { [profile.user]: socket.id, user: profile.user })
+    }
 }

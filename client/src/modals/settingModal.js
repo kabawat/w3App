@@ -6,6 +6,8 @@ const SettingModal = ({ mouse }) => {
   const [, , removeCookie] = useCookies(['auth'])
   const logout = () => {
     removeCookie('auth')
+    localStorage.removeItem('curChatWith')
+    localStorage.removeItem('user')
   }
   return (
     <SettingModalContainer id='modal'>
