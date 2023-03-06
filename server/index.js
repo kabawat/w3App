@@ -14,10 +14,8 @@ const corsOptions = {
     origin: [
         "http://localhost:3000",
         "http://localhost:3001",
-        "http://localhost:3002",
-    ],
-    credentials: true,
-    exposedHeaders: ["set-cookie"],
+        "http://192.168.29.4:3000",
+    ]
 };
 
 app.use(cors(corsOptions))
@@ -25,9 +23,14 @@ app.use(express.urlencoded({ extended: true }))
 
 const io = new socketIO.Server(server, {
     cors: {
-        origin: '*',
-        methods: ['GET', 'POST']
+        origin: 'http://192.168.29.4:3000',
+        methods: ['GET', 'POST'],
+            
+  allowedHeaders: [
+    'Content-Type',
+  ]
     }
+
 })
 
 app.use(cookieParser())
