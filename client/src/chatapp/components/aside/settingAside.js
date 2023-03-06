@@ -8,7 +8,6 @@ import { useState } from 'react';
 import { storyMode } from '../../../redux/action'
 import { Image } from '../../../style';
 import userProfiileDp from '../../../assets/user_dp/dp1.jpg'
-import SettingModal from '../../../modals/settingModal'
 import ProfileModal from '../../../modals/userProfileModal';
 const SettingAside = () => {
 
@@ -68,8 +67,8 @@ const SettingAside = () => {
                     </UserActionBox>
                 </DpSection>
             </UserSetting>
-            {isSetting && <SettingModal mouse={mouse} />}
-            {isProfile && <ProfileModal mouse={mouse} />}
+            {isSetting && <ProfileModal section="General" mouse={mouse} />}
+            {isProfile && <ProfileModal section="Profile" mouse={mouse} />}
         </SettingAsideContainer>
 
     )

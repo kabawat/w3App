@@ -60,8 +60,13 @@ const ChatMode = () => {
         Dispatch(contactList(data))
     }
     useEffect(() => {
-        if (profile) getData(profile)
-    }, [profile, deleteChat, Dispatch, getData])
+        if (profile) {
+            axios.get(`${BASE_URL}/userChat?sender=${profile.user}`).then((result) => {
+                const { data } = result.data
+                Dispatch(contactList(data))
+            })
+        }
+    }, [profile, deleteChat, Dispatch])
 
     // fetch chatList after reciver refresh the page 
     useEffect(() => {

@@ -106,13 +106,85 @@ export const SettingModalContainer = styled(Div)`
     left: 0px;
     `
 export const SettingContainer = styled(Div)`
-    width: 400px;
-    height: 500px;
-    background: #fff;
+    width: 500px;
+    height: 450px;
     transform: translateY(-100%);
     border-radius:8px;
     border: 1px solid #dddddd9e;
     position: absolute;
     left: 52px;
     top: ${({ mouse }) => `${mouse.y}px`};
+    overflow:hidden;
+`
+export const SettingNavigation = styled(Div)`
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: #e3f2fd73;
+    backdrop-filter:blur(2px);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 10;
+`
+export const SettionSection = styled(Div)`
+    padding: 4px 4px;
+    width: 100%;
+`
+
+export const UserSection = styled(Button)`
+    width: 100%;
+    padding: 4px;
+    border-radius: 6px;
+    background:  ${({ active }) => active ? '#d0d5d769' : ""};
+    position: relative;
+    margin: 2px 0px;
+    div{
+        color: ${({ active }) => active ? '#1976d2' : ""};
+    }
+    &::before{
+        content: "";
+        position: absolute;
+        width: 4px;
+        height: 60%;
+        left: 0px;
+        background: ${({ active }) => active ? '#1976d2' : ""};
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 0px 3px 3px 0px;
+    }
+`
+
+export const ActionList = styled(Div)`
+    padding-left:10px;
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+`
+export const Icon = styled(Div)`
+    padding-top:5px; 
+    color: ${({ active }) => active ? '#1976d2' : ""};
+`
+export const Item = styled(Div)`
+    font-size:13px;
+    padding-left:10px;
+`
+export const SettionMenu = styled(Div)`
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding-left: 30%;
+    z-index: 8;
+`
+export const InnerSettingMenu = styled(Div)`
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    padding:10px 20px;
 `
