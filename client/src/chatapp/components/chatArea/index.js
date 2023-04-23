@@ -123,7 +123,7 @@ const ChatArea = () => {
                 </ContextAction>
                 <ContextAction>
                     <Button onClick={hadaleDeleteMsg}>
-                        <RiDeleteBinLine />
+                        <RiDeleteBinLine />``
                         <span>Delate</span>
                     </Button>
                 </ContextAction>

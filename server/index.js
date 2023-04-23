@@ -25,10 +25,10 @@ const io = new socketIO.Server(server, {
     cors: {
         origin: 'http://192.168.29.4:3000',
         methods: ['GET', 'POST'],
-            
-  allowedHeaders: [
-    'Content-Type',
-  ]
+
+        allowedHeaders: [
+            'Content-Type',
+        ]
     }
 
 })

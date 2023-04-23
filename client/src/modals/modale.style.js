@@ -123,8 +123,8 @@ export const SettingNavigation = styled(Div)`
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    background: #e3f2fd73;
-    backdrop-filter:blur(2px);
+    background: #e3f2fd99;
+    backdrop-filter:blur(15px);
     position: absolute;
     top: 0px;
     left: 0px;
