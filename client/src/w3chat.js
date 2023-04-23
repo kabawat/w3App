@@ -27,6 +27,7 @@ const W3Chat = () => {
             })
         })
     }
+//how to fix it?
 
     socket.on('connect', () => {
         socket.emit('refresh', localStorage.getItem('user'))
